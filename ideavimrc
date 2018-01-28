@@ -1,0 +1,8 @@
+"set rnu
+set clipboard+=unnamed
+imap <C-i> <Esc>
+vmap <C-i> <Esc>
+
+imap <i-j> <Esc>
+vmap <i-j> <Esc>
+set nu
