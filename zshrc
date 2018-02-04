@@ -244,6 +244,6 @@ alias omz='cd $OH_MY_ZSH_DIR'
 alias tmux='TERM=xterm-256color tmux 2> /dev/null '
 tmux || : #this is a no-op
 date
-PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/bash-history-$(date "+%Y-%m-%d").log; fi'
+PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
 
 preexec(){ eval $PROMPT_COMMAND }
