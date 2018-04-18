@@ -14,6 +14,8 @@ endif
  "vim plug
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim'
 Plug 'ejholmes/vim-forcedotcom'
 Plug 'endel/vim-github-colorscheme'
 call plug#end()
