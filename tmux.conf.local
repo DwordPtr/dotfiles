@@ -19,7 +19,7 @@
 # new window retains current path, possible values are:
 #   - true
 #   - false (default)
-tmux_conf_new_window_retain_current_path=false
+tmux_conf_new_window_retain_current_path=true
 
 # new pane retains current path, possible values are:
 #   - true (default)
@@ -236,7 +236,8 @@ set-option -g mouse on
 set -g default-terminal "screen-256color"
 
 #copy paste
-bind -t vi-copy y copy-pipe "xclip -sel clip -i"
+#bind -t vi-copy y copy-pipe "xclip -sel clip -i"
+#bind  vi-copy y 
 set-window-option -g mode-keys vi
 
 #disallow window rename
@@ -251,9 +252,7 @@ setw -g automatic-rename off  # rename window to reflect current program
 #   - false (default)
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel or xclip
-tmux_conf_copy_to_os_clipboard=false
-
-
+tmux_conf_copy_to_os_clipboard=true
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
 
