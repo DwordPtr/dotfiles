@@ -13,12 +13,20 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'vim-scripts/PapayaWhip'
+Plug 'airblade/vim-gitgutter'
+Plug 'easymotion/vim-easymotion'
+Plug 'vim-scripts/taglist.vim'
+Plug 'apalmer1377/factorus'
+"Plug 'embear/vim-localvimrc'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'lygaret/autohighlight.vim'
 call plug#end()
 
 set clipboard=unnamed
-
+set updatetime=500
 map <C-n> :NERDTreeToggle<CR>
-
+let $Tlist_Ctags_Cmd='/bin/ctags'
 " cache ctrlp
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
