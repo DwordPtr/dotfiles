@@ -5,6 +5,8 @@ ln -fs $PWD/vimrc $HOME/.vimrc
 ln -fs $PWD/tmux.conf.local $HOME/.tmux.conf.local
 ln -fs $PWD/.tmux $HOME/.tmux
 ln -fs $PWD/.tmux/.tmux.conf $HOME/.tmux.conf
+mkdir -p $HOME/.config/nvim
+ln -sf $PWD/nvimrc $HOME/.config/nvim/init.vim
 
 ## bash or zsh for now I don't use anything else
 
