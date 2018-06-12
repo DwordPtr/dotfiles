@@ -2,7 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
   export ZSH=$HOME/.oh-my-zsh
-
+alias vim='nvim'
+alias mutt='neomutt'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -50,7 +51,7 @@ ZSH_THEME="work"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git,mvn)
+plugins=(git mvn ssh-agent brew)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -104,8 +105,8 @@ function find_dups_blanklines(){
   grep -v '\s*1s.*'| # remove all one liners
   egrep '\s*[[2-9]|\d\d+]\s+$' # remove just newlines
 }
-alias fdnl='find_dups_blanklines'
-alias fd='find_dups'
+#alias fdnl='find_dups_blanklines'
+#alias fd='find_dups'
 #git aliases
 if [ ! -f $HOME/git_aliases.sh ]; then
 	curl -O https://gist.githubusercontent.com/DwordPtr/371c13c887b7349680bb3f446beb628c/raw/2127e82f285ade087a30a8827bd1b3a73a69952f/git_aliases.sh
@@ -200,6 +201,8 @@ alias jav9='export JAVA_HOME=/usr/lib/jvm/java-9-openjdk-amd64'
 alias curJav='echo $JAVA_HOME'
 jav8 # set java8 as default jdk for now
 
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
+
 
 
 
@@ -215,8 +218,10 @@ alias fup='sudo apt update && sudo apt -y upgrade'
 alias t='todo.sh'
 alias conf='vim ~/.zshrc'
 alias reconf='source ~/.zshrc'
-alias vconf='vim ~/.vimrc'
+alias vconf='vim ~/.config/nvim/init.vim'
 alias iconf='vim ~/.ideavimrc'
+
+export PATH=$PATH:$HOME/bin
 
 #debeaver
 dbeaverUrl='http://dbeaver.jkiss.org/files/dbeaver-ce_latest_amd64.deb'
@@ -236,14 +241,37 @@ man() {
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
             man "$@"
 }
+# git extras completion
+  source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
+# put bitbucket cli on path
+export PATH=$PATH:/Users/bryan/Library/Python/2.7/bin
 
+# set neovim as default editor
+export EDITOR=/usr/local/bin/nvim
+
+#z stuff
+. `brew --prefix`/etc/profile.d/z.sh
+source "$HOME/.sdkman/bin/sdkman-init.sh"
 #zsh specific stuff
 OH_MY_ZSH_DIR=/home/bryan/.oh-my-zsh
 alias omz='cd $OH_MY_ZSH_DIR'
 #annoying warning about nesting sessions
 alias tmux='TERM=xterm-256color tmux 2> /dev/null '
-tmux || : #this is a no-op
+alias getBoard='echo 73913 | pbcopy'
+alias ctags="`brew --prefix`/bin/ctags"
+# cd..
+function cd_up() {
+  cd $(printf "%0.s../" $(seq 1 $1 ));
+}
+alias 'cd..'='cd_up'
+
+#tmux || : #this is a no-op
 date
+cat ~/.notes
 PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
 
 preexec(){ eval $PROMPT_COMMAND }
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/bryan/.sdkman"
+[[ -s "/Users/bryan/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/bryan/.sdkman/bin/sdkman-init.sh"
