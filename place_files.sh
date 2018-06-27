@@ -2,6 +2,7 @@
 #don't ever run me outisde of my dir
 ln -fs $PWD/ideavimrc $HOME/.ideavimrc
 ln -fs $PWD/vimrc $HOME/.vimrc
+ln -fs $PWD/tvrc $HOME/.tvrc
 ln -fs $PWD/tmux.conf.local $HOME/.tmux.conf.local
 ln -fs $PWD/.tmux $HOME/.tmux
 ln -fs $PWD/.tmux/.tmux.conf $HOME/.tmux.conf
