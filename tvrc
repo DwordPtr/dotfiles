@@ -1,5 +1,5 @@
 [DEFAULT]
-editor = nvim
+editor = nvr
 # The filename extension to use for new files.
 extension = .md
 # The filename extensions to recognize in the notes dir.
