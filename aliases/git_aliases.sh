@@ -27,6 +27,7 @@ function find_ticket_commits(){
 }
 alias fct='find_ticket_commits'
 alias gc='git_commit_method'
+alias gcb='git checkout -'
 alias gck='git checkout'
 alias gmast='git checkout master'
 alias gatrac='git_add_tracked'
@@ -51,3 +52,5 @@ alias apply='git stash apply'
 alias drop='git stash drop'
 alias list='git stash list'
 alias curr='git log -1'
+# stash based on issue
+alias is='sb | tr -d 'feature/' | xargs -I {} git stash save {}'
