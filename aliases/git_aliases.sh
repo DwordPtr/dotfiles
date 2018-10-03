@@ -38,6 +38,7 @@ alias gpull='git pull origin $(sb)'
 alias gs='git status'
 alias gr='git reset'
 alias gpsh='git push origin $(sb)'
+alias gad='git ls-files -m | xargs git add'
 alias glb='git branch -a'
 alias url='git config --get remote.origin.url'
 
@@ -52,5 +53,7 @@ alias apply='git stash apply'
 alias drop='git stash drop'
 alias list='git stash list'
 alias curr='git log -1'
+#get issue based on current branch
+alias bi="sb | tr -d 'feature/'"
 # stash based on issue
-alias is='sb | tr -d 'feature/' | xargs -I {} git stash save {}'
+alias is='bi | xargs -I {} git stash save {}'
