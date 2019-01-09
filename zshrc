@@ -2,12 +2,11 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
   export ZSH=$HOME/.oh-my-zsh
-alias vim='nvim'
-alias mutt='neomutt'
+#alias mutt='neomutt'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="work"
+ZSH_THEME="spaceship"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -20,7 +19,7 @@ ZSH_THEME="work"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+ export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -51,7 +50,7 @@ ZSH_THEME="work"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git mvn ssh-agent brew)
+plugins=(git mvn ssh-agent brew fzf-zsh gpg-agent zsh-autosuggestions autoupdate)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,10 +107,10 @@ function find_dups_blanklines(){
 #alias fdnl='find_dups_blanklines'
 #alias fd='find_dups'
 #git aliases
-if [ ! -f $HOME/git_aliases.sh ]; then
+if [ ! -f $HOME/aliases/git_aliases.sh ]; then
 	curl -O https://gist.githubusercontent.com/DwordPtr/371c13c887b7349680bb3f446beb628c/raw/2127e82f285ade087a30a8827bd1b3a73a69952f/git_aliases.sh
 fi
-source $HOME/git_aliases.sh
+source $HOME/aliases/git_aliases.sh
 
 #maven alias
 #alias mvn='/opt/apache-maven-3.1.1/bin/./mvn'
@@ -128,11 +127,7 @@ alias sptst='mvn com.smartbear.soapui:soapui-maven-plugin:test'
 #wipeout targets
 alias whipeout="find -type d -name '*target' | sudo xargs rm -r"
 alias rmMvn='rm -r ~/.m2/repository'
-repo='/home/bryan/.m2/repository'
-rulesInLos='/franklin/american/famc-rule-engine'
-rulesInRepo='/com/franklinamerican/rules'
-alias clearRules='rm -r $repo$rulesInLos $repo$rulesInRepo' 
-
+repo='$HOME/.m2/repository'
 alias magic="rmMvn && whipeout && sTest && notify-send 'magic performed' || notify-send 'probably a network problem'"
 
 
@@ -213,7 +208,8 @@ alias fup='sudo apt update && sudo apt -y upgrade'
 
 #complete up work in progress
 #alias cup='up && sudo pip2 install -U && sudo pip3 install -U && sudo snap refresh'
-
+alias vim='nvim'
+export EDITOR=nvim
 #for adding stuff to the bashrc
 alias t='todo.sh'
 alias conf='vim ~/.zshrc'
@@ -222,12 +218,13 @@ alias vconf='vim ~/.config/nvim/init.vim'
 alias iconf='vim ~/.ideavimrc'
 
 export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/bin/progaurd/proguard6.0.3/bin
+export PATH=$PATH:/Applications/Android\ Studio.app/Contents/bin
+export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools
+#ruby rbenv
+export PATH=$PATH:$HOME/.rbenv/versions/2.3.0/bin
 
-#debeaver
-dbeaverUrl='http://dbeaver.jkiss.org/files/dbeaver-ce_latest_amd64.deb'
 
-#for when forgeting sudo 
-alias fuck='sudo !!'
 
 #colorize man pages experiment
 man() {
@@ -244,34 +241,47 @@ man() {
 # git extras completion
   source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
 # put bitbucket cli on path
-export PATH=$PATH:/Users/bryan/Library/Python/2.7/bin
-
+export PATH=$PATH:$HOME/Library/Python/2.7/bin
 # set neovim as default editor
-export EDITOR=/usr/local/bin/nvim
-
+alias notes='terminal_velocity'
 #z stuff
 . `brew --prefix`/etc/profile.d/z.sh
 source "$HOME/.sdkman/bin/sdkman-init.sh"
-#zsh specific stuff
-OH_MY_ZSH_DIR=/home/bryan/.oh-my-zsh
-alias omz='cd $OH_MY_ZSH_DIR'
+
 #annoying warning about nesting sessions
 alias tmux='TERM=xterm-256color tmux 2> /dev/null '
 alias getBoard='echo 73913 | pbcopy'
 alias ctags="`brew --prefix`/bin/ctags"
+alias html='w3m -I %{charset} -T text/html'
 # cd..
 function cd_up() {
   cd $(printf "%0.s../" $(seq 1 $1 ));
 }
 alias 'cd..'='cd_up'
+# clear nvim swap
+function clear_nvim_swap(){
+	rm $HOME/.local/share/nvim/swap/*
+}
+alias cns=clear_nvim_swap
 
+# elixir aliases
+alias mf='mix format'
+#gopath stuff
+export GOPATH=/Users/`whoami`/go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$GOROOT:$GOPATH/bin:$PATH
 #tmux || : #this is a no-op
 date
 cat ~/.notes
 PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
-
+if [ -f $HOME/.zshrc ]; then
+   source $HOME/.lzshrc
+else 
+   echo "no local zshrc"
+fi
 preexec(){ eval $PROMPT_COMMAND }
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/bryan/.sdkman"
-[[ -s "/Users/bryan/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/bryan/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
