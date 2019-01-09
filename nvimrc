@@ -10,8 +10,11 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 "Plug
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter'
+Plug 'artur-shaik/vim-javacomplete2'
 Plug 'scrooloose/nerdtree'
-Plug 'kien/ctrlp.vim'
+Plug 'cloudhead/neovim-fuzzy'
+Plug 'wesQ3/vim-windowswap'
+Plug 'qwertologe/nextval.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/PapayaWhip'
 Plug 'airblade/vim-gitgutter'
@@ -19,28 +22,182 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/taglist.vim'
 Plug 'apalmer1377/factorus'
 Plug 'junegunn/fzf.vim'
-"Plug 'embear/vim-localvimrc'
+Plug 'mhinz/neovim-remote'
+Plug 'elzr/vim-json'
+Plug 'embear/vim-localvimrc'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'lygaret/autohighlight.vim'
 Plug 'gburca/vim-logcat'
+Plug 'wincent/replay'
+Plug 'Houl/repmo-vim'
+Plug 'junegunn/fzf.vim'
+"local fzf install watch out on new machines
+Plug '/usr/local/opt/fzf'
+Plug 'DogFooter/FIP.vim'
+Plug 'rhysd/vim-clang-format'
+Plug 'Rip-Rip/clang_complete'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'slashmili/alchemist.vim'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'craigemery/vim-autotag'
+Plug 'wimstefan/vim-artesanal'
+Plug 'vim-airline/vim-airline'
 call plug#end()
-
+" set neovim remote
+if has('nvim')
+  let $VISUAL = 'nvr -cc split --remote-wait'
+endif
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 set clipboard=unnamed
 set updatetime=500
-"map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 "map <t> /\| <A-v>
 let $Tlist_Ctags_Cmd='/bin/ctags'
-" cache ctrlp
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-	  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-
+nnoremap <C-p> :FuzzyOpen<CR>
 " editing macros
 " if something goes wrong note the escaping
 let @w = "\/\\cpV8jy\'\'"
-let @c = "\/\\cp3n"
+let @c = "/\cp3n"
 let @n = "h2jvwhh\"pyl"
 let @i = "@n@w"
-
+let @q = "jkj\^\%\^vf\(x\$vhx"
+let @t = "$v4bx"
 tnoremap <Esc> <C-\><C-N>
+tnoremap <C-h> <C-\><C-N>
+map <C-c> :let @+ = expand("%:p")<cr>
+map <C-h> :!open `pbpaste`<CR>
+nmap <C-j> <Plug>GitGutterNextHunk
+nmap <C-k> <Plug>GitGutterPrevHunk
+ 
+function! Copy_file_path()
+    let @+ = expand("%")
+endfunction
+autocmd filetype crontab setlocal nobackup nowritebackup
+let g:fuzzy_opencmd = 'tabnew'
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" __coc config__
+
+" if hidden not set, TextEdit might fail.
+set hidden
+
+" Better display for messages
+set cmdheight=2
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+colorscheme artesanal 
+set background=light
+
+" Add diagnostic info for https://github.com/itchyny/lightline.vim
+"let g:lightline = {
+      "\ 'colorscheme': 'wombat',
+      "\ 'active': {
+      "\   'left': [ [ 'mode', 'paste' ],
+      "\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      "\ },
+      "\ 'component_function': {
+      "\   'cocstatus': 'coc#status'
+      "\ },
+      "\ }
+      "
+
+" Shortcuts for denite interface
+" Show extension list
+nnoremap <silent> <space>e  :<C-u>Denite coc-extension<cr>
+" Show symbols of current buffer
+nnoremap <silent> <space>o  :<C-u>Denite coc-symbols<cr>
+" Search symbols of current workspace
+nnoremap <silent> <space>t  :<C-u>Denite coc-workspace<cr>
+" Show diagnostics of current workspace
+nnoremap <silent> <space>a  :<C-u>Denite coc-diagnostic<cr>
+" Show available commands
+nnoremap <silent> <space>c  :<C-u>Denite coc-command<cr>
+" Show available services
+nnoremap <silent> <space>s  :<C-u>Denite coc-service<cr>
+" Show links of current buffer
+nnoremap <silent> <space>l  :<C-u>Denite coc-link<cr>
