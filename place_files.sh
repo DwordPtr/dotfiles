@@ -21,3 +21,8 @@ fi
 ln -fs $PWD/zshrc $HOME/.zshrc
 ln -fs $PWD/bashrc $HOME/.bashrc #note kinda unmaintained
 ln -fs $PWD/aliases/git_aliases.sh $HOME/aliases/git_aliases.sh
+
+
+mkdir -p $HOME/bin
+
+ln -fs $PWD/bin/v $HOME/bin/v
