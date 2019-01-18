@@ -180,9 +180,13 @@ alias stopwatch='~/scripts_/./stopwatch.sh'
 alias here='curl wttr.in/37067'
 alias home='curl wttr.in/37055'
 
-#clipboard magic
+#todo make these functions and wrap in is mac os stuff
+#clipboard magic (linux only)
 alias clp='xclip -selection clipboard'
 alias oclp='xsel --clipboard --output'
+#clipboard magic (mac os)
+alias p='pbpaste'
+alias y='pbcopy'
 #spring boot crap
 alias findCont="find . -name '*Controller.java'"
 
