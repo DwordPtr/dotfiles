@@ -42,6 +42,7 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'craigemery/vim-autotag'
 Plug 'wimstefan/vim-artesanal'
 Plug 'vim-airline/vim-airline'
+Plug 'gcmt/taboo.vim'
 call plug#end()
 " set neovim remote
 if has('nvim')
