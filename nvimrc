@@ -43,6 +43,7 @@ Plug 'craigemery/vim-autotag'
 Plug 'wimstefan/vim-artesanal'
 Plug 'vim-airline/vim-airline'
 Plug 'gcmt/taboo.vim'
+Plug 'JamshedVesuna/vim-markdown-preview'
 call plug#end()
 " set neovim remote
 if has('nvim')
@@ -76,6 +77,7 @@ endfunction
 autocmd filetype crontab setlocal nobackup nowritebackup
 let g:fuzzy_opencmd = 'tabnew'
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+autocmd FileType elixir noremap <buffer> <c-f>:! mix format <cr>
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
