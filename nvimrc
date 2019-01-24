@@ -92,6 +92,12 @@ let g:fuzzy_opencmd = 'tabnew'
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType elixir noremap <buffer> <c-f>:! mix format <cr>
 
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
 
