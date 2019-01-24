@@ -7,6 +7,8 @@
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
+# to prevent doxygen bin from conflicting w/ doxygen folder
+unsetopt AUTO_CD
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -223,10 +225,24 @@ alias iconf='vim ~/.ideavimrc'
 
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/bin/progaurd/proguard6.0.3/bin
-export PATH=$PATH:/Applications/Android\ Studio.app/Contents/bin
+#export PATH=$PATH:/Applications/Android\ Studio.app/Contents/bin
 export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools
 #ruby rbenv
 export PATH=$PATH:$HOME/.rbenv/versions/2.3.0/bin
+
+# spaceship theme options
+cyan_replacement=208
+SPACESHIP_DIR_COLOR=$cyan_replacement
+SPACESHIP_ELM_COLOR=$cyan_replacement
+SPACESHIP_GOLANG_COLOR=$cyan_replacement
+SPACESHIP_DOCKER_COLOR=$cyan_replacement
+SPACESHIP_KUBECONTEXT_COLOR=$cyan_replacement
+SPACESHIP_DIR_COLOR=$cyan_replacement
+SPACESHIP_PROMPT_DEFAULT_PREFIX=$cyan_replacement
+SPACESHIP_PROMPT_DEFAULT_SUFFIX=$cyan_replacement
+white_replacement=16
+SPACESHIP_VI_MODE_COLOR=$white_replacement
+SPACESHIP_FOOBAR_COLOR=$white_replacement
 
 
 
