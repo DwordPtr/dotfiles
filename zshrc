@@ -244,6 +244,10 @@ white_replacement=16
 SPACESHIP_VI_MODE_COLOR=$white_replacement
 SPACESHIP_FOOBAR_COLOR=$white_replacement
 
+#dircolors
+eval "`dircolors -b ~/.dircolorsscr`"
+export LS_OPTIONS='--color=auto'
+
 
 
 #colorize man pages experiment
