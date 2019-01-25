@@ -46,6 +46,7 @@ Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
+Plug 'vim-scripts/csv.vim'
 
 " colors
 Plug 'wimstefan/vim-artesanal'
