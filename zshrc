@@ -2,7 +2,6 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
   export ZSH=$HOME/.oh-my-zsh
-#alias mutt='neomutt'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -214,6 +213,7 @@ alias fup='sudo apt update && sudo apt -y upgrade'
 
 #complete up work in progress
 #alias cup='up && sudo pip2 install -U && sudo pip3 install -U && sudo snap refresh'
+alias mutt='neomutt'
 alias vim='nvim'
 export EDITOR=nvim
 #for adding stuff to the bashrc
