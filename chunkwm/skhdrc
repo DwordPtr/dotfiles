@@ -1,3 +1,6 @@
+# opens iTerm2
+alt - return : "${HOME}"/bin/open_iterm2.sh
+
 #  NOTE(koekeishiya): A list of all built-in modifier and literal keywords can
 #                     be found at https://github.com/koekeishiya/skhd/issues/1
 #
@@ -93,7 +96,7 @@ cmd + shift - return : ~/Scripts/qtb.sh
 cmd - m : open -na /Applications/mpv.app $(pbpaste)
 
 # close focused window
-alt - w : chunkc tiling::window --close
+#alt - w : chunkc tiling::window --close
 
 # focus window
 alt - h : chunkc tiling::window --focus west
@@ -211,7 +214,7 @@ ctrl + alt - k : chunkc tiling::window --use-insertion-point north
 ctrl + alt - l : chunkc tiling::window --use-insertion-point east
 
 # rotate tree
-alt - r : chunkc tiling::desktop --rotate 90
+#alt - r : chunkc tiling::desktop --rotate 90
 
 # mirror tree y-axis
 alt - y : chunkc tiling::desktop --mirror vertical
@@ -232,7 +235,7 @@ shift + alt - f : chunkc tiling::window --toggle native-fullscreen
 alt - d : chunkc tiling::window --toggle parent
 
 # toggle window split type
-alt - e : chunkc tiling::window --toggle split
+alt - r : chunkc tiling::window --toggle split
 
 # toggle window fade
 alt - q : chunkc tiling::window --toggle fade
