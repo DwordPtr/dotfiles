@@ -244,9 +244,16 @@ white_replacement=16
 SPACESHIP_VI_MODE_COLOR=$white_replacement
 SPACESHIP_FOOBAR_COLOR=$white_replacement
 
+SPACESHIP_CHAR_COLOR_SECONDARY=$white_replacement
+SPACESHIP_TIME_COLOR=$white_replacement
+SPACESHIP_USER_COLOR=$white_replacement
+SPACESHIP_SWIFT_COLOR=$white_replacement
+SPACESHIP_PYENV_COLOR=$white_replacement
+SPACESHIP_EXEC_TIME_COLOR=$white_replacement
+
 #dircolors
-eval "`dircolors -b ~/.dircolorsscr`"
-export LS_OPTIONS='--color=auto'
+#eval "`dircolors -b $HOME/.dircolorsscr`"
+#export LS_OPTIONS='--color=auto'
 
 
 
