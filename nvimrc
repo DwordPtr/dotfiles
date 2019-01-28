@@ -40,9 +40,25 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'slashmili/alchemist.vim'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'craigemery/vim-autotag'
-Plug 'wimstefan/vim-artesanal'
 Plug 'vim-airline/vim-airline'
+Plug 'gcmt/taboo.vim'
+Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/vim-auto-save'
+Plug 'chrisbra/Colorizer'
+Plug 'vim-scripts/csv.vim'
+
+" colors
+Plug 'wimstefan/vim-artesanal'
+Plug 'lifepillar/vim-wwdc17-theme'
+Plug 'plan9-for-vimspace/acme-colors'
+
 call plug#end()
+
+"auto save
+let g:auto_save_in_insert_mode = 0
+let g:auto_save_silent = 1
+
 " set neovim remote
 if has('nvim')
   let $VISUAL = 'nvr -cc split --remote-wait'
@@ -75,6 +91,13 @@ endfunction
 autocmd filetype crontab setlocal nobackup nowritebackup
 let g:fuzzy_opencmd = 'tabnew'
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+autocmd FileType elixir noremap <buffer> <c-f>:! mix format <cr>
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -170,7 +193,7 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-colorscheme artesanal 
+colorscheme acme 
 set background=light
 
 " Add diagnostic info for https://github.com/itchyny/lightline.vim

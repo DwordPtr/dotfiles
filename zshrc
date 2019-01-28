@@ -2,11 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
   export ZSH=$HOME/.oh-my-zsh
-#alias mutt='neomutt'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
+# to prevent doxygen bin from conflicting w/ doxygen folder
+unsetopt AUTO_CD
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -180,9 +181,13 @@ alias stopwatch='~/scripts_/./stopwatch.sh'
 alias here='curl wttr.in/37067'
 alias home='curl wttr.in/37055'
 
-#clipboard magic
+#todo make these functions and wrap in is mac os stuff
+#clipboard magic (linux only)
 alias clp='xclip -selection clipboard'
 alias oclp='xsel --clipboard --output'
+#clipboard magic (mac os)
+alias p='pbpaste'
+alias y='pbcopy'
 #spring boot crap
 alias findCont="find . -name '*Controller.java'"
 
@@ -208,6 +213,7 @@ alias fup='sudo apt update && sudo apt -y upgrade'
 
 #complete up work in progress
 #alias cup='up && sudo pip2 install -U && sudo pip3 install -U && sudo snap refresh'
+alias mutt='neomutt'
 alias vim='nvim'
 export EDITOR=nvim
 #for adding stuff to the bashrc
@@ -219,10 +225,35 @@ alias iconf='vim ~/.ideavimrc'
 
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/bin/progaurd/proguard6.0.3/bin
-export PATH=$PATH:/Applications/Android\ Studio.app/Contents/bin
+#export PATH=$PATH:/Applications/Android\ Studio.app/Contents/bin
 export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools
 #ruby rbenv
 export PATH=$PATH:$HOME/.rbenv/versions/2.3.0/bin
+
+# spaceship theme options
+cyan_replacement=208
+SPACESHIP_DIR_COLOR=$cyan_replacement
+SPACESHIP_ELM_COLOR=$cyan_replacement
+SPACESHIP_GOLANG_COLOR=$cyan_replacement
+SPACESHIP_DOCKER_COLOR=$cyan_replacement
+SPACESHIP_KUBECONTEXT_COLOR=$cyan_replacement
+SPACESHIP_DIR_COLOR=$cyan_replacement
+SPACESHIP_PROMPT_DEFAULT_PREFIX=$cyan_replacement
+SPACESHIP_PROMPT_DEFAULT_SUFFIX=$cyan_replacement
+white_replacement=16
+SPACESHIP_VI_MODE_COLOR=$white_replacement
+SPACESHIP_FOOBAR_COLOR=$white_replacement
+
+SPACESHIP_CHAR_COLOR_SECONDARY=$white_replacement
+SPACESHIP_TIME_COLOR=$white_replacement
+SPACESHIP_USER_COLOR=$white_replacement
+SPACESHIP_SWIFT_COLOR=$white_replacement
+SPACESHIP_PYENV_COLOR=$white_replacement
+SPACESHIP_EXEC_TIME_COLOR=$white_replacement
+
+#dircolors
+#eval "`dircolors -b $HOME/.dircolorsscr`"
+#export LS_OPTIONS='--color=auto'
 
 
 
