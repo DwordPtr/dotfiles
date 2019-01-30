@@ -1,0 +1,57 @@
+# opens iTerm2
+cmd - return : "${HOME}"/bin/open_iterm2.sh
+
+# send window to monitor and follow focus
+ctrl + cmd - m  : chunkc tiling::window --send-to-monitor prev; chunkc tiling::monitor -f prev
+ctrl + cmd - n  : chunkc tiling::window --send-to-monitor next; chunkc tiling::monitor -f next
+# focus monitor
+ctrl + alt - m  : chunkc tiling::monitor -f prev
+ctrl + alt - n  : chunkc tiling::monitor -f next
+
+# taken from https://gist.github.com/shihanng/65b73712df2e51d4d78cc27c218bac35#file-skhdrc
+
+# enter fullscreen mode for the focused container
+alt - f : chunkc tiling::window --toggle fullscreen
+alt + cmd - f : chunkc tiling::window --toggle native-fullscreen
+
+# change focus between tiling / floating windows
+shift + alt - space : chunkc tiling::window --toggle float
+
+# change layout of desktop
+alt - e : chunkc tiling::desktop --layout bsp
+alt - s : chunkc tiling::desktop --layout monocle
+
+# kill focused window
+shift + alt - q : chunkc tiling::window --close
+
+# change focus
+alt - h : chunkc tiling::window --focus west
+alt - j : chunkc tiling::window --focus south
+alt - k : chunkc tiling::window --focus north
+alt - l : chunkc tiling::window --focus east
+
+alt - m : chunkc tiling::window --focus prev
+alt - n : chunkc tiling::window --focus next
+
+# move focused window
+shift + alt - h : chunkc tiling::window --warp west
+shift + alt - j : chunkc tiling::window --warp south
+shift + alt - k : chunkc tiling::window --warp north
+shift + alt - l : chunkc tiling::window --warp east
+
+shift + alt - e : chunkc tiling::desktop --equalize
+
+# move focused container to workspace
+shift + cmd - m : chunkc tiling::window --send-to-desktop $(chunkc get _last_active_desktop)
+shift + cmd - p : chunkc tiling::window --send-to-desktop prev
+shift + cmd - n : chunkc tiling::window --send-to-desktop next
+shift + cmd - 1 : chunkc tiling::window --send-to-desktop 1
+shift + cmd - 2 : chunkc tiling::window --send-to-desktop 2
+shift + cmd - 3 : chunkc tiling::window --send-to-desktop 3
+shift + cmd - 4 : chunkc tiling::window --send-to-desktop 4
+shift + cmd - 5 : chunkc tiling::window --send-to-desktop 5
+shift + cmd - 6 : chunkc tiling::window --send-to-desktop 6
+
+#WIP
+#alt - 1 : chunkc tiling::desktop --focus mission-control 1 
+#cmd - 2 : chunkc tiling::desktop --focus mission-control 2 
