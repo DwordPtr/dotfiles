@@ -47,6 +47,8 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/csv.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'hsanson/vim-android'
 
 " colors
 Plug 'wimstefan/vim-artesanal'
@@ -55,9 +57,27 @@ Plug 'plan9-for-vimspace/acme-colors'
 
 call plug#end()
 
+"markdown preview options
+let g:vim_markdown_preview_browser = "FireFox" 
+let b:vmp_preview_in_browser = 1
+let vim_markdown_preview_hotkey='<C-m>'
 "auto save
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
+
+" Teach vim to syntax highlight Vagrantfile as ruby
+"
+" Install: $HOME/.vim/plugin/vagrant.vim
+" Author: Brandon Philips <brandon@ifup.org>
+
+augroup vagrant
+  au!
+  au BufRead,BufNewFile Vagrantfile set filetype=ruby
+augroup END
+" GitGutter
+nmap <Leader>ha <Plug>GitGutterStageHunk
+nmap <Leader>hr <Plug>GitGutterUndoHunk
+nmap <Leader>hv <Plug>GitGutterPreviewHunk
 
 " set neovim remote
 if has('nvim')
@@ -91,7 +111,7 @@ endfunction
 autocmd filetype crontab setlocal nobackup nowritebackup
 let g:fuzzy_opencmd = 'tabnew'
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType elixir noremap <buffer> <c-f>:! mix format <cr>
+autocmd FileType elixir noremap <buffer> <c-f>:!mix format<cr>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -140,8 +160,8 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+"nmap <silent> [c <Plug>(coc-diagnostic-prev)
+"nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -161,7 +181,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
