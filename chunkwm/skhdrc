@@ -12,7 +12,7 @@ ctrl + alt - n  : chunkc tiling::monitor -f next
 
 # enter fullscreen mode for the focused container
 alt - f : chunkc tiling::window --toggle fullscreen
-alt + cmd - f : chunkc tiling::window --toggle native-fullscreen
+alt + shift - f : chunkc tiling::window --toggle native-fullscreen
 
 # change focus between tiling / floating windows
 shift + alt - space : chunkc tiling::window --toggle float
