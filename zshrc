@@ -75,43 +75,16 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-#logging
-alias curIp="ifconfig | grep inet\ addr | grep -v 127.0.0.1 | awk '{print $2}'"
-#text manipulation
-noargs='No args? srsly'
-function find_dups(){
-  if [[ $# -eq 0 ]] ; then
-    echo $noargs
-    return 1
-  fi
-  sort $(echo $1) | uniq -c | sort -r |
-  grep -v '\s*1\s.*' # removes all lines that occur once
-}
-function find_dups_blanklines(){
-  if [[ $# -eq 0 ]] ; then
-    echo $noargs
-    return 1
-  fi
-  sort $(echo $1) | uniq -c | sort -r|
-  grep -v '\s*1s.*'| # remove all one liners
-  egrep '\s*[[2-9]|\d\d+]\s+$' # remove just newlines
-}
-#alias fdnl='find_dups_blanklines'
-#alias fd='find_dups'
+alias vg=vagrant
+
+mkdir -p $HOME/aliases
+
 #git aliases
 if [ ! -f $HOME/aliases/git_aliases.sh ]; then
-	curl -O https://gist.githubusercontent.com/DwordPtr/371c13c887b7349680bb3f446beb628c/raw/2127e82f285ade087a30a8827bd1b3a73a69952f/git_aliases.sh
+	echo no git aliases dotfiles must not be placed
+else
+        source $HOME/aliases/git_aliases.sh
 fi
-source $HOME/aliases/git_aliases.sh
 
 #maven alias
 #alias mvn='/opt/apache-maven-3.1.1/bin/./mvn'
@@ -301,11 +274,12 @@ alias mf='mix format'
 export GOPATH=/Users/`whoami`/go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$GOROOT:$GOPATH/bin:$PATH
+export PATH=$PATH:$HOME/.mix/escripts
 #tmux || : #this is a no-op
 date
 cat ~/.notes
 PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
-if [ -f $HOME/.zshrc ]; then
+if [ -f $HOME/.lzshrc ]; then
    source $HOME/.lzshrc
 else 
    echo "no local zshrc"
