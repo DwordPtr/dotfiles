@@ -90,4 +90,5 @@ chunkc tiling::rule --owner \"Parallels Desktop\" --name \" \" --state float
 chunkc tiling::rule --owner \"VirtualBox\" --name \"Oracle VM VirtualBox Manager\" --state float
 
 #float rules
-`chunkc tiling::rule --owner \"IntelliJ IDEA\" --except \".+[.+\" --state float &`
+chunkc tiling::rule --owner \"IntelliJ IDEA\" --except "~/dev/" --state float &
+chunkc tiling::rule --owner \"Android Studio\" --except "~/dev/" --state float &
