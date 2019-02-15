@@ -7,6 +7,9 @@ ln -fs $PWD/dircolorsscr $HOME/.dircolorsscr
 ln -fs $PWD/tmux.conf.local $HOME/.tmux.conf.local
 ln -fs $PWD/.tmux $HOME/.tmux
 ln -fs $PWD/.tmux/.tmux.conf $HOME/.tmux.conf
+# chunkwm doesn't seem to like symlinks
+cp $PWD/chunkwm/chunkwmrc $HOME/.chunkwmrc 
+cp $PWD/chunkwm/skhdrc $HOME/.skhdrc 
 mkdir -p $HOME/.config/nvim
 ln -sf $PWD/nvimrc $HOME/.config/nvim/init.vim
 
