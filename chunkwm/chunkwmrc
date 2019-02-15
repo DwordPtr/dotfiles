@@ -41,7 +41,7 @@ chunkc set bsp_split_ratio               0.5
 chunkc set monitor_focus_cycle           1
 chunkc set window_focus_cycle            monitor
 
-chunkc set mouse_follows_focus           intrinsic
+chunkc set mouse_follows_focus           off 
 chunkc set window_float_next             0
 chunkc set window_float_center           1
 chunkc set window_region_locked          1
@@ -89,14 +89,5 @@ chunkc tiling::rule --owner \"Parallels Desktop\" --state float
 chunkc tiling::rule --owner \"Parallels Desktop\" --name \" \" --state float
 chunkc tiling::rule --owner \"VirtualBox\" --name \"Oracle VM VirtualBox Manager\" --state float
 
-# Safari preferences window
-# chunkc tiling::rule --owner \"Safari\" --name \"General\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Tabs\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"AutoFill\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Passwords\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Search\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Security\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Privacy\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Websites\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Extensions\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Advanced\" --state float
+#float rules
+`chunkc tiling::rule --owner \"IntelliJ IDEA\" --except \".+[.+\" --state float &`
