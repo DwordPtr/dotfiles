@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'scrooloose/nerdtree'
-Plug 'cloudhead/neovim-fuzzy'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'wesQ3/vim-windowswap'
 Plug 'qwertologe/nextval.vim'
 Plug 'sheerun/vim-polyglot'
@@ -26,7 +26,6 @@ Plug 'mhinz/neovim-remote'
 Plug 'elzr/vim-json'
 Plug 'embear/vim-localvimrc'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'lygaret/autohighlight.vim'
 Plug 'gburca/vim-logcat'
 Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
@@ -41,47 +40,127 @@ Plug 'slashmili/alchemist.vim'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'craigemery/vim-autotag'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/csv.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'hsanson/vim-android'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'LucHermitte/vim-refactor'
 
 " colors
+"Plug 'Dinduks/vim-holylight'
 Plug 'wimstefan/vim-artesanal'
 Plug 'lifepillar/vim-wwdc17-theme'
 Plug 'plan9-for-vimspace/acme-colors'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
+"Ctrlp
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.lock     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$|deps/'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$|deps/|_build|node_modules',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+"terminal toggle 
+nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
+" Start terminal in current pane
+nnoremap <C-o> :call ChooseTerm("term-pane", 0)<CR>
+ 
+function! ChooseTerm(termname, slider)
+    let pane = bufwinnr(a:termname)
+    let buf = bufexists(a:termname)
+    if pane > 0
+        " pane is visible
+        if a:slider > 0
+            :exe pane . "wincmd c"
+        else
+            :exe "e #"
+        endif
+    elseif buf > 0
+        " buffer is not in pane
+        if a:slider
+            :exe "vsp"
+        endif
+        :exe "buffer " . a:termname
+    else
+        " buffer is not loaded, create
+        if a:slider
+            :exe "vsp"
+        endif
+        :terminal
+        :exe "f " a:termname
+    endif
+endfunction
+
+"markdown preview options
+let g:vim_markdown_preview_browser = "FireFox" 
+let b:vmp_preview_in_browser = 1
+let vim_markdown_preview_hotkey='<C-m>'
 "auto save
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
+
+" Teach vim to syntax highlight Vagrantfile as ruby
+"
+" Install: $HOME/.vim/plugin/vagrant.vim
+" Author: Brandon Philips <brandon@ifup.org>
+
+augroup vagrant
+  au!
+  au BufRead,BufNewFile Vagrantfile set filetype=ruby
+augroup END
+" GitGutter
+nmap <Leader>ha <Plug>GitGutterStageHunk
+nmap <Leader>hr <Plug>GitGutterUndoHunk
+nmap <Leader>hv <Plug>GitGutterPreviewHunk
 
 " set neovim remote
 if has('nvim')
   let $VISUAL = 'nvr -cc split --remote-wait'
 endif
+" java complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" clipboard
 set clipboard=unnamed
 set updatetime=500
 map <C-n> :NERDTreeToggle<CR>
 "map <t> /\| <A-v>
 let $Tlist_Ctags_Cmd='/bin/ctags'
-nnoremap <C-p> :FuzzyOpen<CR>
-" editing macros
-" if something goes wrong note the escaping
-let @w = "\/\\cpV8jy\'\'"
-let @c = "/\cp3n"
-let @n = "h2jvwhh\"pyl"
-let @i = "@n@w"
-let @q = "jkj\^\%\^vf\(x\$vhx"
-let @t = "$v4bx"
+
 tnoremap <Esc> <C-\><C-N>
 tnoremap <C-h> <C-\><C-N>
 map <C-c> :let @+ = expand("%:p")<cr>
-map <C-h> :!open `pbpaste`<CR>
+
+function! s:get_visual_selection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+function! s:open_uri()
+	let uri= s:get_visual_selection()
+	call system('open -a' " .uri")
+endfunction
+"WIP open highlighted urls from vim
+nnoremap <C-h>:call s:open_uri()<CR> 
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
  
@@ -89,9 +168,8 @@ function! Copy_file_path()
     let @+ = expand("%")
 endfunction
 autocmd filetype crontab setlocal nobackup nowritebackup
-let g:fuzzy_opencmd = 'tabnew'
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType elixir noremap <buffer> <c-f>:! mix format <cr>
+autocmd FileType elixir noremap <buffer> <c-f>:!mix format<cr>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -101,11 +179,12 @@ autocmd BufReadPost *
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
-
+let g:airline_powerline_fonts = 1 
+let g:airline_solarized_bg='light'
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-" __coc config__
+" __coc config__ bunch of arcane stuff for the rest of the file
 
 " if hidden not set, TextEdit might fail.
 set hidden
@@ -140,8 +219,8 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+"nmap <silent> [c <Plug>(coc-diagnostic-prev)
+"nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -161,7 +240,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -193,8 +272,10 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-colorscheme acme 
+syntax enable 
 set background=light
+let g:solarized_termcolors=256
+colorscheme solarized 
 
 " Add diagnostic info for https://github.com/itchyny/lightline.vim
 "let g:lightline = {

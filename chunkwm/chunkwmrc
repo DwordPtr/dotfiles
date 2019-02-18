@@ -16,6 +16,9 @@ focused_border_color="2d74da"
 chunkc core::log_level error
 chunkc core::plugin_dir /usr/local/opt/chunkwm/share/chunkwm/plugins
 chunkc core::hotload 1
+chunkc core::load border.so
+chunkc core::load tiling.so
+chunkc core::load ffm.so
 
 # ====== Tiling settings =======================
 
@@ -27,8 +30,8 @@ chunkc set global_desktop_offset_left    "${gaps_left}"
 chunkc set global_desktop_offset_right   "${gaps_right}"
 chunkc set global_desktop_offset_gap     "${gaps_inner}"
 
-chunkc set desktop_padding_step_size     10.0
-chunkc set desktop_gap_step_size         5.0
+chunkc set desktop_padding_step_size    1
+chunkc set desktop_gap_step_size        1 
 
 chunkc set bsp_spawn_left                0
 chunkc set bsp_optimal_ratio             1.5
@@ -38,7 +41,7 @@ chunkc set bsp_split_ratio               0.5
 chunkc set monitor_focus_cycle           1
 chunkc set window_focus_cycle            monitor
 
-chunkc set mouse_follows_focus           intrinsic
+chunkc set mouse_follows_focus           off 
 chunkc set window_float_next             0
 chunkc set window_float_center           1
 chunkc set window_region_locked          1
@@ -86,14 +89,6 @@ chunkc tiling::rule --owner \"Parallels Desktop\" --state float
 chunkc tiling::rule --owner \"Parallels Desktop\" --name \" \" --state float
 chunkc tiling::rule --owner \"VirtualBox\" --name \"Oracle VM VirtualBox Manager\" --state float
 
-# Safari preferences window
-# chunkc tiling::rule --owner \"Safari\" --name \"General\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Tabs\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"AutoFill\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Passwords\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Search\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Security\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Privacy\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Websites\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Extensions\" --state float
-# chunkc tiling::rule --owner \"Safari\" --name \"Advanced\" --state float
+#float rules
+chunkc tiling::rule --owner \"IntelliJ IDEA\" --except "~/dev/" --state float &
+chunkc tiling::rule --owner \"Android Studio\" --except "~/dev/" --state float &

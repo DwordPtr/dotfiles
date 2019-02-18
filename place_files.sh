@@ -1,4 +1,7 @@
 #! /bin/bash
+if [ ! -d $HOME/bin ]; then
+	mkdir $HOME/bin
+fi
 #don't ever run me outisde of my dir
 ln -fs $PWD/ideavimrc $HOME/.ideavimrc
 ln -fs $PWD/vimrc $HOME/.vimrc
@@ -7,6 +10,10 @@ ln -fs $PWD/dircolorsscr $HOME/.dircolorsscr
 ln -fs $PWD/tmux.conf.local $HOME/.tmux.conf.local
 ln -fs $PWD/.tmux $HOME/.tmux
 ln -fs $PWD/.tmux/.tmux.conf $HOME/.tmux.conf
+# chunkwm doesn't seem to like symlinks
+cp $PWD/chunkwm/chunkwmrc $HOME/.chunkwmrc 
+cp $PWD/chunkwm/skhdrc $HOME/.skhdrc 
+ln -fs $PWD/chunkwm/open_iterm2.sh $HOME/bin/open_iterm2.sh
 mkdir -p $HOME/.config/nvim
 ln -sf $PWD/nvimrc $HOME/.config/nvim/init.vim
 
