@@ -40,6 +40,7 @@ Plug 'slashmili/alchemist.vim'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'craigemery/vim-autotag'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'tpope/vim-surround'
@@ -178,7 +179,8 @@ autocmd BufReadPost *
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
-
+let g:airline_powerline_fonts = 1 
+let g:airline_solarized_bg='light'
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
