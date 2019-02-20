@@ -55,11 +55,12 @@ Plug 'plasticboy/vim-markdown'
 Plug 'LucHermitte/vim-refactor'
 
 " colors
-"Plug 'Dinduks/vim-holylight'
+Plug 'Dinduks/vim-holylight'
 Plug 'wimstefan/vim-artesanal'
 Plug 'lifepillar/vim-wwdc17-theme'
 Plug 'plan9-for-vimspace/acme-colors'
 Plug 'altercation/vim-colors-solarized'
+Plug 'icymind/NeoSolarized'
 
 call plug#end()
 "Ctrlp
@@ -180,7 +181,7 @@ autocmd BufReadPost *
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1 
-let g:airline_solarized_bg='light'
+let g:airline_solarized_bg='dark'
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
@@ -272,10 +273,14 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
+"NeoSolarized color options
 syntax enable 
 set background=light
+set termguicolors
 let g:solarized_termcolors=256
-colorscheme solarized 
+let g:neosolarized_contrast = "high"
+let g:neosolarized_visibility = "high"
+colorscheme NeoSolarized
 
 " Add diagnostic info for https://github.com/itchyny/lightline.vim
 "let g:lightline = {
