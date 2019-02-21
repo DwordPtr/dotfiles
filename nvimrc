@@ -53,6 +53,8 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'LucHermitte/vim-refactor'
+Plug 'vimlab/split-term.vim'
+Plug 'vim-scripts/vcscommand.vim'
 
 " colors
 Plug 'Dinduks/vim-holylight'
@@ -73,6 +75,9 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+
+"fugitive
+set diffopt+=vertical
 
 "terminal toggle 
 nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
