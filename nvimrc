@@ -42,7 +42,7 @@ Plug 'craigemery/vim-autotag'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
-Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
@@ -111,9 +111,12 @@ function! ChooseTerm(termname, slider)
 endfunction
 
 "markdown preview options
-let g:vim_markdown_preview_browser = "FireFox" 
-let b:vmp_preview_in_browser = 1
-let vim_markdown_preview_hotkey='<C-m>'
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_browser = 'FireFox'
 "auto save
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
@@ -169,6 +172,7 @@ endfunction
 nnoremap <C-h>:call s:open_uri()<CR> 
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
+nmap <C-M> <Plug>MarkdownPreview
  
 function! Copy_file_path()
     let @+ = expand("%")
