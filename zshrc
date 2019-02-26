@@ -289,6 +289,8 @@ if [ -f $HOME/.lzshrc ]; then
 else 
    echo "no local zshrc"
 fi
+# make a junk folder for
+# files so they don't clutter git dirs
 if [ ! -d "$HOME/junk" ]; then
 	mkdir -p $HOME/junk
 fi
