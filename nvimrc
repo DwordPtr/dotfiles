@@ -29,7 +29,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'gburca/vim-logcat'
 Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
-Plug 'junegunn/fzf.vim'
 "local fzf install watch out on new machines
 Plug '/usr/local/opt/fzf'
 Plug 'DogFooter/FIP.vim'
@@ -181,6 +180,8 @@ endfunction
 autocmd filetype crontab setlocal nobackup nowritebackup
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType elixir noremap <buffer> <c-f>:!mix format<cr>
+let g:clang_format#command='clang-format-3.9'
+"let g:clang_format#auto_format='1'
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
