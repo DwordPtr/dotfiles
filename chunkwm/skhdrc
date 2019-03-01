@@ -52,6 +52,27 @@ shift + cmd - 4 : chunkc tiling::window --send-to-desktop 4
 shift + cmd - 5 : chunkc tiling::window --send-to-desktop 5
 shift + cmd - 6 : chunkc tiling::window --send-to-desktop 6
 
-#WIP
-#alt - 1 : chunkc tiling::desktop --focus mission-control 1 
-#cmd - 2 : chunkc tiling::desktop --focus mission-control 2 
+# fast focus desktop
+cmd + alt - x : chunkc tiling::desktop --focus $(chunkc get _last_active_desktop)
+cmd + alt - z : chunkc tiling::desktop --focus prev
+cmd + alt - c : chunkc tiling::desktop --focus next
+cmd + alt - 1 : chunkc tiling::desktop --focus 1
+cmd + alt - 2 : chunkc tiling::desktop --focus 2
+cmd + alt - 3 : chunkc tiling::desktop --focus 3
+cmd + alt - 4 : chunkc tiling::desktop --focus 4
+cmd + alt - 5 : chunkc tiling::desktop --focus 5
+cmd + alt - 6 : chunkc tiling::desktop --focus 6
+cmd + alt - 7 : chunkc tiling::desktop --focus 7
+
+# create desktop, move window and follow focus
+shift + cmd - n : chunkc tiling::desktop --create;\
+                  id=$(chunkc tiling::query --desktops-for-monitor $(chunkc tiling::query --monitor-for-desktop $(chunkc tiling::query --desktop id)));\
+                  chunkc tiling::window --send-to-desktop $(echo ${id##* });\
+                  chunkc tiling::desktop --focus $(echo ${id##* })
+
+# create desktop and follow focus
+cmd + alt - n : chunkc tiling::desktop --create;\
+                id=$(chunkc tiling::query --desktops-for-monitor $(chunkc tiling::query --monitor-for-desktop $(chunkc tiling::query --desktop id)));\
+                chunkc tiling::desktop --focus $(echo ${id##* })
+# destroy desktop
+cmd + alt - w : chunkc tiling::desktop --annihilate
