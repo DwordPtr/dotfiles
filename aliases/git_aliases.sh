@@ -1,6 +1,6 @@
 #git aliases
 
-alias grset='git reset HEAD --hard'
+alias hard='git reset HEAD --hard'
 alias lsha="git log -1 | top | awk '{print $2}'"
 alias sb='git rev-parse --abbrev-ref HEAD'
 function git_add_tracked(){
