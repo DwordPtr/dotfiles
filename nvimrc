@@ -55,6 +55,9 @@ Plug 'plasticboy/vim-markdown'
 Plug 'LucHermitte/vim-refactor'
 Plug 'vimlab/split-term.vim'
 Plug 'vim-scripts/vcscommand.vim'
+"radical
+Plug 'glts/vim-radical'
+Plug 'glts/vim-magnum'
 
 " colors
 Plug 'Dinduks/vim-holylight'
@@ -172,7 +175,7 @@ endfunction
 nnoremap <C-h>:call s:open_uri()<CR> 
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
-nmap <C-M> <Plug>MarkdownPreview
+nmap <C-m> <Plug>MarkdownPreview
  
 function! Copy_file_path()
     let @+ = expand("%")
