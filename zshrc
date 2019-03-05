@@ -200,8 +200,11 @@ export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/bin/progaurd/proguard6.0.3/bin
 #export PATH=$PATH:/Applications/Android\ Studio.app/Contents/bin
 export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools
+# brews sbin
+export PATH="/usr/local/sbin:$PATH"
 #ruby rbenv
 export PATH=$PATH:$HOME/.rbenv/versions/2.3.0/bin
+export PATH=$PATH:$HOME/Library/Android/sdk/tools
 
 # spaceship theme options
 cyan_replacement=208
@@ -242,6 +245,8 @@ man() {
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
             man "$@"
 }
+# iterm2 profile
+ it2prof() { echo -e "\033]50;SetProfile=$1\a" }
 # git extras completion
   source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
 # put bitbucket cli on path
@@ -284,6 +289,12 @@ if [ -f $HOME/.lzshrc ]; then
 else 
    echo "no local zshrc"
 fi
+# make a junk folder for
+# files so they don't clutter git dirs
+if [ ! -d "$HOME/junk" ]; then
+	mkdir -p $HOME/junk
+fi
+export JUNK=$HOME/junk
 preexec(){ eval $PROMPT_COMMAND }
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

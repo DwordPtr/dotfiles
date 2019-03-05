@@ -29,7 +29,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'gburca/vim-logcat'
 Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
-Plug 'junegunn/fzf.vim'
 "local fzf install watch out on new machines
 Plug '/usr/local/opt/fzf'
 Plug 'DogFooter/FIP.vim'
@@ -42,24 +41,31 @@ Plug 'craigemery/vim-autotag'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
-Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/csv.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tommcdo/vim-fubitive'
 Plug 'hsanson/vim-android'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'LucHermitte/vim-refactor'
+Plug 'vimlab/split-term.vim'
+Plug 'vim-scripts/vcscommand.vim'
+"radical
+Plug 'glts/vim-radical'
+Plug 'glts/vim-magnum'
 
 " colors
-"Plug 'Dinduks/vim-holylight'
+Plug 'Dinduks/vim-holylight'
 Plug 'wimstefan/vim-artesanal'
 Plug 'lifepillar/vim-wwdc17-theme'
 Plug 'plan9-for-vimspace/acme-colors'
 Plug 'altercation/vim-colors-solarized'
+Plug 'icymind/NeoSolarized'
 
 call plug#end()
 "Ctrlp
@@ -72,6 +78,9 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+
+"fugitive
+set diffopt+=vertical
 
 "terminal toggle 
 nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
@@ -105,9 +114,12 @@ function! ChooseTerm(termname, slider)
 endfunction
 
 "markdown preview options
-let g:vim_markdown_preview_browser = "FireFox" 
-let b:vmp_preview_in_browser = 1
-let vim_markdown_preview_hotkey='<C-m>'
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_browser = 'FireFox'
 "auto save
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
@@ -163,6 +175,7 @@ endfunction
 nnoremap <C-h>:call s:open_uri()<CR> 
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
+nmap <C-m> <Plug>MarkdownPreview
  
 function! Copy_file_path()
     let @+ = expand("%")
@@ -170,6 +183,8 @@ endfunction
 autocmd filetype crontab setlocal nobackup nowritebackup
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType elixir noremap <buffer> <c-f>:!mix format<cr>
+let g:clang_format#command='clang-format-3.9'
+"let g:clang_format#auto_format='1'
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -180,7 +195,7 @@ autocmd BufReadPost *
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1 
-let g:airline_solarized_bg='light'
+let g:airline_solarized_bg='dark'
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
@@ -272,10 +287,14 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
+"NeoSolarized color options
 syntax enable 
 set background=light
+set termguicolors
 let g:solarized_termcolors=256
-colorscheme solarized 
+let g:neosolarized_contrast = "high"
+let g:neosolarized_visibility = "high"
+colorscheme NeoSolarized
 
 " Add diagnostic info for https://github.com/itchyny/lightline.vim
 "let g:lightline = {
