@@ -33,6 +33,7 @@ Plug 'Houl/repmo-vim'
 Plug '/usr/local/opt/fzf'
 Plug 'DogFooter/FIP.vim'
 Plug 'rhysd/vim-clang-format'
+Plug 'bennyyip/vim-yapf'
 Plug 'Rip-Rip/clang_complete'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'slashmili/alchemist.vim'
@@ -48,11 +49,11 @@ Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/csv.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fubitive'
+Plug 'rhysd/conflict-marker.vim'
 Plug 'hsanson/vim-android'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'LucHermitte/vim-refactor'
 Plug 'vimlab/split-term.vim'
 Plug 'vim-scripts/vcscommand.vim'
 "radical
@@ -81,6 +82,10 @@ let g:ctrlp_custom_ignore = {
 
 "fugitive
 set diffopt+=vertical
+
+"tabs
+noremap <left> :tabprevious<CR>
+nnoremap <right> :tabnext<CR>
 
 "terminal toggle 
 nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
@@ -152,7 +157,6 @@ map <C-n> :NERDTreeToggle<CR>
 let $Tlist_Ctags_Cmd='/bin/ctags'
 
 tnoremap <Esc> <C-\><C-N>
-tnoremap <C-h> <C-\><C-N>
 map <C-c> :let @+ = expand("%:p")<cr>
 
 function! s:get_visual_selection()
@@ -181,10 +185,14 @@ function! Copy_file_path()
     let @+ = expand("%")
 endfunction
 autocmd filetype crontab setlocal nobackup nowritebackup
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType elixir noremap <buffer> <c-f>:!mix format<cr>
+autocmd FileType javascript noremap <buffer> <C-h> :call JsBeautify()<CR>
+autocmd FileType json noremap <buffer> <C-h> :execute '%!python -m json.tool' | w  <CR>
+autocmd FileType elixir noremap <buffer> <C-h>:!mix format<CR>
+autocmd FileType python noremap <buffer> <C-h>:Yapf <CR>
 let g:clang_format#command='clang-format-3.9'
 "let g:clang_format#auto_format='1'
+
+let g:yapf#auto_format_on_insert_leave='1'
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -295,6 +303,9 @@ let g:solarized_termcolors=256
 let g:neosolarized_contrast = "high"
 let g:neosolarized_visibility = "high"
 colorscheme NeoSolarized
+if has("gui_running")
+	unset termguicolors
+endif
 
 " Add diagnostic info for https://github.com/itchyny/lightline.vim
 "let g:lightline = {
