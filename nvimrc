@@ -17,6 +17,7 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'qwertologe/nextval.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/PapayaWhip'
+Plug 'vim-scripts/a.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/taglist.vim'
@@ -179,11 +180,11 @@ endfunction
 nnoremap <C-h>:call s:open_uri()<CR> 
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
-nmap <C-m> <Plug>MarkdownPreview
  
 function! Copy_file_path()
     let @+ = expand("%")
 endfunction
+autocmd filetype markdown  noremap <buffer> <C-m> :MarkdownPreview<CR>
 autocmd filetype crontab setlocal nobackup nowritebackup
 autocmd FileType javascript noremap <buffer> <C-h> :call JsBeautify()<CR>
 autocmd FileType json noremap <buffer> <C-h> :execute '%!python -m json.tool' | w  <CR>
