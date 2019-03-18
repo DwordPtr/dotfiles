@@ -57,9 +57,10 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vimlab/split-term.vim'
 Plug 'vim-scripts/vcscommand.vim'
-"radical
 Plug 'glts/vim-radical'
 Plug 'glts/vim-magnum'
+Plug 'LucHermitte/vim-refactor'
+Plug 'mas9612/mdslide.vim'
 
 " colors
 Plug 'Dinduks/vim-holylight'
@@ -74,6 +75,7 @@ call plug#end()
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.lock     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
+let g:mdslide_open_browser_cmd = 'firefox'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$|deps/'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$|deps/|_build|node_modules',
