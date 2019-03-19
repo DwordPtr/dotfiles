@@ -14,8 +14,12 @@ ln -fs $PWD/.tmux/.tmux.conf $HOME/.tmux.conf
 cp $PWD/chunkwm/chunkwmrc $HOME/.chunkwmrc 
 cp $PWD/chunkwm/skhdrc $HOME/.skhdrc 
 ln -fs $PWD/chunkwm/open_iterm2.sh $HOME/bin/open_iterm2.sh
+
 mkdir -p $HOME/.config/nvim
 ln -sf $PWD/nvimrc $HOME/.config/nvim/init.vim
+
+mkdir -p $HOME/config/i3
+ln -sf $PWD/i3/config $HOME/.config/i3/config
 
 ## bash or zsh for now I don't use anything else
 
@@ -29,6 +33,7 @@ fi
 ln -fs $PWD/zshrc $HOME/.zshrc
 ln -fs $PWD/bashrc $HOME/.bashrc #note kinda unmaintained
 ln -fs $PWD/aliases/git_aliases.sh $HOME/aliases/git_aliases.sh
+ln -fs $PWD/i3/lock.sh $HOME/bin/lock.sh
 
 
 mkdir -p $HOME/bin
