@@ -83,8 +83,13 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
-"fugitive
+"double macro hot key
+nmap <unique> <Leader>g @q@w
+"diff settings
 set diffopt+=vertical
+set diffopt+=iwhite
+set diffexpr="\n"
+nnoremap <C-h> :History/<CR>
 
 "tabs
 noremap <left> :tabprevious<CR>
@@ -127,7 +132,11 @@ let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
 let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
-let g:mkdp_browser = 'FireFox'
+if has('mac')
+  let g:mkdp_browser = 'FireFox'
+else
+  let g:mkdp_browser='firefox'
+endif
 "auto save
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
@@ -178,11 +187,9 @@ function! s:open_uri()
 	let uri= s:get_visual_selection()
 	call system('open -a' " .uri")
 endfunction
-"WIP open highlighted urls from vim
-nnoremap <C-h>:call s:open_uri()<CR> 
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
- 
+nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 function! Copy_file_path()
     let @+ = expand("%")
 endfunction
