@@ -1,5 +1,6 @@
 set nu
 imap <C-i> <Esc>
+imap jj <Esc>
 
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 	  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -187,6 +188,8 @@ function! s:open_uri()
 	let uri= s:get_visual_selection()
 	call system('open -a' " .uri")
 endfunction
+"WIP open highlighted urls from vim
+nnoremap <C-h>:call s:open_uri()<CR> 
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
