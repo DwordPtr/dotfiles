@@ -66,6 +66,8 @@ Plug 'LucHermitte/vim-refactor'
 Plug 'mas9612/mdslide.vim'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
 
 " colors
 Plug 'Dinduks/vim-holylight'
