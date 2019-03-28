@@ -1,7 +1,10 @@
 #git aliases
 
+alias gconf='nvim $HOME/aliases/git_aliases.sh'
 alias hard='git reset HEAD --hard'
 alias clean='git clean -fd'
+alias dev='git checkout development'
+alias master='git checkout master'
 alias lsha="git log -1 | top | awk '{print $2}'"
 alias sb='git rev-parse --abbrev-ref HEAD'
 function git_add_tracked(){
