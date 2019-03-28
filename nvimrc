@@ -1,6 +1,7 @@
 set nu
 imap <C-i> <Esc>
 imap jj <Esc>
+tnoremap jj <C-\><C-n>
 
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 	  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -49,6 +50,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/csv.vim'
+Plug 'vim-scripts/textutil.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fubitive'
 Plug 'christoomey/vim-conflicted'
@@ -62,6 +64,8 @@ Plug 'glts/vim-radical'
 Plug 'glts/vim-magnum'
 Plug 'LucHermitte/vim-refactor'
 Plug 'mas9612/mdslide.vim'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 
 " colors
 Plug 'Dinduks/vim-holylight'
@@ -85,7 +89,15 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 "double macro hot key
-nmap <unique> <Leader>g @q@w
+nmap  <Leader>g @q
+
+"Sessions
+let g:session_autosave_silent = 'true'
+let g:session_autosave_periodic = 5
+let g:session_autoload = 'prompt'
+let g:session_autosave = 'yes'
+let g:session_default_name = 'default'
+
 "diff settings
 set diffopt+=vertical
 set diffopt+=iwhite
@@ -205,7 +217,7 @@ autocmd FileType python noremap <buffer> <C-h>:Yapf <CR>
 let g:clang_format#command='clang-format-3.9'
 "let g:clang_format#auto_format='1'
 
-let g:yapf#auto_format_on_insert_leave='1'
+let g:yapf#auto_format_on_insert_leave='0'
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
