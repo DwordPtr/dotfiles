@@ -1,5 +1,7 @@
 set nu
 imap <C-i> <Esc>
+imap jj <Esc>
+tnoremap jj <C-\><C-n>
 
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 	  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -17,6 +19,7 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'qwertologe/nextval.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/PapayaWhip'
+Plug 'vim-scripts/a.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/taglist.vim'
@@ -33,6 +36,7 @@ Plug 'Houl/repmo-vim'
 Plug '/usr/local/opt/fzf'
 Plug 'DogFooter/FIP.vim'
 Plug 'rhysd/vim-clang-format'
+Plug 'bennyyip/vim-yapf'
 Plug 'Rip-Rip/clang_complete'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'slashmili/alchemist.vim'
@@ -46,18 +50,24 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/csv.vim'
+Plug 'vim-scripts/textutil.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fubitive'
+Plug 'christoomey/vim-conflicted'
 Plug 'hsanson/vim-android'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'LucHermitte/vim-refactor'
 Plug 'vimlab/split-term.vim'
 Plug 'vim-scripts/vcscommand.vim'
-"radical
 Plug 'glts/vim-radical'
 Plug 'glts/vim-magnum'
+Plug 'LucHermitte/vim-refactor'
+Plug 'mas9612/mdslide.vim'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
 
 " colors
 Plug 'Dinduks/vim-holylight'
@@ -72,6 +82,7 @@ call plug#end()
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.lock     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
+let g:mdslide_open_browser_cmd = 'firefox'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$|deps/'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$|deps/|_build|node_modules',
@@ -79,8 +90,25 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
-"fugitive
+"double macro hot key
+nmap  <Leader>g @q
+
+"Sessions
+let g:session_autosave_silent = 'true'
+let g:session_autosave_periodic = 5
+let g:session_autoload = 'prompt'
+let g:session_autosave = 'yes'
+let g:session_default_name = 'default'
+
+"diff settings
 set diffopt+=vertical
+set diffopt+=iwhite
+set diffexpr="\n"
+nnoremap <C-h> :History/<CR>
+
+"tabs
+noremap <left> :tabprevious<CR>
+nnoremap <right> :tabnext<CR>
 
 "terminal toggle 
 nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
@@ -119,7 +147,11 @@ let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
 let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
-let g:mkdp_browser = 'FireFox'
+if has('mac')
+  let g:mkdp_browser = 'FireFox'
+else
+  let g:mkdp_browser='firefox'
+endif
 "auto save
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
@@ -152,7 +184,6 @@ map <C-n> :NERDTreeToggle<CR>
 let $Tlist_Ctags_Cmd='/bin/ctags'
 
 tnoremap <Esc> <C-\><C-N>
-tnoremap <C-h> <C-\><C-N>
 map <C-c> :let @+ = expand("%:p")<cr>
 
 function! s:get_visual_selection()
@@ -175,16 +206,20 @@ endfunction
 nnoremap <C-h>:call s:open_uri()<CR> 
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
-nmap <C-m> <Plug>MarkdownPreview
- 
+nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 function! Copy_file_path()
     let @+ = expand("%")
 endfunction
+autocmd filetype markdown  noremap <buffer> <C-m> :MarkdownPreview<CR>
 autocmd filetype crontab setlocal nobackup nowritebackup
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType elixir noremap <buffer> <c-f>:!mix format<cr>
+autocmd FileType javascript noremap <buffer> <C-h> :call JsBeautify()<CR>
+autocmd FileType json noremap <buffer> <C-h> :execute '%!python -m json.tool' | w  <CR>
+autocmd FileType elixir noremap <buffer> <C-h>:!mix format<CR>
+autocmd FileType python noremap <buffer> <C-h>:Yapf <CR>
 let g:clang_format#command='clang-format-3.9'
 "let g:clang_format#auto_format='1'
+
+let g:yapf#auto_format_on_insert_leave='0'
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -295,6 +330,9 @@ let g:solarized_termcolors=256
 let g:neosolarized_contrast = "high"
 let g:neosolarized_visibility = "high"
 colorscheme NeoSolarized
+if has("gui_running")
+	unset termguicolors
+endif
 
 " Add diagnostic info for https://github.com/itchyny/lightline.vim
 "let g:lightline = {

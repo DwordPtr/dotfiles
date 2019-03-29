@@ -6,7 +6,7 @@ gaps_top="0"
 gaps_bottom="0"
 gaps_left="0"
 gaps_right="0"
-gaps_inner="0"
+gaps_inner="5"
 
 preselect_border_color="9320a2"
 focused_border_color="2d74da"
@@ -41,7 +41,7 @@ chunkc set bsp_split_ratio               0.5
 chunkc set monitor_focus_cycle           1
 chunkc set window_focus_cycle            monitor
 
-chunkc set mouse_follows_focus           off 
+chunkc set mouse_follows_focus           on 
 chunkc set window_float_next             0
 chunkc set window_float_center           1
 chunkc set window_region_locked          1
@@ -63,6 +63,7 @@ chunkc set focused_border_skip_floating  1
 
 chunkc core::load border.so
 chunkc core::load tiling.so
+chunkc blur::enable
 
 # ====== List of rules =========================
 

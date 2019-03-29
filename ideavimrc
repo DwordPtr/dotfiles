@@ -2,6 +2,11 @@
 set clipboard+=unnamed
 imap <C-i> <Esc>
 vmap <C-i> <Esc>
+imap jj <Esc>
+
+"tabs
+noremap <left> gT 
+nnoremap <right> gt
 
 imap <i-j> <Esc>
 vmap <i-j> <Esc>
