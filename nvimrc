@@ -29,6 +29,7 @@ Plug 'mhinz/neovim-remote'
 Plug 'elzr/vim-json'
 Plug 'embear/vim-localvimrc'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'simplyzhao/cscope_maps.vim'
 Plug 'gburca/vim-logcat'
 Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
@@ -185,6 +186,23 @@ let $Tlist_Ctags_Cmd='/bin/ctags'
 
 tnoremap <Esc> <C-\><C-N>
 map <C-c> :let @+ = expand("%:p")<cr>
+"cscope
+if has('cscope')
+  set cscopetag cscopeverbose
+
+  if has('quickfix')
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+  endif
+
+  cnoreabbrev csa cs add
+  cnoreabbrev csf cs find
+  cnoreabbrev csk cs kill
+  cnoreabbrev csr cs reset
+  cnoreabbrev css cs show
+  cnoreabbrev csh cs help
+
+  command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+endif
 
 function! s:get_visual_selection()
     " Why is this not a built-in Vim script function?!
