@@ -1,6 +1,7 @@
 #git aliases
 
 alias gconf='nvim $HOME/aliases/git_aliases.sh'
+alias fb='git branch -a | fzf | xargs git checkout'
 alias hard='git reset HEAD --hard'
 alias clean='git clean -fd'
 alias dev='git checkout development'
