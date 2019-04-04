@@ -41,13 +41,14 @@ Plug 'bennyyip/vim-yapf'
 Plug 'Rip-Rip/clang_complete'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'slashmili/alchemist.vim'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#build()}}
 Plug 'craigemery/vim-autotag'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/csv.vim'
@@ -93,6 +94,9 @@ let g:ctrlp_custom_ignore = {
 
 "double macro hot key
 nmap  <Leader>g @q
+
+"allow sb to jump to existing tab
+:set swb=usetab
 
 "Sessions
 let g:session_autosave_silent = 'true'
@@ -297,7 +301,8 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" I accidentally trigger this all the time and it's annoying
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if &filetype == 'vim'
