@@ -1,5 +1,8 @@
 "set rnu
 set clipboard+=unnamed
+set surround
+
+map \r :action ReformatCode<CR>
 imap <C-i> <Esc>
 vmap <C-i> <Esc>
 imap jj <Esc>
