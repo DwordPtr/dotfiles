@@ -1,11 +1,17 @@
 "set rnu
 set clipboard+=unnamed
 set surround
+set multiple-cursors 
 
 map \r :action ReformatCode<CR>
 imap <C-i> <Esc>
 vmap <C-i> <Esc>
 imap jj <Esc>
+" leader mappings
+map <leader>cl :q!<CR>
+map <leader>tl :tabclose<CR>
+"save
+map <leader>ss :w<CR>
 
 "tabs
 noremap <left> gT 
