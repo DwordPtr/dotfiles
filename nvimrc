@@ -98,6 +98,9 @@ nmap  <Leader>g @q
 "allow sb to jump to existing tab
 :set swb=usetab
 
+"refresh
+map <leader>e :e!<CR>
+
 "Sessions
 let g:session_autosave_silent = 'true'
 let g:session_autosave_periodic = 5
