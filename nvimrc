@@ -98,8 +98,22 @@ nmap  <Leader>g @q
 "allow sb to jump to existing tab
 :set swb=usetab
 
+" #Custom leader mappings
 "refresh
 map <leader>e :e!<CR>
+" close
+map <leader>cl :q!<CR>
+map <leader>tl :tabclose<CR>
+" fzf
+map <leader>fi :Files<CR>
+map <leader>hi :History:<CR>
+map <leader>hp :History/<CR>
+map <leader>rg :Rg<CR>
+map <leader>gf :GFiles<CR>
+map <leader>gs :GFiles?<CR>
+map <leader>ff :Buffers<CR>
+"save
+map <leader>ss :w<CR>
 
 "Sessions
 let g:session_autosave_silent = 'true'
