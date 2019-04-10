@@ -1,0 +1,10 @@
+#!/usr/local/bin/python3
+"""
+A non-robust string to pull a jira ticket out of a branch name
+"""
+import sys
+branch = sys.argv[1]
+list = branch.split('/')
+list = list[1].split('-')
+list = list[0] + '-' + list[1]
+print(list)
