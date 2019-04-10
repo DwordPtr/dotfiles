@@ -1,0 +1,6 @@
+#!/bin/bash
+# a script to build and flash my ergodox layout
+# should only be used from qmk top dir
+make ergodox_ez:rask2
+# todo make this more portable
+/usr/local/bin/teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_rask2.hex
