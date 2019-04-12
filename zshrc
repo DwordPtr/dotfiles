@@ -188,7 +188,7 @@ alias fup='sudo apt update && sudo apt -y upgrade'
 #alias cup='up && sudo pip2 install -U && sudo pip3 install -U && sudo snap refresh'
 alias mutt='neomutt'
 alias vim='nvim'
-export EDITOR=nvim
+export EDITOR=v
 #for adding stuff to the bashrc
 alias t='todo.sh'
 alias conf='vim ~/.zshrc'
@@ -252,6 +252,7 @@ man() {
 # put bitbucket cli on path
 export PATH=$PATH:$HOME/Library/Python/2.7/bin
 # set neovim as default editor
+export EDITOR='nvr'
 alias notes='terminal_velocity'
 #z stuff
 . `brew --prefix`/etc/profile.d/z.sh
@@ -266,10 +267,29 @@ alias html='w3m -I %{charset} -T text/html'
 function cd_up() {
   cd $(printf "%0.s../" $(seq 1 $1 ));
 }
+function cddir() {
+	cd $(dirname $1)
+}
+alias fname='basename'
 alias 'cd..'='cd_up'
+function v(){
+	if [ -z $NVIM_LISTEN_ADDRESS ]; then
+		nvim $@
+	else
+		nvr $@
+	fi
+}
 # clear nvim swap
 function clear_nvim_swap(){
 	rm $HOME/.local/share/nvim/swap/*
+}
+function remember(){
+	$@ | tee -a ~/.memory/output-$(date "+%Y-%m-%d").log
+}
+function make_home_dir(){
+if [ ! -d "$HOME/$1" ]; then
+	mkdir -p $HOME/$1
+fi
 }
 alias cns=clear_nvim_swap
 
@@ -280,7 +300,8 @@ export GOPATH=/Users/`whoami`/go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$GOROOT:$GOPATH/bin:$PATH
 export PATH=$PATH:$HOME/.mix/escripts
-#tmux || : #this is a no-op
+#zsh bind keys
+bindkey '^ ' forward-word
 date
 cat ~/.notes
 PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
@@ -291,10 +312,10 @@ else
 fi
 # make a junk folder for
 # files so they don't clutter git dirs
-if [ ! -d "$HOME/junk" ]; then
-	mkdir -p $HOME/junk
-fi
+make_home_dir "junk"
 export JUNK=$HOME/junk
+make_home_dir ".logs"
+make_home_dir ".memory"
 preexec(){ eval $PROMPT_COMMAND }
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
