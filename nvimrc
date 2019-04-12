@@ -1,3 +1,4 @@
+set nocompatible
 set nu
 imap <C-i> <Esc>
 imap jj <Esc>
@@ -103,7 +104,7 @@ nmap  <Leader>g @q
 "refresh
 map <leader>e :e!<CR>
 " close
-map <leader>cl :q!<CR>
+map <leader>bc :q!<CR>
 map <leader>tl :tabclose<CR>
 " fzf
 map <leader>fi :Files<CR>
@@ -115,6 +116,8 @@ map <leader>gs :GFiles?<CR>
 map <leader>ff :Buffers<CR>
 "save
 map <leader>ss :w<CR>
+"other
+map <leader>nn :noh<CR>
 
 "Sessions
 let g:session_autosave_silent = 'true'
@@ -128,6 +131,8 @@ set diffopt+=vertical
 set diffopt+=iwhite
 set diffexpr="\n"
 nnoremap <C-h> :History/<CR>
+"show vim-confliced info in statusbar
+set stl+=%{ConflictedVersion()}
 
 "tabs
 noremap <left> :tabprevious<CR>
