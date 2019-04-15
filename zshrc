@@ -80,11 +80,16 @@ alias vg=vagrant
 mkdir -p $HOME/aliases
 
 #git aliases
-if [ ! -f $HOME/aliases/git_aliases.sh ]; then
-	echo no git aliases dotfiles must not be placed
-else
-        source $HOME/aliases/git_aliases.sh
-fi
+ALIAS_DIR="$HOME/aliases"
+function add_aliases(){
+     if [ ! -f $HOME/aliases/$1 ]; then
+     	echo no $1 placed
+     else
+             source $HOME/aliases/$1
+     fi
+}
+add_aliases "terjira_aliases.sh"
+add_aliases "git_aliases.sh"
 
 #maven alias
 #alias mvn='/opt/apache-maven-3.1.1/bin/./mvn'
