@@ -30,8 +30,11 @@ if [ -d $HOME/.oh-my-zsh ]; then
 	echo $THEMES
 	ln -fs $PWD/thinkpad.zsh-theme $THEMES
 fi
+#todo add all alias files in for-loop
 ln -fs $PWD/aliases/git_aliases.sh $HOME/aliases/git_aliases.sh
+ln -fs $PWD/aliases/terjira_aliases.sh $HOME/aliases/terjira_aliases.sh
 ln -fs $PWD/i3/lock.sh $HOME/bin/lock.sh
+#todo add scripts
 
 mkdir -p $HOME/bin
 
