@@ -8,3 +8,10 @@ alias jls='jira issue ls'
 function jic(){
 	jira issue comment -E $1
 }
+function jt(){
+	if [ "$#" = "0" ]; then
+		jira issue trans `i`
+	else
+		jira issue trans $1
+	fi
+}
