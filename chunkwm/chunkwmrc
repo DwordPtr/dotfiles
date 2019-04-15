@@ -9,7 +9,7 @@ gaps_right="0"
 gaps_inner="5"
 
 preselect_border_color="9320a2"
-focused_border_color="2d74da"
+focused_border_color="e6dbbf"
 
 # ====== Core settings =========================
 
@@ -47,6 +47,7 @@ chunkc set window_float_center           1
 chunkc set window_region_locked          1
 
 chunkc set mouse_modifier                \"fn\"
+chunkc set ffm_standby_on_float          1
 
 chunkc set preselect_border_color        "0xff${preselect_border_color}"
 chunkc set preselect_border_width        5
