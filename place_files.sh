@@ -1,4 +1,5 @@
 #! /bin/bash
+DISTRO=`uname`
 if [ ! -d $HOME/bin ]; then
 	mkdir $HOME/bin
 fi
@@ -8,18 +9,19 @@ ln -fs $PWD/vimrc $HOME/.vimrc
 ln -fs $PWD/tvrc $HOME/.tvrc
 ln -fs $PWD/dircolorsscr $HOME/.dircolorsscr
 ln -fs $PWD/tmux.conf.local $HOME/.tmux.conf.local
-ln -fs $PWD/.tmux $HOME/.tmux
-ln -fs $PWD/.tmux/.tmux.conf $HOME/.tmux.conf
-# chunkwm doesn't seem to like symlinks
-cp $PWD/chunkwm/chunkwmrc $HOME/.chunkwmrc 
-cp $PWD/chunkwm/skhdrc $HOME/.skhdrc 
-ln -fs $PWD/chunkwm/open_iterm2.sh $HOME/bin/open_iterm2.sh
+
+if [ "$DISTRO" = "Darwin" ]; then
+	cp chunkwm/skhdrc ~/.skhdrc
+	cp chunkwm/chunkwmrc ~/.chunkwmrc
+fi
 
 mkdir -p $HOME/.config/nvim
 ln -sf $PWD/nvimrc $HOME/.config/nvim/init.vim
 
-mkdir -p $HOME/config/i3
-ln -sf $PWD/i3/config $HOME/.config/i3/config
+if [ "$DISTRO" != "Darwin" ]; then
+	mkdir -p $HOME/config/i3
+	ln -sf $PWD/i3/config $HOME/.config/i3/config
+fi
 
 ## bash or zsh for now I don't use anything else
 
@@ -27,16 +29,9 @@ if [ -d $HOME/.oh-my-zsh ]; then
 	THEMES=$HOME/.oh-my-zsh/themes
 	echo $THEMES
 	ln -fs $PWD/thinkpad.zsh-theme $THEMES
-	ln -fs $PWD/work.zsh-theme $THEMES
 fi
-# put in the rc files regardless
-ln -fs $PWD/zshrc $HOME/.zshrc
-ln -fs $PWD/bashrc $HOME/.bashrc #note kinda unmaintained
-mkdir -p $HOME/aliases
 ln -fs $PWD/aliases/git_aliases.sh $HOME/aliases/git_aliases.sh
 ln -fs $PWD/i3/lock.sh $HOME/bin/lock.sh
 
-
 mkdir -p $HOME/bin
 
-ln -fs $PWD/bin/v $HOME/bin/v
