@@ -12,6 +12,9 @@ map <leader>cl :q!<CR>
 map <leader>tl :tabclose<CR>
 "save
 map <leader>ss :w<CR>
+"map ideavim comment like vim 
+"so my macro will work in both places
+map \c :action CommentByLineComment<CR>
 
 "tabs
 noremap <left> gT 
