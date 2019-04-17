@@ -96,6 +96,7 @@ function asource(){
 
 add_aliases "terjira_aliases.sh"
 add_aliases "git_aliases.sh"
+add_aliases "android.sh"
 
 #maven alias
 #alias mvn='/opt/apache-maven-3.1.1/bin/./mvn'
