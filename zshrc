@@ -88,6 +88,12 @@ function add_aliases(){
              source $HOME/aliases/$1
      fi
 }
+# to resource an alias file
+# whithout reloading the shell
+function asource(){
+	source $ALIAS_DIR/$1
+}
+
 add_aliases "terjira_aliases.sh"
 add_aliases "git_aliases.sh"
 
