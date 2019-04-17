@@ -21,6 +21,7 @@ ln -sf $PWD/nvimrc $HOME/.config/nvim/init.vim
 if [ "$DISTRO" != "Darwin" ]; then
 	mkdir -p $HOME/config/i3
 	ln -sf $PWD/i3/config $HOME/.config/i3/config
+        ln -fs $PWD/i3/lock.sh $HOME/bin/lock.sh
 fi
 
 ## bash or zsh for now I don't use anything else
@@ -33,7 +34,7 @@ fi
 #todo add all alias files in for-loop
 ln -fs $PWD/aliases/git_aliases.sh $HOME/aliases/git_aliases.sh
 ln -fs $PWD/aliases/terjira_aliases.sh $HOME/aliases/terjira_aliases.sh
-ln -fs $PWD/i3/lock.sh $HOME/bin/lock.sh
+ln -fs $PWD/aliases/android.sh $HOME/aliases/android.sh
 #todo add scripts
 
 mkdir -p $HOME/bin
