@@ -111,6 +111,7 @@ map <leader>tl :tabclose<CR>
 map <leader>fi :Files<CR>
 map <leader>hi :History:<CR>
 map <leader>hp :History/<CR>
+map <leader>hh :History<CR>
 map <leader>rg :Rg<CR>
 map <leader>gf :GFiles<CR>
 map <leader>gs :GFiles?<CR>
@@ -119,6 +120,9 @@ map <leader>ff :Buffers<CR>
 map <leader>ss :w<CR>
 "other
 map <leader>nn :noh<CR>
+map <leader>nf :NERDTreeFind<CR>
+"stolen from Erik Falor
+nnoremap Q !!sh<CR>
 
 "Sessions
 let g:session_autosave_silent = 'true'
