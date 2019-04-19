@@ -9,6 +9,8 @@ alias dev='git checkout development'
 alias master='git checkout master'
 alias lsha="git log -1 | top | awk '{print $2}'"
 alias sb='git rev-parse --abbrev-ref HEAD'
+alias g='git'
+alias gnp='git --no-pager'
 function git_add_tracked(){
    if [[ $# -eq 0  ]] ; then
       git ls-files --modified | xargs git add
