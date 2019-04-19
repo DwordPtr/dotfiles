@@ -1,8 +1,15 @@
 # terjia aliases
 alias jconf='nvim $HOME/aliases/terjira_aliases.sh'
 alias j='jira'
-alias ji='jira issue'
+function ji(){
+	if [ "$#" = "0" ]; then
+		jira issue `i`
+	else 
+		jira issue $1
+	fi
+}
 alias jls='jira issue ls'
+alias jcrash='jira issue search Crashlytics'
 function jio(){
 	if [ "$#" = "0" ]; then
 		jira issue open `i`
