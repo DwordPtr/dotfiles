@@ -15,7 +15,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdcommenter'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'wesQ3/vim-windowswap'
 Plug 'qwertologe/nextval.vim'
 Plug 'sheerun/vim-polyglot'
@@ -69,6 +68,7 @@ Plug 'glts/vim-radical'
 Plug 'glts/vim-magnum'
 Plug 'LucHermitte/vim-refactor'
 Plug 'mas9612/mdslide.vim'
+Plug 'danro/rename.vim'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 Plug 'junegunn/limelight.vim'
@@ -83,17 +83,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'icymind/NeoSolarized'
 
 call plug#end()
-"Ctrlp
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.lock     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 let g:mdslide_open_browser_cmd = 'firefox'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$|deps/'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$|deps/|_build|node_modules',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
 
 "double macro hot key
 nmap  <Leader>g @q
@@ -123,6 +114,7 @@ map <leader>nn :noh<CR>
 map <leader>nf :NERDTreeFind<CR>
 "stolen from Erik Falor
 nnoremap Q !!sh<CR>
+nnoremap <C-s> :source $MYVIMRC<CR>
 
 "Sessions
 let g:session_autosave_silent = 'true'
@@ -143,10 +135,11 @@ set stl+=%{ConflictedVersion()}
 noremap <left> :tabprevious<CR>
 nnoremap <right> :tabnext<CR>
 
+"fold
+set foldmethod=syntax
+
 "terminal toggle 
 nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
-" Start terminal in current pane
-nnoremap <C-o> :call ChooseTerm("term-pane", 0)<CR>
  
 function! ChooseTerm(termname, slider)
     let pane = bufwinnr(a:termname)
@@ -198,6 +191,7 @@ augroup vagrant
   au!
   au BufRead,BufNewFile Vagrantfile set filetype=ruby
 augroup END
+
 " GitGutter
 nmap <Leader>ha <Plug>GitGutterStageHunk
 nmap <Leader>hr <Plug>GitGutterUndoHunk
@@ -209,6 +203,7 @@ if has('nvim')
 endif
 " java complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
 " clipboard
 set clipboard=unnamed
 set updatetime=500
@@ -252,8 +247,6 @@ function! s:open_uri()
 	let uri= s:get_visual_selection()
 	call system('open -a' " .uri")
 endfunction
-"WIP open highlighted urls from vim
-nnoremap <C-h>:call s:open_uri()<CR> 
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
