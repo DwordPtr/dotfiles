@@ -138,6 +138,13 @@ nnoremap <right> :tabnext<CR>
 "fold
 set foldmethod=syntax
 
+function! Search_clipboard()
+  execute '/' . @*
+endfunction
+
+
+"search for copied text
+map <leader>sh :call Search_clipboard()<CR>
 "terminal toggle 
 nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
  
