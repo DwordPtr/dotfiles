@@ -114,7 +114,13 @@ map <leader>nn :noh<CR>
 map <leader>nf :NERDTreeFind<CR>
 "stolen from Erik Falor
 nnoremap Q !!sh<CR>
+
 nnoremap <C-s> :source $MYVIMRC<CR>
+" insert date
+" todo 
+" 1. don't insert on new line
+" 2. use function and support formatting
+map <leader>dte :put =strftime(\"%c\")<CR>
 
 "Sessions
 let g:session_autosave_silent = 'true'
