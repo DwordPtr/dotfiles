@@ -8,6 +8,13 @@ function ji(){
 		jira issue $1
 	fi
 }
+function jtk(){
+	if [ "$#" = "0" ]; then
+		jira issue take `i`
+	else 
+		jira issue take $1
+	fi
+}
 alias jls='jira issue ls'
 alias jcrash='jira issue search Crashlytics'
 function jio(){
