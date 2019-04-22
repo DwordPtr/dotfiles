@@ -198,25 +198,15 @@ alias fup='sudo apt update && sudo apt -y upgrade'
 
 #complete up work in progress
 #alias cup='up && sudo pip2 install -U && sudo pip3 install -U && sudo snap refresh'
+alias m='neomutt'
 alias mutt='neomutt'
 alias vim='nvim'
-export EDITOR=v
 #for adding stuff to the bashrc
 alias t='todo.sh'
 alias conf='vim ~/.zshrc'
 alias reconf='source ~/.zshrc'
 alias vconf='vim ~/.config/nvim/init.vim'
 alias iconf='vim ~/.ideavimrc'
-
-export PATH=$PATH:$HOME/bin
-export PATH=$PATH:$HOME/bin/progaurd/proguard6.0.3/bin
-#export PATH=$PATH:/Applications/Android\ Studio.app/Contents/bin
-export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools
-# brews sbin
-export PATH="/usr/local/sbin:$PATH"
-#ruby rbenv
-export PATH=$PATH:$HOME/.rbenv/versions/2.3.0/bin
-export PATH=$PATH:$HOME/Library/Android/sdk/tools
 
 # spaceship theme options
 cyan_replacement=208
@@ -283,12 +273,14 @@ function cddir() {
 	cd $(dirname $1)
 }
 alias fname='basename'
+# short for back
+alias b='cd -'
 alias 'cd..'='cd_up'
 function v(){
 	if [ -z $NVIM_LISTEN_ADDRESS ]; then
-		nvim $@
+		nvim "$@"
 	else
-		nvr $@
+		nvr "$@"
 	fi
 }
 # clear nvim swap
@@ -307,11 +299,6 @@ alias cns=clear_nvim_swap
 
 # elixir aliases
 alias mf='mix format'
-#gopath stuff
-export GOPATH=/Users/`whoami`/go
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$GOROOT:$GOPATH/bin:$PATH
-export PATH=$PATH:$HOME/.mix/escripts
 #zsh bind keys
 bindkey '^ ' forward-word
 date
@@ -331,7 +318,5 @@ make_home_dir ".logs"
 make_home_dir ".memory"
 preexec(){ eval $PROMPT_COMMAND }
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
