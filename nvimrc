@@ -275,6 +275,7 @@ autocmd FileType javascript noremap <buffer> <C-h> :call JsBeautify()<CR>
 autocmd FileType json noremap <buffer> <C-h> :execute '%!python -m json.tool' | w  <CR>
 autocmd FileType elixir noremap <buffer> <C-h>:!mix format<CR>
 autocmd FileType python noremap <buffer> <C-h>:Yapf <CR>
+autocmd FileType python setlocal foldmethod=indent
 let g:clang_format#command='clang-format-3.9'
 "let g:clang_format#auto_format='1'
 
