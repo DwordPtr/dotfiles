@@ -35,6 +35,7 @@ fi
 ln -fs $PWD/aliases/git_aliases.sh $HOME/aliases/git_aliases.sh
 ln -fs $PWD/aliases/terjira_aliases.sh $HOME/aliases/terjira_aliases.sh
 ln -fs $PWD/aliases/android.sh $HOME/aliases/android.sh
+ln -fs $PWD/aliases/watson.sh $HOME/aliases/watson.sh
 #todo add scripts
 
 mkdir -p $HOME/bin
