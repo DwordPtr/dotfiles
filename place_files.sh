@@ -1,5 +1,9 @@
 #! /bin/bash
 DISTRO=`uname`
+ALIASES=$HOME/aliases
+function place_alias(){
+	ln -fs $PWD/aliases/$1 $ALIASES/$1
+}
 if [ ! -d $HOME/bin ]; then
 	mkdir $HOME/bin
 fi
@@ -32,10 +36,10 @@ if [ -d $HOME/.oh-my-zsh ]; then
 	ln -fs $PWD/thinkpad.zsh-theme $THEMES
 fi
 #todo add all alias files in for-loop
-ln -fs $PWD/aliases/git_aliases.sh $HOME/aliases/git_aliases.sh
-ln -fs $PWD/aliases/terjira_aliases.sh $HOME/aliases/terjira_aliases.sh
-ln -fs $PWD/aliases/android.sh $HOME/aliases/android.sh
-ln -fs $PWD/aliases/watson.sh $HOME/aliases/watson.sh
+place_alias git_aliases.sh
+place_alias terjira_aliases.sh
+place_alias android.sh
+place_alias watson.sh
 #todo add scripts
 
 mkdir -p $HOME/bin
