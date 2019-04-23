@@ -92,11 +92,15 @@ nmap  <Leader>g @q
 "allow sb to jump to existing tab
 :set swb=usetab
 
+"ruler 80
+:set cc=80
+
 " #Custom leader mappings
 "refresh
 map <leader>e :e!<CR>
 " close
-map <leader>bc :q!<CR>
+map <leader>zz :q!<CR>
+nmap zz :q!<CR>
 map <leader>tl :tabclose<CR>
 " fzf
 map <leader>fi :Files<CR>
