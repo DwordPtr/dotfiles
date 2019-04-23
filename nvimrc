@@ -102,6 +102,7 @@ map <leader>e :e!<CR>
 map <leader>zz :q!<CR>
 nmap zz :q!<CR>
 map <leader>tl :tabclose<CR>
+nmap tl :tabclose<CR>
 " fzf
 map <leader>fi :Files<CR>
 map <leader>hi :History:<CR>
