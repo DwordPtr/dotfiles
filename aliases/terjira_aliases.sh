@@ -1,6 +1,7 @@
 # terjia aliases
 alias jconf='nvim $HOME/aliases/terjira_aliases.sh'
 alias j='jira'
+alias jn='jira issue new'
 function ji(){
 	if [ "$#" = "0" ]; then
 		jira issue `i`
