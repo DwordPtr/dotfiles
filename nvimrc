@@ -35,7 +35,6 @@ Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
 "local fzf install watch out on new machines
 Plug '/usr/local/opt/fzf'
-Plug 'DogFooter/FIP.vim'
 Plug 'rhysd/vim-clang-format'
 Plug 'rhysd/vim-grammarous'
 Plug 'bennyyip/vim-yapf'
@@ -112,6 +111,13 @@ map <leader>rg :Rg<CR>
 map <leader>gf :GFiles<CR>
 map <leader>gs :GFiles?<CR>
 map <leader>ff :Buffers<CR>
+"fzf config
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+ignore
 "save
 map <leader>ss :w<CR>
 "add line spacing without leaving normal mode
