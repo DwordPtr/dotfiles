@@ -34,7 +34,7 @@ Plug 'gburca/vim-logcat'
 Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
 "local fzf install watch out on new machines
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'rhysd/vim-clang-format'
 Plug 'rhysd/vim-grammarous'
 Plug 'bennyyip/vim-yapf'
