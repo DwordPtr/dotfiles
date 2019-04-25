@@ -74,7 +74,9 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 
 " colors
-Plug 'Dinduks/vim-holylight'
+if has('mac')
+  Plug 'Dinduks/vim-holylight'
+endif
 Plug 'wimstefan/vim-artesanal'
 Plug 'lifepillar/vim-wwdc17-theme'
 Plug 'plan9-for-vimspace/acme-colors'
@@ -405,19 +407,6 @@ colorscheme NeoSolarized
 if has("gui_running")
 	unset termguicolors
 endif
-
-" Add diagnostic info for https://github.com/itchyny/lightline.vim
-"let g:lightline = {
-      "\ 'colorscheme': 'wombat',
-      "\ 'active': {
-      "\   'left': [ [ 'mode', 'paste' ],
-      "\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-      "\ },
-      "\ 'component_function': {
-      "\   'cocstatus': 'coc#status'
-      "\ },
-      "\ }
-      "
 
 " Shortcuts for denite interface
 " Show extension list
