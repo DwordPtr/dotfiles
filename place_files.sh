@@ -1,12 +1,11 @@
 #! /bin/bash
 DISTRO=`uname`
 ALIASES=$HOME/aliases
-function place_alias(){
-	ln -fs $PWD/aliases/$1 $ALIASES/$1
-}
-if [ ! -d $HOME/bin ]; then
-	mkdir $HOME/bin
-fi
+source './lib/startup_funcs.zsh' 
+make_home_dir 'bin'
+make_home_dir 'lib'
+ln -fs $PWD/lib/startup_funcs.zsh $HOME/lib/startup_funcs.zsh
+
 #don't ever run me outisde of my dir
 ln -fs $PWD/ideavimrc $HOME/.ideavimrc
 ln -fs $PWD/vimrc $HOME/.vimrc
@@ -28,20 +27,10 @@ if [ "$DISTRO" != "Darwin" ]; then
         ln -fs $PWD/i3/lock.sh $HOME/bin/lock.sh
 fi
 
-## bash or zsh for now I don't use anything else
-
-if [ -d $HOME/.oh-my-zsh ]; then
-	THEMES=$HOME/.oh-my-zsh/themes
-	echo $THEMES
-	ln -fs $PWD/thinkpad.zsh-theme $THEMES
-fi
 #todo add all alias files in for-loop
 place_alias git_aliases.sh
 place_alias terjira_aliases.sh
 place_alias android.sh
 place_alias watson.sh
 place_alias docker.sh
-#todo add scripts
-
-mkdir -p $HOME/bin
 

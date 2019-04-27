@@ -1,9 +1,5 @@
 unsetopt AUTO_CD
-function make_clone_dir(){
-	if [ ! -d "$HOME/$1" ]; then
-		git clone ${2} ${HOME}/${1}
-	fi
-}
+source  $HOME/lib/startup_funcs.zsh
 make_clone_dir ".zgen", "https://github.com/tarjoilija/zgen"
 source "${HOME}/.zgen/zgen.zsh"
 # if the init script doesn't exist
@@ -26,50 +22,15 @@ fi
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
-
 alias vg=vagrant
 
-mkdir -p $HOME/aliases
-
-#git aliases
 ALIAS_DIR="$HOME/aliases"
-function add_aliases(){
-     if [ ! -f $HOME/aliases/$1 ]; then
-     	echo no $1 placed
-     else
-             source $HOME/aliases/$1
-     fi
-}
-# to resource an alias file
-# whithout reloading the shell
-function asource(){
-	source $ALIAS_DIR/$1
-}
-
+make_home_dir "aliases"
 add_aliases "terjira_aliases.sh"
 add_aliases "git_aliases.sh"
 add_aliases "android.sh"
 add_aliases "watson.sh"
 add_aliases "docker.sh"
-
-#maven alias
-#alias mvn='/opt/apache-maven-3.1.1/bin/./mvn'
-alias sTest='mvn clean install -DskipTests  && notify-send "build done" || notify-send "build failed"'
-alias wTest='mvn clean install  && notify-send "build and tests done" || notify-send "build or tests failed"'
-alias wTestLog='mvn clean install 2>&1 | tee mvn-log.txt && notify-send "passed" || notify-send "failure logged"'
-
-alias fwTest='mvn clean install -t 4 && notify-send "build and tests done quickly" || notify-send "build or tests quickly failed"'
-alias fsTest='mvn clean install -DskipTests -t 4 && notify-send "build done quickly" || notify-send "build failed quickly"'
-
-#smart bear tests
-alias sptst='mvn com.smartbear.soapui:soapui-maven-plugin:test'
-
-#wipeout targets
-alias whipeout="find -type d -name '*target' | sudo xargs rm -r"
-alias rmMvn='rm -r ~/.m2/repository'
-repo='$HOME/.m2/repository'
-alias magic="rmMvn && whipeout && sTest && notify-send 'magic performed' || notify-send 'probably a network problem'"
-
 
 #network stuff
 alias ports='netstat -tulpn'
@@ -101,9 +62,6 @@ function paste(){
 alias p='paste'
 alias y='copy'
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
-
-
-
 
 #todo add cross platform update function
 # really just macos/ubuntu
@@ -203,11 +161,6 @@ function clear_nvim_swap(){
 alias cns=clear_nvim_swap
 function remember(){
 	$@ | tee -a ~/.memory/output-$(date "+%Y-%m-%d").log
-}
-function make_home_dir(){
-if [ ! -d "$HOME/$1" ]; then
-	mkdir -p $HOME/$1
-fi
 }
 # make a junk folder for
 # files so they don't clutter git dirs
