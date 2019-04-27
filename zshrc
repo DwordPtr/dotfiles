@@ -97,6 +97,7 @@ function asource(){
 add_aliases "terjira_aliases.sh"
 add_aliases "git_aliases.sh"
 add_aliases "android.sh"
+add_aliases "watson.sh"
 
 #maven alias
 #alias mvn='/opt/apache-maven-3.1.1/bin/./mvn'
@@ -320,3 +321,5 @@ preexec(){ eval $PROMPT_COMMAND }
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
