@@ -40,6 +40,7 @@ place_alias git_aliases.sh
 place_alias terjira_aliases.sh
 place_alias android.sh
 place_alias watson.sh
+place_alias docker.sh
 #todo add scripts
 
 mkdir -p $HOME/bin
