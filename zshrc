@@ -50,6 +50,7 @@ add_aliases "terjira_aliases.sh"
 add_aliases "git_aliases.sh"
 add_aliases "android.sh"
 add_aliases "watson.sh"
+add_aliases "docker.sh"
 
 #maven alias
 #alias mvn='/opt/apache-maven-3.1.1/bin/./mvn'
@@ -72,41 +73,6 @@ alias magic="rmMvn && whipeout && sTest && notify-send 'magic performed' || noti
 
 #network stuff
 alias ports='netstat -tulpn'
-
-#docker aliases
-alias ds='docker ps'
-function dckrma(){
-    docker stop `docker ps -aq` &&  docker rm `docker ps -aq` \
-    && notify-send 'containers killed' || notify-send 'there was an error'
-} 
-
-function dst(){
-  if [[ $# -eq 0 ]] ; then
-    echo $noargs
-    return 1
-  fi
-  docker start "$@"
-}
-
-function dckstp(){
-   docker stop `docker ps -aq` && notify-send 'containers stopped' || notify-send 'containers errored on stopping'
-}
-
-function hostPort(){
-  if [[ $# -eq 0 ]] ; then
-    echo $noargs
-    return 1
-  fi
-  docker inspect -f '{{json .NetworkSettings.Ports}}' $1
-}
-function getSha(){
-  if [[ $# -eq 0 ]] ; then
-    echo $noargs
-    return 1
-  fi
-  docker ps | grep $1 | awk '{print $1}' 
-}
-
 
 #computer dirs
 DOWNLOADS=$HOME/Downloads

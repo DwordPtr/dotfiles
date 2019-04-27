@@ -6,10 +6,9 @@ alias wr='watson restart'
 function start(){
 	watson stop
 	watson start $1
-	echo what text to append?
-	read dash-text
-	git checkout origin development
+	git checkout development
 	jira issue take $1
 	git pull origin development
-	git checout feature/$1-$dash-text
+	git checkout -B feature/"$1"-"$2"
 }
+alias wconf='nvim $HOME/aliases/watson.sh'
