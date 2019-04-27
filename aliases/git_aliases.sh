@@ -11,6 +11,26 @@ alias lsha="git log -1 | top | awk '{print $2}'"
 alias sb='git rev-parse --abbrev-ref HEAD'
 alias g='git'
 alias gnp='git --no-pager'
+alias devdifffiles='git diff development  --name-only'
+alias gdevdiff='nvim -p $(devdifffiles) -c "tabdo :Gdiff development"'
+# this taught me to worry about space before linebreaks lol
+function get_agg_files_for_ticket(){
+	gnp log --grep=$1 |\
+		rg commit | awk '{print $2}' | xargs git show |\
+		rg -e  '\+\+\+|\-\-\-' | awk '{print $2}' | \
+		xargs -I {} basename {} | sort | uniq
+}
+function checkeckout_by_pattern(){
+	# remotes is a klugde come back
+	# in the future and make more robust
+	branch=`glb | rg -vi remotes | rg $1 | tr -d " \'"`
+	if [ -z "$branch" ]; then
+		echo not found
+	else
+		git checkout $branch
+	fi
+}
+alias rgc='checkeckout_by_pattern'
 function git_add_tracked(){
    if [[ $# -eq 0  ]] ; then
       git ls-files --modified | xargs git add
@@ -44,6 +64,7 @@ alias gad='git add --a'
 alias gpullr='git pull --rebase origin $(sb)'
 alias gpull='git pull origin $(sb)'
 alias gs='git status'
+alias gd='git diff'
 alias gr='git reset'
 alias gpsh='git push origin $(sb)'
 alias gad='git ls-files -m | xargs git add'
