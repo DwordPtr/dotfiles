@@ -112,42 +112,35 @@ function getSha(){
 DOWNLOADS=$HOME/Downloads
 alias dl='cd $DOWNLOADS'
 
-scripts='~/scripts_'
-alias stopwatch='~/scripts_/./stopwatch.sh'
 #jboss server
 #weather aliases
 alias here='curl wttr.in/37067'
 alias home='curl wttr.in/37055'
 
-#todo make these functions and wrap in is mac os stuff
-#clipboard magic (linux only)
-alias clp='xclip -selection clipboard'
-alias oclp='xsel --clipboard --output'
-#clipboard magic (mac os)
-alias p='pbpaste'
-alias y='pbcopy'
-#spring boot crap
-alias findCont="find . -name '*Controller.java'"
-
-
-#java version management aliases
-alias jav8='export JAVA_HOME=/usr/lib/jvm/java-8-oracle'
-alias jav6='export JAVA_HOME=/usr/lib/jvm/java-6-oracle'
-alias jav7='export JAVA_HOME=/usr/lib/jvm/java-7-oracle'
-alias jav9='export JAVA_HOME=/usr/lib/jvm/java-9-openjdk-amd64'
-
-alias curJav='echo $JAVA_HOME'
-jav8 # set java8 as default jdk for now
-
+#cross platflorm clipboard aliases
+function copy(){
+	if [ `uname` = 'Darwin' ]; then
+		pbcopy
+	else
+		xclip -sel clip
+	fi
+}
+function paste(){
+	if [`uname` = 'Darwin']; then
+		pbpaste
+	else
+		xclip -o
+	fi
+}
+alias p='paste'
+alias y='copy'
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
 
 
 
 
-#ubuntu update stuff
-alias u="sudo apt update && sudo apt upgrade && notify-send 'update' || notify-send 'update failed'"
-alias up='sudo apt update && sudo apt upgrade'
-alias fup='sudo apt update && sudo apt -y upgrade'
+#todo add cross platform update function
+# really just macos/ubuntu
 
 #complete up work in progress
 #alias cup='up && sudo pip2 install -U && sudo pip3 install -U && sudo snap refresh'
@@ -162,6 +155,7 @@ alias vconf='vim ~/.config/nvim/init.vim'
 alias iconf='vim ~/.ideavimrc'
 
 # spaceship theme options
+# todo breakout into other file
 cyan_replacement=208
 SPACESHIP_DIR_COLOR=$cyan_replacement
 SPACESHIP_ELM_COLOR=$cyan_replacement
@@ -240,6 +234,7 @@ function v(){
 function clear_nvim_swap(){
 	rm $HOME/.local/share/nvim/swap/*
 }
+alias cns=clear_nvim_swap
 function remember(){
 	$@ | tee -a ~/.memory/output-$(date "+%Y-%m-%d").log
 }
@@ -248,7 +243,12 @@ if [ ! -d "$HOME/$1" ]; then
 	mkdir -p $HOME/$1
 fi
 }
-alias cns=clear_nvim_swap
+# make a junk folder for
+# files so they don't clutter git dirs
+make_home_dir "junk"
+export JUNK=$HOME/junk
+make_home_dir ".logs"
+make_home_dir ".memory"
 
 # elixir aliases
 alias mf='mix format'
@@ -263,12 +263,6 @@ if [ -f $HOME/.lzshrc ]; then
 else 
    echo "no local zshrc"
 fi
-# make a junk folder for
-# files so they don't clutter git dirs
-make_home_dir "junk"
-export JUNK=$HOME/junk
-make_home_dir ".logs"
-make_home_dir ".memory"
 preexec(){ eval $PROMPT_COMMAND }
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
