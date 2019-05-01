@@ -10,6 +10,9 @@ cmd - m  : chunkc tiling::monitor -f next
 cmd - 1  : chunkc tiling::monitor -f 1
 cmd - 2  : chunkc tiling::monitor -f 2
 cmd - 3  : chunkc tiling::monitor -f 3
+alt - a  : chunkc tiling:monitor -f 2
+alt - b  : chunkc tiling:monitor -f 1
+alt - c  : chunkc tiling:monitor -f 3
 
 # taken from https://gist.github.com/shihanng/65b73712df2e51d4d78cc27c218bac35#file-skhdrc
 
