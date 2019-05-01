@@ -162,14 +162,20 @@ nnoremap <right> :tabnext<CR>
 
 "fold
 set foldmethod=syntax
-
+"toggle all folds
+:nnoremap <expr> <leader>zf &foldlevel ? 'zM' :'zR'
 function! Search_clipboard()
   execute '/' . @*
+endfunction
+
+function! Find_trailing_spaces()
+  execute '/\s$'
 endfunction
 
 
 "search for copied text
 map <leader>sh :call Search_clipboard()<CR>
+map <leader>tsp :call Find_trailing_spaces()<CR>
 "terminal toggle 
 nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
  
