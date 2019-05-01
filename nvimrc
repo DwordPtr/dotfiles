@@ -67,6 +67,7 @@ Plug 'glts/vim-radical'
 Plug 'glts/vim-magnum'
 Plug 'LucHermitte/vim-refactor'
 Plug 'mas9612/mdslide.vim'
+Plug 'Chiel92/vim-autoformat'
 Plug 'danro/rename.vim'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
@@ -128,6 +129,8 @@ nmap <leader>O O<Esc>
 "other
 map <leader>nn :noh<CR>
 map <leader>nf :NERDTreeFind<CR>
+
+map <leader>fm :Autoformat<CR>
 "stolen from Erik Falor
 nnoremap Q !!sh<CR>
 
