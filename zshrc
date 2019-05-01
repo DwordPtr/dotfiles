@@ -8,10 +8,10 @@ if ! zgen saved; then
   # specify plugins here
   zgen oh-my-zsh
   zgen oh-my-zsh plugin/git
-  zgen oh-my-zsh ssh-agent
   zgen oh-my-zsh gpg-agent
 
   zgen load twang817/zsh-fzf
+  zgen load twang817/zsh-ssh-agent
   zgen load zsh-users/zsh-autosuggestions
   zgen load unixorn/autoupdate-zgen
   zgen load denysdovhan/spaceship-prompt spaceship
@@ -53,7 +53,7 @@ function copy(){
 	fi
 }
 function paste(){
-	if [`uname` = 'Darwin']; then
+	if [ `uname` = 'Darwin' ]; then
 		pbpaste
 	else
 		xclip -o
