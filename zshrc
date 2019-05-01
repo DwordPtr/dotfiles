@@ -59,6 +59,13 @@ function paste(){
 		xclip -o
 	fi
 }
+function o(){
+	if [ `uname` = 'Darwin' ]; then
+		open "$@"
+	else 
+		xdg-open "$@"
+	fi
+}
 alias p='paste'
 alias y='copy'
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
@@ -162,6 +169,7 @@ bindkey '^ ' forward-word
 date
 cat ~/.notes
 alias today='nvim ~/.logs/shell-history-$(date "+%Y-%m-%d").log'
+alias logs='cd ~/.logs/'
 PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
 if [ -f $HOME/.lzshrc ]; then
    source $HOME/.lzshrc
