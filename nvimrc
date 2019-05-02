@@ -54,6 +54,7 @@ Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/csv.vim'
 Plug 'vim-scripts/textutil.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tommcdo/vim-fubitive'
 Plug 'christoomey/vim-conflicted'
 Plug 'jeetsukumaran/vim-buffergator'
@@ -314,6 +315,9 @@ let g:airline_powerline_fonts = 1
 let g:airline_solarized_bg='dark'
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
+
+"android 
+let g:android_sdk_path = $ANDROID_SDK
 
 " __coc config__ bunch of arcane stuff for the rest of the file
 
