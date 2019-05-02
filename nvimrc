@@ -126,6 +126,7 @@ map <leader>ss :w<CR>
 "add line spacing without leaving normal mode
 nmap <leader>o o<Esc> 
 nmap <leader>O O<Esc> 
+nmap <leader>jj i<C-j><Esc>
 "other
 map <leader>nn :noh<CR>
 map <leader>nf :NERDTreeFind<CR>
