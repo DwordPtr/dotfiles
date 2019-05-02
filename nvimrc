@@ -56,7 +56,6 @@ Plug 'vim-scripts/textutil.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fubitive'
 Plug 'christoomey/vim-conflicted'
-Plug 'hsanson/vim-android'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -120,7 +119,6 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-ignore
 "save
 map <leader>ss :w<CR>
 "add line spacing without leaving normal mode
