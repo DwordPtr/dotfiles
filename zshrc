@@ -31,6 +31,7 @@ add_aliases "git_aliases.sh"
 add_aliases "android.sh"
 add_aliases "watson.sh"
 add_aliases "docker.sh"
+add_aliases "vim.sh"
 
 #network stuff
 alias ports='netstat -tulpn'

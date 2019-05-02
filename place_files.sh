@@ -33,4 +33,5 @@ place_alias terjira_aliases.sh
 place_alias android.sh
 place_alias watson.sh
 place_alias docker.sh
+place_alias vim.sh
 
