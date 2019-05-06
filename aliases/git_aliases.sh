@@ -55,6 +55,8 @@ function find_ticket_commits(){
 }
 alias fct='find_ticket_commits'
 alias gc='git_commit_method'
+alias gt='git tag'
+alias gcl='git clone'
 alias gcb='git checkout -'
 alias gck='git checkout'
 alias gmast='git checkout master'
