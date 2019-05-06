@@ -1,4 +1,6 @@
 unsetopt AUTO_CD
+setopt inc_append_history
+setopt share_history
 source  $HOME/lib/startup_funcs.zsh
 make_clone_dir ".zgen", "https://github.com/tarjoilija/zgen"
 source "${HOME}/.zgen/zgen.zsh"
@@ -23,16 +25,11 @@ fi
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
 alias vg=vagrant
+alias vs='vagrant ssh'
 
 ALIAS_DIR="$HOME/aliases"
 make_home_dir "aliases"
-add_aliases "terjira_aliases.sh"
-add_aliases "git_aliases.sh"
-add_aliases "android.sh"
-add_aliases "watson.sh"
-add_aliases "docker.sh"
-add_aliases "vim.sh"
-
+src_all_aliases
 #network stuff
 alias ports='netstat -tulpn'
 

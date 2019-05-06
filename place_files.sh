@@ -27,11 +27,4 @@ if [ "$DISTRO" != "Darwin" ]; then
         ln -fs $PWD/i3/lock.sh $HOME/bin/lock.sh
 fi
 
-#todo add all alias files in for-loop
-place_alias git_aliases.sh
-place_alias terjira_aliases.sh
-place_alias android.sh
-place_alias watson.sh
-place_alias docker.sh
-place_alias vim.sh
-
+place_all_aliases

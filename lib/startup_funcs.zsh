@@ -16,6 +16,10 @@ function make_home_dir(){
    fi
 }
 function add_aliases(){
+     #don't source documentation
+     if [ $1 = *.md ]; then
+	     return 0
+     fi
      if [ ! -f $HOME/aliases/$1 ]; then
      	echo no $1 placed
      else
@@ -28,4 +32,15 @@ function asource(){
 
 function place_alias(){
 	ln -fs $PWD/aliases/$1 $ALIASES/$1
+}
+
+function place_all_aliases(){
+	for file in $PWD/aliases/*; 
+	do place_alias `basename $file`;
+	done
+}
+function src_all_aliases(){
+	for file in $PWD/aliases/*; 
+	do add_aliases `basename $file`;
+	done
 }
