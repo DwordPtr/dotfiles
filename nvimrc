@@ -122,6 +122,8 @@ let g:fzf_action = {
 
 "save
 map <leader>ss :w<CR>
+nnoremap <C-s> :w<CR>
+nnoremap <leader>sa :wa<CR>
 "add line spacing without leaving normal mode
 nmap <leader>o o<Esc> 
 nmap <leader>O O<Esc> 
@@ -134,7 +136,12 @@ map <leader>fm :Autoformat<CR>
 "stolen from Erik Falor
 nnoremap Q !!sh<CR>
 
-nnoremap <C-s> :source $MYVIMRC<CR>
+"vimrc stuff
+nnoremap <leader>rr :source $MYVIMRC<CR>
+nnoremap <leader>re :tabnew $MYVIMRC<CR>
+
+nnoremap <leader>sp :set spell<CR>
+nnoremap <leader>nsp :set nospell<CR>
 " insert date
 " todo 
 " 1. don't insert on new line
