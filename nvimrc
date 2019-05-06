@@ -219,6 +219,8 @@ endif
 "auto save
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
+"vim-markdown options
+let g:vim_markdown_no_extensions_in_markdown = 1
 
 " Teach vim to syntax highlight Vagrantfile as ruby
 "
