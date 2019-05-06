@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+# this depends on bundler
+
+gem 'terjira'
+gem 'mdl'
