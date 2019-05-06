@@ -18,7 +18,6 @@ function make_home_dir(){
 function add_aliases(){
      #don't source documentation
      if [ $1 = *.md ]; then
-	     echo readme
 	     return 0
      fi
      if [ ! -f $HOME/aliases/$1 ]; then
