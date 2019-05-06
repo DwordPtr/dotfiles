@@ -26,6 +26,8 @@ fi
 # export MANPATH="/usr/local/man:$MANPATH"
 alias vg=vagrant
 alias vs='vagrant ssh'
+alias vh='vagrant halt'
+alias vu='vagrant up'
 
 ALIAS_DIR="$HOME/aliases"
 make_home_dir "aliases"
