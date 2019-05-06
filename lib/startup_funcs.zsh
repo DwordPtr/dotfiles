@@ -18,6 +18,7 @@ function make_home_dir(){
 function add_aliases(){
      #don't source documentation
      if [ $1 = *.md ]; then
+	     echo readme
 	     return 0
      fi
      if [ ! -f $HOME/aliases/$1 ]; then
@@ -35,12 +36,12 @@ function place_alias(){
 }
 
 function place_all_aliases(){
-	for file in $PWD/aliases/*; 
+	for file in $PWD/aliases/*;
 	do place_alias `basename $file`;
 	done
 }
 function src_all_aliases(){
-	for file in $PWD/aliases/*; 
+	for file in $HOME/aliases/*; 
 	do add_aliases `basename $file`;
 	done
 }
