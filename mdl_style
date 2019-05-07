@@ -1,0 +1,8 @@
+all
+exclude_rule 'MD001'
+exclude_rule 'MD014'
+exclude_rule 'MD025'
+exclude_rule 'MD029'
+exclude_rule 'MD032'
+exclude_rule 'MD046'
+
