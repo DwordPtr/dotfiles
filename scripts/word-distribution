@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+# Author: Benjamin Oakes <hello@benjaminoakes.com>
+
+def show_usage
+  puts <<EOF
+Usage: #{$PROGRAM_NAME} [--help] filename
+
+Get the distribution of words in a text file (i.e., how many times you used them).
+
+  --help      Show this help text.
+  filename    Input file.
+EOF
+  exit(-1)
+end
+
+if 1 != ARGV.length || ARGV.any? { |a| '--help' == a }
+  show_usage
+end
+
+filename = ARGV[0]
+
+counts = {}
+
+begin
+  File.open(filename) do |file|
+    while line = file.gets
+      cleaned = line.gsub(/[^a-zA-Z0-9\-\s]+/, '').downcase
+      words = cleaned.split
+
+      words.each do |word|
+        if counts[word].nil?
+          counts[word] = 1
+        else
+          counts[word] += 1
+        end
+      end
+    end
+  end
+
+  counts.sort {|l, r| l[1] <=> r[1] }.reverse.each do |word, count|
+    puts "#{word}: #{count}"
+  end
+rescue Errno::ENOENT => e
+  puts e.message
+end
+
