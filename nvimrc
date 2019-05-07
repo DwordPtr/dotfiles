@@ -82,9 +82,12 @@ Plug 'wimstefan/vim-artesanal'
 Plug 'lifepillar/vim-wwdc17-theme'
 Plug 'plan9-for-vimspace/acme-colors'
 Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 Plug 'icymind/NeoSolarized'
 
 call plug#end()
+"addbreviations
+:abbreviate #t # TODO(btidwell):
 
 let g:mdslide_open_browser_cmd = 'firefox'
 
@@ -179,10 +182,15 @@ function! Find_trailing_spaces()
   execute '/\s$'
 endfunction
 
+function! Find_Exception()
+  execute '/Exception'
+endfunction
+
 
 "search for copied text
 map <leader>sh :call Search_clipboard()<CR>
 map <leader>tsp :call Find_trailing_spaces()<CR>
+map <leader>err :call Find_Exception()<CR> 
 "terminal toggle 
 nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
  
@@ -424,7 +432,9 @@ set termguicolors
 let g:solarized_termcolors=256
 let g:neosolarized_contrast = "high"
 let g:neosolarized_visibility = "high"
-colorscheme NeoSolarized
+let g:gruvbox_contrast_light = "hard"
+let g:gruvbox_contrast_dark = "hard"
+colorscheme gruvbox
 if has("gui_running")
 	unset termguicolors
 endif
