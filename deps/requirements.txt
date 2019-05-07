@@ -1,4 +1,5 @@
 neovim-remote
+jq
 td-watson
 yapf
 shell-functools
