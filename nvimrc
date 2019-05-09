@@ -31,6 +31,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'simplyzhao/cscope_maps.vim'
 Plug 'gburca/vim-logcat'
+Plug 'neomutt/neomutt.vim'
 Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
 "local fzf install watch out on new machines
