@@ -5,6 +5,9 @@
 # anywhere in the zshrc file
 # I have anecdotal evidence
 # that they work
+
+alias sconf="nvim $HOME/lib/startup_funcs.zsh"
+
 function make_clone_dir(){
 	if [ ! -d "$HOME/$1" ]; then
 		git clone ${2} ${HOME}/${1}
@@ -32,14 +35,15 @@ function place_alias(){
 
 function place_all_aliases(){
 	for file in $PWD/aliases/*;
-	do
-	   if [ ! $file = *.md ]; then
-	   	place_alias `basename $file`;
-	   fi
+	do place_alias `basename $file`;
 	done
 }
+
 function src_all_aliases(){
 	for file in $HOME/aliases/*;
-	do add_aliases `basename $file`;
+	do
+	   if [ `test ! '$file = .*.md'` ]; then
+	   	add_aliases `basename $file`;
+	   fi
 	done
 }
