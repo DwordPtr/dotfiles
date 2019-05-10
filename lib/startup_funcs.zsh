@@ -42,8 +42,9 @@ function place_all_aliases(){
 function src_all_aliases(){
 	for file in $HOME/aliases/*;
 	do
-	   if [ `test ! '$file = .*.md'` ]; then
+	   if echo $file | grep -vq '.md'; then
 	   	add_aliases `basename $file`;
 	   fi
 	done
 }
+
