@@ -75,6 +75,7 @@ alias gr='git reset'
 alias gpsh='git push origin $(sb)'
 alias gad='git ls-files -m | xargs git add'
 alias glb='git branch -a'
+alias gls='git ls-files -m'
 alias url='git config --get remote.origin.url'
 
 #pullNpush
