@@ -66,6 +66,7 @@ function o(){
 		xdg-open "$@"
 	fi
 }
+alias r='fc -e -'
 alias p='paste'
 alias y='copy'
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
