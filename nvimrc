@@ -32,6 +32,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'simplyzhao/cscope_maps.vim'
 Plug 'gburca/vim-logcat'
 Plug 'neomutt/neomutt.vim'
+Plug 'tfnico/vim-gradle'
 Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
 "local fzf install watch out on new machines
@@ -287,22 +288,6 @@ if has('cscope')
   command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
 endif
 
-function! s:get_visual_selection()
-    " Why is this not a built-in Vim script function?!
-    let [line_start, column_start] = getpos("'<")[1:2]
-    let [line_end, column_end] = getpos("'>")[1:2]
-    let lines = getline(line_start, line_end)
-    if len(lines) == 0
-        return ''
-    endif
-    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
-    let lines[0] = lines[0][column_start - 1:]
-    return join(lines, "\n")
-endfunction
-function! s:open_uri()
-	let uri= s:get_visual_selection()
-	call system('open -a' " .uri")
-endfunction
 nmap <C-j> <Plug>GitGutterNextHunk
 nmap <C-k> <Plug>GitGutterPrevHunk
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
