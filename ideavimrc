@@ -18,6 +18,8 @@ nmap <leader>O O<Esc>
 map <leader>zz :q!<CR>
 nmap zz :q!<CR>
 map <leader>tl :tabclose<CR>
+map <leader>rr :source ~/.ideavimrc<CR>
+map <leader>re :e ~/.ideavimrc<CR>
 "map ideavim comment like vim 
 "so my macro will work in both places
 map \c :action CommentByLineComment<CR>
