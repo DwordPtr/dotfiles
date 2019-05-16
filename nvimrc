@@ -128,6 +128,9 @@ let g:fzf_action = {
 "save
 map <leader>ss :w<CR>
 nnoremap <C-s> :w<CR>
+noremap <Space> i<Space><Esc>
+nnoremap Sp a<Space><Esc>
+nnoremap <leader>y ggVGy''
 nnoremap <leader>sa :wa<CR>
 "add line spacing without leaving normal mode
 nmap <leader>o o<Esc> 
