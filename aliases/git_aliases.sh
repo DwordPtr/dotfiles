@@ -93,3 +93,8 @@ alias curr='git log -1'
 alias bi="sb | tr -d 'feature/'"
 # stash based on issue
 alias is='bi | xargs -I {} git stash save {}'
+
+function make_function_branch(){
+	git checkout -B feature/$1
+}
+alias gmk='make_function_branch'
