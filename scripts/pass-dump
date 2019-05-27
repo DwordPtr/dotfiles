@@ -1,0 +1,5 @@
+#!/bin/bash
+for name in `pass | tail -12 | awk '{print $2}'` 
+do
+	printf ${name} && printf ":    " && pass $name 
+done
