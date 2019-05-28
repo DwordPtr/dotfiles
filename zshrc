@@ -17,6 +17,7 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-autosuggestions
   zgen load unixorn/autoupdate-zgen
   zgen load denysdovhan/spaceship-prompt spaceship
+  zgen load agkozak/zsh-z
 
   # generate the init script from plugins above
   zgen save
