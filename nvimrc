@@ -130,6 +130,7 @@ map <leader>ss :w<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <Space> i<Space><Esc>
 nnoremap <Tab> a<Space><Esc>
+nnoremap s i_<Esc>r
 nnoremap <leader>y ggVGy''
 nnoremap <leader>sa :wa<CR>
 "add line spacing without leaving normal mode

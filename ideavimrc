@@ -14,6 +14,7 @@ map <leader>tl :tabclose<CR>
 map <leader>ss :w<CR>
 nnoremap <Space> i<Space><Esc>
 nnoremap <Tab> a<Space><Esc>
+nnoremap s i_<Esc>r
 nnoremap <leader>y ggVGy''
 nnoremap <leader>sa :wa<CR>
 nmap <leader>o o<Esc> 
