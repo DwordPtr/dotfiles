@@ -266,7 +266,7 @@ endif
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 set updatetime=500
 map <C-n> :NERDTreeToggle<CR>
 "map <t> /\| <A-v>
