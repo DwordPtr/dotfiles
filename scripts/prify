@@ -1,0 +1,6 @@
+#!/bin/bash
+org=atibasoftware
+project=$(git rev-parse --show-toplevel | xargs basename)
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+echo "https://bitbucket.org/${org}/${project}/pull-request/new?source=${branch}&t=1"
