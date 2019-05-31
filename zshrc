@@ -14,10 +14,10 @@ if ! zgen saved; then
 
   zgen load twang817/zsh-fzf
   zgen load twang817/zsh-ssh-agent
+  zgen load agkozak/zsh-z
   zgen load zsh-users/zsh-autosuggestions
   zgen load unixorn/autoupdate-zgen
   zgen load denysdovhan/spaceship-prompt spaceship
-  zgen load agkozak/zsh-z
 
   # generate the init script from plugins above
   zgen save
@@ -40,7 +40,7 @@ alias ports='netstat -tulpn'
 DOWNLOADS=$HOME/Downloads
 alias dl='cd $DOWNLOADS'
 
-#jboss server
+
 #weather aliases
 alias here='curl wttr.in/37067'
 alias home='curl wttr.in/37055'
@@ -83,6 +83,7 @@ alias vim='nvim'
 #for adding stuff to the bashrc
 alias t='todo.sh'
 alias conf='vim ~/.zshrc'
+alias lconf='nvim ~/.lzshrc'
 alias reconf='source ~/.zshrc'
 alias vconf='vim ~/.config/nvim/init.vim'
 alias iconf='vim ~/.ideavimrc'
@@ -149,6 +150,8 @@ function v(){
 		nvr "$@"
 	fi
 }
+ 
+alias rmcodes='sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g"'
 # clear nvim swap
 function clear_nvim_swap(){
 	rm $HOME/.local/share/nvim/swap/*
