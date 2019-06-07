@@ -27,6 +27,8 @@ Plug 'apalmer1377/factorus'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/neovim-remote'
 Plug 'elzr/vim-json'
+Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+Plug 'spolu/dwm.vim'
 Plug 'embear/vim-localvimrc'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'simplyzhao/cscope_maps.vim'
@@ -148,6 +150,7 @@ nnoremap Q !!sh<CR>
 "vimrc stuff
 nnoremap <leader>rr :source $MYVIMRC<CR>
 nnoremap <leader>re :tabnew $MYVIMRC<CR>
+nnoremap <leader>i3 :tabnew ~/.config/i3/config<CR>
 
 nnoremap <leader>sp :set spell<CR>
 nnoremap <leader>nsp :set nospell<CR>
@@ -254,9 +257,9 @@ augroup vagrant
 augroup END
 
 " GitGutter
-nmap <Leader>ha <Plug>GitGutterStageHunk
-nmap <Leader>hr <Plug>GitGutterUndoHunk
-nmap <Leader>hv <Plug>GitGutterPreviewHunk
+nmap <Leader>hs <Plug>GitGutterStageHunk
+nmap <Leader>hu <Plug>GitGutterUndoHunk
+nmap <Leader>hp <Plug>GitGutterPreviewHunk
 
 " set neovim remote
 if has('nvim')
@@ -273,27 +276,10 @@ map <C-n> :NERDTreeToggle<CR>
 let $Tlist_Ctags_Cmd='/bin/ctags'
 
 tnoremap <Esc> <C-\><C-N>
-map <C-c> :let @+ = expand("%:p")<cr>
-"cscope
-if has('cscope')
-  set cscopetag cscopeverbose
+nnoremap gk :let @+ = expand("%:p")<cr>
 
-  if has('quickfix')
-    set cscopequickfix=s-,c-,d-,i-,t-,e-
-  endif
-
-  cnoreabbrev csa cs add
-  cnoreabbrev csf cs find
-  cnoreabbrev csk cs kill
-  cnoreabbrev csr cs reset
-  cnoreabbrev css cs show
-  cnoreabbrev csh cs help
-
-  command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-endif
-
-nmap <C-j> <Plug>GitGutterNextHunk
-nmap <C-k> <Plug>GitGutterPrevHunk
+nnoremap J :GitGutterNextHunk<CR>
+nnoremap K :GitGutterPrevHunk<CR>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 function! Copy_file_path()
     let @+ = expand("%")
@@ -307,6 +293,7 @@ autocmd FileType python noremap <buffer> <C-h>:Yapf <CR>
 autocmd FileType python setlocal foldmethod=indent
 let g:clang_format#command='clang-format-3.9'
 "let g:clang_format#auto_format='1'
+let g:clang_library_path='/usr/lib/llvm-3.9/lib/'
 
 let g:yapf#auto_format_on_insert_leave='0'
 
