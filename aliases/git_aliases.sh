@@ -5,6 +5,7 @@ alias fb='git branch -a | fzf | xargs git checkout'
 alias add='git ls-files -m | xargs git add'
 alias hard='git reset HEAD --hard'
 alias clean='git clean -fd'
+alias cln='git clean -fd'
 alias dev='git checkout development'
 alias master='git checkout master'
 alias lsha="git log -1 | top | awk '{print $2}'"
@@ -30,6 +31,17 @@ function checkeckout_by_pattern(){
 		git checkout $branch
 	fi
 }
+function echo_by_pattern(){
+	# remotes is a klugde come back
+	# in the future and make more robust
+	branch=`glb | rg -vi remotes | rg $1 | tr -d " \'"`
+	if [ -z "$branch" ]; then
+		echo not found
+	else
+		echo $branch
+	fi
+}
+alias rgb='echo_by_pattern'
 alias rgc='checkeckout_by_pattern'
 function git_add_tracked(){
    if [[ $# -eq 0  ]] ; then
@@ -63,6 +75,7 @@ alias gmast='git checkout master'
 alias gatrac='git_add_tracked'
 alias gunad='git reset HEAD'
 alias gad='git add --a'
+alias ga='git add'
 alias gpullr='git pull --rebase origin $(sb)'
 alias gpull='git pull origin $(sb)'
 alias gp='gpull'
