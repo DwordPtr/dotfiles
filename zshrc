@@ -64,7 +64,8 @@ function o(){
 	if [ `uname` = 'Darwin' ]; then
 		open "$@"
 	else 
-		xdg-open "$@"
+		xdg-open "$@" &;
+		disown
 	fi
 }
 alias r='fc -e -'
@@ -117,20 +118,20 @@ SPACESHIP_EXEC_TIME_COLOR=$white_replacement
 # iterm2 profile
  it2prof() { echo -e "\033]50;SetProfile=$1\a" }
 # git extras completion
-  source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
+  #source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
 # put bitbucket cli on path
-export PATH=$PATH:$HOME/Library/Python/2.7/bin
+#export PATH=$PATH:$HOME/Library/Python/2.7/bin
 # set neovim as default editor
 export EDITOR='nvr'
 alias notes='terminal_velocity'
 #z stuff
-. `brew --prefix`/etc/profile.d/z.sh
-source "$HOME/.sdkman/bin/sdkman-init.sh"
+#. `brew --prefix`/etc/profile.d/z.sh
+#source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 #annoying warning about nesting sessions
 alias tmux='TERM=xterm-256color tmux 2> /dev/null '
 alias getBoard='echo 73913 | pbcopy'
-alias ctags="`brew --prefix`/bin/ctags"
+#alias ctags="`brew --prefix`/bin/ctags"
 alias html='w3m -I %{charset} -T text/html'
 # cd..
 function cd_up() {
@@ -183,5 +184,5 @@ else
 fi
 preexec(){ eval $PROMPT_COMMAND }
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+#[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
