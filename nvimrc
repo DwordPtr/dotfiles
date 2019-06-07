@@ -257,9 +257,9 @@ augroup vagrant
 augroup END
 
 " GitGutter
-nmap <Leader>hs <Plug>GitGutterStageHunk
-nmap <Leader>hu <Plug>GitGutterUndoHunk
-nmap <Leader>hp <Plug>GitGutterPreviewHunk
+nmap hs <Plug>GitGutterStageHunk
+nmap hu <Plug>GitGutterUndoHunk
+nmap hp <Plug>GitGutterPreviewHunk
 
 " set neovim remote
 if has('nvim')
