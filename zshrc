@@ -2,7 +2,7 @@ unsetopt AUTO_CD
 setopt inc_append_history
 setopt share_history
 source  $HOME/lib/startup_funcs.zsh
-make_clone_dir ".zgen", "https://github.com/tarjoilija/zgen"
+make_clone_dir ".zgen" "https://github.com/tarjoilija/zgen"
 source "${HOME}/.zgen/zgen.zsh"
 # if the init script doesn't exist
 if ! zgen saved; then

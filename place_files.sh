@@ -12,6 +12,7 @@ ln -fs $PWD/vimrc $HOME/.vimrc
 ln -fs $PWD/tvrc $HOME/.tvrc
 ln -fs $PWD/dircolorsscr $HOME/.dircolorsscr
 ln -fs $PWD/tmux.conf.local $HOME/.tmux.conf.local
+ln -fs $PWD/zshrc $HOME/.zshrc
 
 if [ "$DISTRO" = "Darwin" ]; then
 	cp chunkwm/skhdrc ~/.skhdrc
