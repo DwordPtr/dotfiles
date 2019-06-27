@@ -71,7 +71,7 @@ function o(){
 alias r='fc -e -'
 alias p='paste'
 alias y='copy'
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
+
 
 #todo add cross platform update function
 # really just macos/ubuntu
@@ -172,8 +172,6 @@ make_home_dir ".memory"
 alias mf='mix format'
 #zsh bind keys
 bindkey '^ ' forward-word
-date
-cat ~/.notes
 alias today='nvim ~/.logs/shell-history-$(date "+%Y-%m-%d").log'
 alias logs='cd ~/.logs/'
 PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
