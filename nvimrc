@@ -109,7 +109,7 @@ nmap  <Leader>g @q
 map <leader>e :e!<CR>
 " close
 map <leader>zz :q!<CR>
-nmap zz :q!<CR>
+nmap gzz :q!<CR>
 map <leader>tl :tabclose<CR>
 nmap tl :tabclose<CR>
 " fzf
@@ -154,6 +154,8 @@ nnoremap <leader>i3 :tabnew ~/.config/i3/config<CR>
 
 nnoremap <leader>sp :set spell<CR>
 nnoremap <leader>nsp :set nospell<CR>
+
+nnoremap <leader>sb :set scrollbind!<CR>
 " insert date
 " todo 
 " 1. don't insert on new line
@@ -278,8 +280,8 @@ let $Tlist_Ctags_Cmd='/bin/ctags'
 tnoremap <Esc> <C-\><C-N>
 nnoremap gk :let @+ = expand("%:p")<cr>
 
-nnoremap J :GitGutterNextHunk<CR>
-nnoremap K :GitGutterPrevHunk<CR>
+nnoremap gn :GitGutterNextHunk<CR>
+nnoremap gp :GitGutterPrevHunk<CR>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 function! Copy_file_path()
     let @+ = expand("%")
