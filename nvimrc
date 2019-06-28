@@ -279,6 +279,7 @@ let $Tlist_Ctags_Cmd='/bin/ctags'
 
 tnoremap <Esc> <C-\><C-N>
 nnoremap gk :let @+ = expand("%:p")<cr>
+nnoremap gke :let @+ = expand("%:t")<cr>
 
 nnoremap gn :GitGutterNextHunk<CR>
 nnoremap gp :GitGutterPrevHunk<CR>
