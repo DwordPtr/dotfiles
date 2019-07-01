@@ -150,7 +150,12 @@ nnoremap Q !!sh<CR>
 "vimrc stuff
 nnoremap <leader>rr :source $MYVIMRC<CR>
 nnoremap <leader>re :tabnew $MYVIMRC<CR>
-nnoremap <leader>i3 :tabnew ~/.config/i3/config<CR>
+if !has('mac') && !has('wsl')
+   nnoremap <leader>i3 :tabnew ~/.config/i3/config<CR>
+endif
+
+nnoremap <leader>rz :tabnew ~/.zshrc<CR>
+nnoremap <leader>rlz :tabnew ~/.lzshrc<CR>
 
 nnoremap <leader>sp :set spell<CR>
 nnoremap <leader>nsp :set nospell<CR>
