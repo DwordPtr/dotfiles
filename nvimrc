@@ -53,6 +53,7 @@ Plug 'gcmt/taboo.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
+Plug 'alvan/vim-closetag'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/csv.vim'
