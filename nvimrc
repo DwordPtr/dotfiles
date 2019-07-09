@@ -298,6 +298,10 @@ let g:clang_format#command='clang-format-3.9'
 let b:formatdef_custom_c='"clang-format-3.9 -style=file"'
 let b:formatters_c = ['custom_c']
 
+" ensure all c files are formatted on save
+au BufWrite *.c :Autoformat
+au BufWrite *.h :Autoformat
+
 let g:yapf#auto_format_on_insert_leave='0'
 
 " Return to last edit position when opening files (You want this!)
