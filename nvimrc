@@ -5,10 +5,10 @@ imap jj <Esc>
 tnoremap jj <C-\><C-n>
 
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-	  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-	      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    endif
+	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 "Plug
 call plug#begin('~/.vim/plugged')
@@ -80,7 +80,7 @@ Plug 'junegunn/goyo.vim'
 
 " colors
 if has('mac')
-  Plug 'Dinduks/vim-holylight'
+	Plug 'Dinduks/vim-holylight'
 endif
 Plug 'wimstefan/vim-artesanal'
 Plug 'lifepillar/vim-wwdc17-theme'
@@ -123,25 +123,23 @@ map <leader>gs :GFiles?<CR>
 map <leader>ff :Buffers<CR>
 "fzf config
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
+			\ 'ctrl-t': 'tab split',
+			\ 'ctrl-s': 'split',
+			\ 'ctrl-v': 'vsplit' }
 
 "save
 map <leader>ss :w<CR>
 nnoremap <C-s> :w<CR>
-nnoremap <Space> i<Space><Esc>
-nnoremap <Tab> a<Space><Esc>
 nnoremap s i_<Esc>r
 nnoremap <leader>y ggVGy''
 nnoremap <leader>sa :wa<CR>
 "add line spacing without leaving normal mode
-nmap <leader>o o<Esc> 
-nmap <leader>O O<Esc> 
-nmap <Enter> i<C-j><Esc>
+nmap <leader>o o<Esc>
+nmap <leader>O O<Esc>
 "other
 map <leader>nn :noh<CR>
 map <leader>nf :NERDTreeFind<CR>
+map <leader>nt :NERDTreeToggle<CR>
 
 map <leader>fm :Autoformat<CR>
 "stolen from Erik Falor
@@ -162,7 +160,7 @@ nnoremap <leader>nsp :set nospell<CR>
 
 nnoremap <leader>sb :set scrollbind!<CR>
 " insert date
-" todo 
+" todo
 " 1. don't insert on new line
 " 2. use function and support formatting
 map <leader>dte :put =strftime(\"%c\")<CR>
@@ -191,49 +189,49 @@ set foldmethod=syntax
 "toggle all folds
 :nnoremap <expr> <leader>zf &foldlevel ? 'zM' :'zR'
 function! Search_clipboard()
-  execute '/' . @*
+	execute '/' . @*
 endfunction
 
 function! Find_trailing_spaces()
-  execute '/\s$'
+	execute '/\s$'
 endfunction
 
 function! Find_Exception()
-  execute '/Exception'
+	execute '/Exception'
 endfunction
 
 
 "search for copied text
 map <leader>sh :call Search_clipboard()<CR>
 map <leader>tsp :call Find_trailing_spaces()<CR>
-map <leader>err :call Find_Exception()<CR> 
-"terminal toggle 
+map <leader>err :call Find_Exception()<CR>
+"terminal toggle
 nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
- 
+
 function! ChooseTerm(termname, slider)
-    let pane = bufwinnr(a:termname)
-    let buf = bufexists(a:termname)
-    if pane > 0
-        " pane is visible
-        if a:slider > 0
-            :exe pane . "wincmd c"
-        else
-            :exe "e #"
-        endif
-    elseif buf > 0
-        " buffer is not in pane
-        if a:slider
-            :exe "vsp"
-        endif
-        :exe "buffer " . a:termname
-    else
-        " buffer is not loaded, create
-        if a:slider
-            :exe "vsp"
-        endif
-        :terminal
-        :exe "f " a:termname
-    endif
+	let pane = bufwinnr(a:termname)
+	let buf = bufexists(a:termname)
+	if pane > 0
+		" pane is visible
+		if a:slider > 0
+			:exe pane . "wincmd c"
+		else
+			:exe "e #"
+		endif
+	elseif buf > 0
+		" buffer is not in pane
+		if a:slider
+			:exe "vsp"
+		endif
+		:exe "buffer " . a:termname
+	else
+		" buffer is not loaded, create
+		if a:slider
+			:exe "vsp"
+		endif
+		:terminal
+		:exe "f " a:termname
+	endif
 endfunction
 
 "markdown preview options
@@ -243,9 +241,9 @@ let g:mkdp_refresh_slow = 0
 let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
 if has('mac')
-  let g:mkdp_browser = 'FireFox'
+	let g:mkdp_browser = 'FireFox'
 else
-  let g:mkdp_browser='firefox'
+	let g:mkdp_browser='firefox'
 endif
 "auto save
 let g:auto_save_in_insert_mode = 0
@@ -259,8 +257,8 @@ let g:vim_markdown_no_extensions_in_markdown = 1
 " Author: Brandon Philips <brandon@ifup.org>
 
 augroup vagrant
-  au!
-  au BufRead,BufNewFile Vagrantfile set filetype=ruby
+	au!
+	au BufRead,BufNewFile Vagrantfile set filetype=ruby
 augroup END
 
 " GitGutter
@@ -270,7 +268,7 @@ nmap gp <Plug>GitGutterPreviewHunk
 
 " set neovim remote
 if has('nvim')
-  let $VISUAL = 'nvr -cc split --remote-wait'
+	let $VISUAL = 'nvr -cc split --remote-wait'
 endif
 " java complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -285,40 +283,37 @@ let $Tlist_Ctags_Cmd='/bin/ctags'
 tnoremap <Esc> <C-\><C-N>
 nnoremap gk :let @+ = expand("%:p")<cr>
 nnoremap gke :let @+ = expand("%:t")<cr>
+nnoremap pwd :let @+ = getcwd()<cr>
 
 nnoremap gn :GitGutterNextHunk<CR>
 nnoremap gp :GitGutterPrevHunk<CR>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 function! Copy_file_path()
-    let @+ = expand("%")
+	let @+ = expand("%")
 endfunction
 autocmd filetype markdown  noremap <buffer> <C-m> :MarkdownPreview<CR>
 autocmd filetype crontab setlocal nobackup nowritebackup
-autocmd FileType javascript noremap <buffer> <C-h> :call JsBeautify()<CR>
-autocmd FileType json noremap <buffer> <C-h> :execute '%!python -m json.tool' | w  <CR>
-autocmd FileType elixir noremap <buffer> <C-h>:!mix format<CR>
-autocmd FileType python noremap <buffer> <C-h>:Yapf <CR>
-autocmd FileType python setlocal foldmethod=indent
+nnoremap <C-q>:Autoformat<CR>
 let g:clang_format#command='clang-format-3.9'
-"let g:clang_format#auto_format='1'
-let g:clang_library_path='/usr/lib/llvm-3.9/lib/'
+let b:formatdef_custom_c='"clang-format-3.9 -style=file"'
+let b:formatters_c = ['custom_c']
 
 let g:yapf#auto_format_on_insert_leave='0'
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\   exe "normal! g`\"" |
+			\ endif
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1 
+let g:airline_powerline_fonts = 1
 let g:airline_solarized_bg='dark'
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-"android 
+"android
 let g:android_sdk_path = $ANDROID_SDK
 
 " __coc config__ bunch of arcane stuff for the rest of the file
@@ -338,14 +333,14 @@ set signcolumn=yes
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> for trigger completion.
@@ -370,11 +365,11 @@ nmap <silent> gr <Plug>(coc-references)
 "nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+	if &filetype == 'vim'
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
 endfunction
 
 " Highlight symbol under cursor on CursorHold
@@ -388,11 +383,11 @@ vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+	autocmd!
+	" Setup formatexpr specified filetype(s).
+	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+	" Update signature help on jump placeholder
+	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
@@ -409,11 +404,11 @@ command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-" virtual j k 
+" virtual j k
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 "NeoSolarized color options
-syntax enable 
+syntax enable
 set background=light
 set termguicolors
 let g:solarized_termcolors=256
