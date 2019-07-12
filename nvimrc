@@ -2,6 +2,12 @@
 " essential state and remappings {{{
 set nocompatible
 set nu
+set clipboard=unnamedplus
+set updatetime=500
+"allow sb to jump to existing tab
+:set swb=usetab
+"ruler 80
+:set cc=80
 imap <C-i> <Esc>
 imap jj <Esc>
 tnoremap jj <C-\><C-n>
@@ -96,18 +102,11 @@ Plug 'icymind/NeoSolarized'
 
 call plug#end()
 " }}}
-"addbreviations
+"addbreviations {{{
 :abbreviate #t # TODO(btidwell):
+" }}}
 
-"double macro hot key
-nmap  <Leader>g @q
-
-"allow sb to jump to existing tab
-:set swb=usetab
-"ruler 80
-:set cc=80
-
-" #Custom leader mappings
+" #Custom leader mappings {{{
 "refresh
 map <leader>e :e!<CR>
 " close
@@ -115,22 +114,6 @@ map <leader>zz :q!<CR>
 nmap gzz :q!<CR>
 map <leader>tl :tabclose<CR>
 nmap tl :tabclose<CR>
-" fzf {{{
-map <leader>fi :Files<CR>
-map <leader>hi :History:<CR>
-map <leader>hp :History/<CR>
-map <leader>hh :History<CR>
-map <leader>rg :Rg<CR>
-map <leader>gf :GFiles<CR>
-map <leader>gs :GFiles?<CR>
-map <leader>ff :Buffers<CR>
-"fzf config
-let g:fzf_action = {
-			\ 'ctrl-t': 'tab split',
-			\ 'ctrl-s': 'split',
-			\ 'ctrl-v': 'vsplit' }
-
-" }}}
 "save
 map <leader>ss :w<CR>
 nnoremap <C-s> :w<CR>
@@ -155,6 +138,24 @@ nnoremap <leader>sb :set scrollbind!<CR>
 " 1. don't insert on new line
 " 2. use function and support formatting
 map <leader>dte :put =strftime(\"%c\")<CR>
+" }}}
+
+" fzf {{{
+map <leader>fi :Files<CR>
+map <leader>hi :History:<CR>
+map <leader>hp :History/<CR>
+map <leader>hh :History<CR>
+map <leader>rg :Rg<CR>
+map <leader>gf :GFiles<CR>
+map <leader>gs :GFiles?<CR>
+map <leader>ff :Buffers<CR>
+"fzf config
+let g:fzf_action = {
+			\ 'ctrl-t': 'tab split',
+			\ 'ctrl-s': 'split',
+			\ 'ctrl-v': 'vsplit' }
+
+" }}}
 
 " open config files {{{
 nnoremap <leader>rr :source $MYVIMRC<CR>
@@ -189,9 +190,9 @@ let g:session_default_name = 'default'
 set diffopt+=vertical
 set diffopt+=iwhite
 set diffexpr="\n"
-" }}}
 "show vim-confliced info in statusbar
 set stl+=%{ConflictedVersion()}
+" }}}
 
 "tab remappings {{{ 
 noremap <left> :tabprevious<CR>
@@ -263,17 +264,12 @@ nmap gp <Plug>GitGutterPreviewHunk
 nnoremap gn :GitGutterNextHunk<CR>
 nnoremap gp :GitGutterPrevHunk<CR>
 " }}}
+" nvim remote {{{
 " set neovim remote
 if has('nvim')
 	let $VISUAL = 'nvr -cc split --remote-wait'
 endif
-
-" clipboard
-set clipboard=unnamedplus
-set updatetime=500
-map <C-n> :NERDTreeToggle<CR>
-"map <t> /\| <A-v>
-let $Tlist_Ctags_Cmd='/bin/ctags'
+" }}}
 
 " vim folder/files stuff {{{
 nnoremap gk :let @+ = expand("%:p")<cr>
@@ -281,7 +277,10 @@ nnoremap gke :let @+ = expand("%:t")<cr>
 nnoremap pwd :let @+ = getcwd()<cr>
 " }}}
 
+" Crontab {{{
+" "https://www.calebthompson.io/crontab-and-vim-sitting-in-a-tree
 autocmd filetype crontab setlocal nobackup nowritebackup
+"}}}
 " autoformat options {{{
 let g:clang_format#command='clang-format-3.9'
 let b:formatdef_custom_c='"clang-format-3.9 -style=file"'
@@ -311,8 +310,10 @@ let g:airline_solarized_bg='dark'
 let g:airline#extensions#tabline#fnamemod = ':t'
 " }}}
 
+" Android {{{
 "android
 let g:android_sdk_path = $ANDROID_SDK
+" }}}
 
 " Copied from Coc github {{{
 
