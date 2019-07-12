@@ -1,9 +1,10 @@
+" vim:fdm=marker
 set nocompatible
 set nu
 imap <C-i> <Esc>
 imap jj <Esc>
 tnoremap jj <C-\><C-n>
-
+" Plugins {{{
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -91,6 +92,7 @@ Plug 'morhetz/gruvbox'
 Plug 'icymind/NeoSolarized'
 
 call plug#end()
+" }}}
 "addbreviations
 :abbreviate #t # TODO(btidwell):
 
@@ -166,29 +168,36 @@ nnoremap <leader>sb :set scrollbind!<CR>
 " 2. use function and support formatting
 map <leader>dte :put =strftime(\"%c\")<CR>
 
-"Sessions
+"vim session settings {{{
 let g:session_autosave_silent = 'true'
 let g:session_autosave_periodic = 5
 let g:session_autoload = 'no'
 let g:session_autosave = 'yes'
 let g:session_default_name = 'default'
+" }}}
 
-"diff settings
+"diff settings {{{
 set diffopt+=vertical
 set diffopt+=iwhite
 set diffexpr="\n"
-nnoremap <C-h> :History/<CR>
+" }}}
 "show vim-confliced info in statusbar
 set stl+=%{ConflictedVersion()}
 
-"tabs
+"tab remappings {{{ 
 noremap <left> :tabprevious<CR>
 nnoremap <right> :tabnext<CR>
+" }}}
 
-"fold
-set foldmethod=syntax
+"folds {{{
+autocmd FileType c setlocal foldmethod=syntax
+autocmd NoFIleType * setlocal foldmethod=indent
+autocmd FileType python setlocal foldmethod=indent
+autocmd FileType vim setlocal foldmethod=foldmarker
 "toggle all folds
 :nnoremap <expr> <leader>zf &foldlevel ? 'zM' :'zR'
+" }}}
+" search macros and mappings {{{
 function! Search_clipboard()
 	execute '/' . @*
 endfunction
@@ -206,36 +215,9 @@ endfunction
 map <leader>sh :call Search_clipboard()<CR>
 map <leader>tsp :call Find_trailing_spaces()<CR>
 map <leader>err :call Find_Exception()<CR>
-"terminal toggle
-nnoremap <C-l> :call ChooseTerm("term-slider", 1)<CR>
+" }}}
 
-function! ChooseTerm(termname, slider)
-	let pane = bufwinnr(a:termname)
-	let buf = bufexists(a:termname)
-	if pane > 0
-		" pane is visible
-		if a:slider > 0
-			:exe pane . "wincmd c"
-		else
-			:exe "e #"
-		endif
-	elseif buf > 0
-		" buffer is not in pane
-		if a:slider
-			:exe "vsp"
-		endif
-		:exe "buffer " . a:termname
-	else
-		" buffer is not loaded, create
-		if a:slider
-			:exe "vsp"
-		endif
-		:terminal
-		:exe "f " a:termname
-	endif
-endfunction
-
-"markdown preview options
+"Markdown {{{
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
@@ -246,12 +228,14 @@ if has('mac')
 else
 	let g:mkdp_browser='firefox'
 endif
-"auto save
-let g:auto_save_in_insert_mode = 0
-let g:auto_save_silent = 1
 "vim-markdown options
 let g:vim_markdown_no_extensions_in_markdown = 1
-
+" }}}
+" auto save {{{
+let g:auto_save_in_insert_mode = 0
+let g:auto_save_silent = 1
+" }}}
+" vagrant ruby highlight {{{
 " Teach vim to syntax highlight Vagrantfile as ruby
 "
 " Install: $HOME/.vim/plugin/vagrant.vim
@@ -261,12 +245,13 @@ augroup vagrant
 	au!
 	au BufRead,BufNewFile Vagrantfile set filetype=ruby
 augroup END
+" }}}
 
-" GitGutter
+" GitGutter remappings {{{
 nmap gs <Plug>GitGutterStageHunk
 nmap gu <Plug>GitGutterUndoHunk
 nmap gp <Plug>GitGutterPreviewHunk
-
+" }}}
 " set neovim remote
 if has('nvim')
 	let $VISUAL = 'nvr -cc split --remote-wait'
@@ -294,32 +279,39 @@ function! Copy_file_path()
 endfunction
 autocmd filetype markdown  noremap <buffer> <C-m> :MarkdownPreview<CR>
 autocmd filetype crontab setlocal nobackup nowritebackup
-nnoremap <C-q>:Autoformat<CR>
+" autoformat options {{{
 let g:clang_format#command='clang-format-3.9'
 let b:formatdef_custom_c='"clang-format-3.9 -style=file"'
 let b:formatters_c = ['custom_c']
-
 " ensure all c files are formatted on save
 au BufWrite *.c :Autoformat
 au BufWrite *.h :Autoformat
-
+" ensure all python files are formatted on save
+au BufWrite *.py :Autoformat
 let g:yapf#auto_format_on_insert_leave='0'
-
+" }}}
+" remember last pos in file {{{
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
 			\ if line("'\"") > 0 && line("'\"") <= line("$") |
 			\   exe "normal! g`\"" |
 			\ endif
 
+" }}}
+
+" airline {{{
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_solarized_bg='dark'
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
+" }}}
 
 "android
 let g:android_sdk_path = $ANDROID_SDK
+
+" Copied from Coc github {{{
 
 " __coc config__ bunch of arcane stuff for the rest of the file
 
@@ -441,3 +433,4 @@ nnoremap <silent> <space>c  :<C-u>Denite coc-command<cr>
 nnoremap <silent> <space>s  :<C-u>Denite coc-service<cr>
 " Show links of current buffer
 nnoremap <silent> <space>l  :<C-u>Denite coc-link<cr>
+" }}}
