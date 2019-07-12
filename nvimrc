@@ -1,9 +1,13 @@
 " vim:fdm=marker
+" essential state and remappings {{{
 set nocompatible
 set nu
 imap <C-i> <Esc>
 imap jj <Esc>
 tnoremap jj <C-\><C-n>
+tnoremap <Esc> <C-\><C-N>
+nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
+" }}}
 " Plugins {{{
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -72,7 +76,6 @@ Plug 'vim-scripts/vcscommand.vim'
 Plug 'glts/vim-radical'
 Plug 'glts/vim-magnum'
 Plug 'LucHermitte/vim-refactor'
-Plug 'mas9612/mdslide.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'danro/rename.vim'
 Plug 'xolox/vim-misc'
@@ -96,14 +99,11 @@ call plug#end()
 "addbreviations
 :abbreviate #t # TODO(btidwell):
 
-let g:mdslide_open_browser_cmd = 'firefox'
-
 "double macro hot key
 nmap  <Leader>g @q
 
 "allow sb to jump to existing tab
 :set swb=usetab
-
 "ruler 80
 :set cc=80
 
@@ -115,7 +115,7 @@ map <leader>zz :q!<CR>
 nmap gzz :q!<CR>
 map <leader>tl :tabclose<CR>
 nmap tl :tabclose<CR>
-" fzf
+" fzf {{{
 map <leader>fi :Files<CR>
 map <leader>hi :History:<CR>
 map <leader>hp :History/<CR>
@@ -130,6 +130,7 @@ let g:fzf_action = {
 			\ 'ctrl-s': 'split',
 			\ 'ctrl-v': 'vsplit' }
 
+" }}}
 "save
 map <leader>ss :w<CR>
 nnoremap <C-s> :w<CR>
@@ -137,8 +138,9 @@ nnoremap s i_<Esc>r
 nnoremap <leader>y ggVGy''
 nnoremap <leader>sa :wa<CR>
 "add line spacing without leaving normal mode
-nmap <leader>o o<Esc>
-nmap <leader>O O<Esc>
+nmap <leader>o o<Esc>x
+nmap <leader>O O<Esc>x
+
 "other
 map <leader>nn :noh<CR>
 map <leader>nf :NERDTreeFind<CR>
@@ -147,26 +149,33 @@ map <leader>nt :NERDTreeToggle<CR>
 map <leader>fm :Autoformat<CR>
 "stolen from Erik Falor
 nnoremap Q !!sh<CR>
-
-"vimrc stuff
-nnoremap <leader>rr :source $MYVIMRC<CR>
-nnoremap <leader>re :tabnew $MYVIMRC<CR>
-if !has('mac') && !has('wsl')
-   nnoremap <leader>i3 :tabnew ~/.config/i3/config<CR>
-endif
-
-nnoremap <leader>rz :tabnew ~/.zshrc<CR>
-nnoremap <leader>rlz :tabnew ~/.lzshrc<CR>
-
-nnoremap <leader>sp :set spell<CR>
-nnoremap <leader>nsp :set nospell<CR>
-
 nnoremap <leader>sb :set scrollbind!<CR>
 " insert date
 " todo
 " 1. don't insert on new line
 " 2. use function and support formatting
 map <leader>dte :put =strftime(\"%c\")<CR>
+
+" open config files {{{
+nnoremap <leader>rr :source $MYVIMRC<CR>
+nnoremap <leader>re :tabnew $MYVIMRC<CR>
+if !has('mac') && !has('wsl')
+   nnoremap <leader>i3 :tabnew ~/.config/i3/config<CR>
+endif
+if has('mac')
+   nnoremap <leader>ch :tabnew ~/.chunkwmrc<CR>
+   nnoremap <leader>sk :tabnew ~/.skhdrc<CR>
+endif
+
+nnoremap <leader>rz :tabnew ~/.zshrc<CR>
+nnoremap <leader>rlz :tabnew ~/.lzshrc<CR>
+"}}}
+
+" spelling {{{
+nnoremap <leader>sp :set spell<CR>
+nnoremap <leader>nsp :set nospell<CR>
+" }}}
+
 
 "vim session settings {{{
 let g:session_autosave_silent = 'true'
@@ -229,6 +238,7 @@ else
 endif
 "vim-markdown options
 let g:vim_markdown_no_extensions_in_markdown = 1
+autocmd filetype markdown  noremap <buffer> <C-m> :MarkdownPreview<CR>
 " }}}
 " auto save {{{
 let g:auto_save_in_insert_mode = 0
@@ -250,13 +260,13 @@ augroup END
 nmap gs <Plug>GitGutterStageHunk
 nmap gu <Plug>GitGutterUndoHunk
 nmap gp <Plug>GitGutterPreviewHunk
+nnoremap gn :GitGutterNextHunk<CR>
+nnoremap gp :GitGutterPrevHunk<CR>
 " }}}
 " set neovim remote
 if has('nvim')
 	let $VISUAL = 'nvr -cc split --remote-wait'
 endif
-" java complete
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " clipboard
 set clipboard=unnamedplus
@@ -265,18 +275,12 @@ map <C-n> :NERDTreeToggle<CR>
 "map <t> /\| <A-v>
 let $Tlist_Ctags_Cmd='/bin/ctags'
 
-tnoremap <Esc> <C-\><C-N>
+" vim folder/files stuff {{{
 nnoremap gk :let @+ = expand("%:p")<cr>
 nnoremap gke :let @+ = expand("%:t")<cr>
 nnoremap pwd :let @+ = getcwd()<cr>
+" }}}
 
-nnoremap gn :GitGutterNextHunk<CR>
-nnoremap gp :GitGutterPrevHunk<CR>
-nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
-function! Copy_file_path()
-	let @+ = expand("%")
-endfunction
-autocmd filetype markdown  noremap <buffer> <C-m> :MarkdownPreview<CR>
 autocmd filetype crontab setlocal nobackup nowritebackup
 " autoformat options {{{
 let g:clang_format#command='clang-format-3.9'
