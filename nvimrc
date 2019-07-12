@@ -191,7 +191,6 @@ nnoremap <right> :tabnext<CR>
 
 "folds {{{
 autocmd FileType c setlocal foldmethod=syntax
-autocmd NoFIleType * setlocal foldmethod=indent
 autocmd FileType python setlocal foldmethod=indent
 autocmd FileType vim setlocal foldmethod=foldmarker
 "toggle all folds
