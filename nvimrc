@@ -9,7 +9,15 @@
 set nocompatible
 set nu
 set clipboard=unnamedplus
+set cursorline
+filetype indent on
+set wildmenu
+set lazyredraw
+set showmatch
 set updatetime=500
+set tabstop=4
+set softtabstop=4
+set expandtab
 "allow sb to jump to existing tab
 :set swb=usetab
 "ruler 80
