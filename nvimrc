@@ -344,7 +344,7 @@ let g:android_sdk_path = $ANDROID_SDK
 
 " Coc mostly copied from github {{{
 
-autocmd FileType json syntax match Comment +\/\/.\+$+
+autocmd BufRead coc-settings.json syntax match Comment +\/\/.\+$+
 
 " __coc config__ bunch of arcane stuff for the rest of the file
 
