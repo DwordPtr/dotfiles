@@ -90,6 +90,7 @@ Plug 'christoomey/vim-conflicted'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'esalter-va/vim-checklist'
 Plug 'lervag/vimtex'
 Plug 'vimlab/split-term.vim'
 Plug 'vim-scripts/vcscommand.vim'
@@ -126,6 +127,7 @@ map <leader>e :e!<CR>
 " close
 map <leader>zz :q!<CR>
 nmap gzz :q!<CR>
+nmap gq @q
 map <leader>tl :tabclose<CR>
 nmap tl :tabclose<CR>
 "save
@@ -278,6 +280,9 @@ augroup vagrant
 	au BufRead,BufNewFile Vagrantfile set filetype=ruby
 augroup END
 " }}}
+" dwm {{{
+  let g:dwm_master_pane_width=80
+" }}}
 
 " GitGutter remappings {{{
 nmap gs <Plug>GitGutterStageHunk
@@ -337,7 +342,9 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:android_sdk_path = $ANDROID_SDK
 " }}}
 
-" Copied from Coc github {{{
+" Coc mostly copied from github {{{
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " __coc config__ bunch of arcane stuff for the rest of the file
 
