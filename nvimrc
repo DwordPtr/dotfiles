@@ -64,7 +64,6 @@ Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
 "local fzf install watch out on new machines
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'rhysd/vim-clang-format'
 Plug 'rhysd/vim-grammarous'
 Plug 'bennyyip/vim-yapf'
 Plug 'Rip-Rip/clang_complete'
@@ -189,8 +188,7 @@ nnoremap <leader>rlz :tabnew ~/.lzshrc<CR>
 "}}}
 
 " spelling {{{
-nnoremap <leader>sp :set spell<CR>
-nnoremap <leader>nsp :set nospell<CR>
+nnoremap <leader>sp :setlocal spell! spell?<CR>
 set complete+=kspell
 " override color scheme to make bad spellings red.
 augroup vimrc
@@ -309,7 +307,6 @@ nnoremap pwd :let @+ = getcwd()<cr>
 autocmd filetype crontab setlocal nobackup nowritebackup
 "}}}
 " autoformat options {{{
-let g:clang_format#command='clang-format-3.9'
 let b:formatdef_custom_c='"clang-format-3.9 -style=file"'
 let b:formatters_c = ['custom_c']
 " ensure all c files are formatted on save
