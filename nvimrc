@@ -25,6 +25,9 @@ set expandtab
 imap <C-i> <Esc>
 imap jj <Esc>
 tnoremap jj <C-\><C-n>
+" virtual j k
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 tnoremap <Esc> <C-\><C-N>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 " }}}
@@ -51,6 +54,7 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'apalmer1377/factorus'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/neovim-remote'
+Plug 'mhinz/vim-startify'
 Plug 'elzr/vim-json'
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 Plug 'spolu/dwm.vim'
@@ -77,6 +81,8 @@ Plug 'gcmt/taboo.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'alvan/vim-closetag'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'chrisbra/Colorizer'
@@ -111,7 +117,7 @@ Plug 'wimstefan/vim-artesanal'
 Plug 'lifepillar/vim-wwdc17-theme'
 Plug 'plan9-for-vimspace/acme-colors'
 Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'icymind/NeoSolarized'
 
 call plug#end()
@@ -138,6 +144,7 @@ nnoremap <leader>sa :wa<CR>
 "add line spacing without leaving normal mode
 nmap <leader>o o<Esc>x
 nmap <leader>O O<Esc>x
+nmap <leader>np :set nopaste<CR>
 
 "other
 map <leader>nn :noh<CR>
@@ -196,7 +203,21 @@ augroup vimrc
 	autocmd ColorScheme * highlight SpellBad ctermbg=red guibg=red
 augroup END
 " }}}
-
+" colors {{{
+"NeoSolarized color options
+syntax enable
+set background=light
+set termguicolors
+let g:solarized_termcolors=256
+let g:neosolarized_contrast = "high"
+let g:neosolarized_visibility = "high"
+let g:gruvbox_contrast_light = "hard"
+let g:gruvbox_contrast_dark = "hard"
+colorscheme gruvbox
+if has("gui_running")
+	unset termguicolors
+endif
+" }}}
 
 "vim session settings {{{
 let g:session_autosave_silent = 'true'
@@ -431,22 +452,6 @@ command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-" virtual j k
-noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-"NeoSolarized color options
-syntax enable
-set background=light
-set termguicolors
-let g:solarized_termcolors=256
-let g:neosolarized_contrast = "high"
-let g:neosolarized_visibility = "high"
-let g:gruvbox_contrast_light = "hard"
-let g:gruvbox_contrast_dark = "hard"
-colorscheme gruvbox
-if has("gui_running")
-	unset termguicolors
-endif
 
 " Shortcuts for denite interface
 " Show extension list
