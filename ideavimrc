@@ -1,7 +1,9 @@
 "set rnu
+let mapleader = "\"
 set clipboard+=unnamed
 set surround
-set multiple-cursors 
+set multiple-cursors
+set hls
 
 map \r :action ReformatCode<CR>
 imap <C-i> <Esc>
@@ -14,14 +16,14 @@ map <leader>tl :tabclose<CR>
 map <leader>ss :w<CR>
 nnoremap <Space> i<Space><Esc>
 nnoremap <Tab> a<Space><Esc>
-nnoremap s i_<Esc>r
-nnoremap <leader>y ggVGy''
+s\noremap <leader>y ggVGy''
 nnoremap <leader>sa :wa<CR>
-nmap <leader>o o<Esc> 
-nmap <leader>O O<Esc> 
+nnoremap <leader>s :save<CR>
+nmap <leader>o o<Esc>
+nmap <leader>O O<Esc>
 map <leader>zz :q!<CR>
 nmap zz :q!<CR>
-map <leader>tl :tabclose<CR>
+map <leader>tl :close<CR>
 map <leader>rr :source ~/.ideavimrc<CR>
 map <leader>re :e ~/.ideavimrc<CR>
 "map ideavim comment like vim 
