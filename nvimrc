@@ -132,6 +132,7 @@ map <leader>e :e!<CR>
 " close
 map <leader>zz :q!<CR>
 nmap gzz :q!<CR>
+nnoremap go <C-w>gf
 nmap gq @q
 map <leader>tl :tabclose<CR>
 nmap tl :tabclose<CR>
