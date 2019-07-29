@@ -284,6 +284,7 @@ let g:vim_markdown_no_extensions_in_markdown = 1
 autocmd filetype markdown  noremap <buffer> <C-m> :MarkdownPreview<CR>
 autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd filetype markdown hi SpellBad ctermfg=red guifg=red
+au BufRead,BufNewFile *.md setlocal textwidth=80
 " }}}
 " auto save {{{
 let g:auto_save_in_insert_mode = 0
