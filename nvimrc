@@ -160,7 +160,15 @@ nnoremap <leader>sb :set scrollbind!<CR>
 " todo
 " 1. don't insert on new line
 " 2. use function and support formatting
+" CheckList Mappings {{{
 map <leader>dte :put =strftime(\"%c\")<CR>
+noremap <leader>ct :ChecklistToggleCheckbox<cr>
+noremap <leader>ce :ChecklistEnableCheckbox<cr>
+noremap <leader>cd :ChecklistDisableCheckbox<cr>
+noremap <leader>ct :ChecklistToggleCheckbox<cr>
+vnoremap <leader>ce :ChecklistEnableCheckbox<cr>
+vnoremap <leader>cd :ChecklistDisableCheckbox<cr>
+" }}}
 " }}}
 
 " fzf {{{
