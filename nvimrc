@@ -315,8 +315,8 @@ augroup END
 
 " GitGutter remappings {{{
 nmap gs <Plug>GitGutterStageHunk
-nmap gu <Plug>GitGutterUndoHunk
-nmap gp <Plug>GitGutterPreviewHunk
+nnoremap gu :GitGutterUndoHunk<CR>
+nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 nnoremap gn :GitGutterNextHunk<CR>
 nnoremap gp :GitGutterPrevHunk<CR>
 " }}}
