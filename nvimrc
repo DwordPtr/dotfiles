@@ -133,6 +133,9 @@ map <leader>e :e!<CR>
 map <leader>zz :q!<CR>
 nmap gzz :q!<CR>
 nnoremap go <C-w>gf
+nnoremap gw <C-w><C-]>1<CR><CR>
+nnoremap gwn :tn<CR>
+nnoremap gwp :tp<CR>
 nmap gq @q
 map <leader>tl :tabclose<CR>
 nmap tl :tabclose<CR>
