@@ -9,6 +9,7 @@ map \r :action ReformatCode<CR>
 imap <C-i> <Esc>
 vmap <C-i> <Esc>
 imap jj <Esc>
+map <leader>nn :noh<CR>
 " leader mappings
 map <leader>cl :q!<CR>
 map <leader>tl :tabclose<CR>
