@@ -209,6 +209,7 @@ nnoremap <leader>rlz :tabnew ~/.lzshrc<CR>
 " spelling {{{
 nnoremap <leader>sp :setlocal spell! spell?<CR>
 set complete+=kspell
+set thesaurus+=~/moby.txt
 " override color scheme to make bad spellings red.
 augroup vimrc
 	autocmd!
@@ -371,6 +372,16 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " Android {{{
 "android
 let g:android_sdk_path = $ANDROID_SDK
+" }}}
+" startify {{{
+let g:startify_session_dir = '~/.vim/session'
+    let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   MRU']            },
+          \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ { 'type': 'commands',  'header': ['   Commands']       },
+          \ ]
 " }}}
 
 " Coc mostly copied from github {{{
