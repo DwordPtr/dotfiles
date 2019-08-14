@@ -27,6 +27,8 @@ imap jj <Esc>
 tnoremap jj <C-\><C-n>
 " virtual j k
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+nnoremap zn ]s
+nnoremap zp [s
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 tnoremap <Esc> <C-\><C-N>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
