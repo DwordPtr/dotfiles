@@ -29,6 +29,7 @@ tnoremap jj <C-\><C-n>
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 nnoremap zn ]s
 nnoremap zp [s
+nnoremap ze z=
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 tnoremap <Esc> <C-\><C-N>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
@@ -151,6 +152,7 @@ nnoremap <leader>sa :wa<CR>
 nmap <leader>o o<Esc>x
 nmap <leader>O O<Esc>x
 nmap <leader>np :set nopaste<CR>
+nnoremap <leader>u :silent w\|!urlview %<CR>
 
 "other
 map <leader>nn :noh<CR>
