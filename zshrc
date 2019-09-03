@@ -71,6 +71,7 @@ function o(){
 alias r='fc -e -'
 alias d='cd $HOME/dev' 
 alias h='cd $HOME'
+alias bin='cd $HOME/bin'
 alias p='paste'
 alias y='copy'
 
