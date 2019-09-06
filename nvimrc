@@ -322,7 +322,7 @@ augroup END
 " }}}
 
 " GitGutter remappings {{{
-nmap gs <Plug>GitGutterStageHunk
+nmap gs <Plug>(GitGutterStageHunk)
 nnoremap gu :GitGutterUndoHunk<CR>
 nnoremap <leader>gp :GitGutterPreviewHunk<CR>
 nnoremap gn :GitGutterNextHunk<CR>

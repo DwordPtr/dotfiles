@@ -13,6 +13,7 @@ ln -fs $PWD/tvrc $HOME/.tvrc
 ln -fs $PWD/dircolorsscr $HOME/.dircolorsscr
 ln -fs $PWD/tmux.conf.local $HOME/.tmux.conf.local
 ln -fs $PWD/zshrc $HOME/.zshrc
+ln -fs $PWD/mailcap $HOME/.mailcap
 
 if [ "$DISTRO" = "Darwin" ]; then
 	cp chunkwm/skhdrc ~/.skhdrc
