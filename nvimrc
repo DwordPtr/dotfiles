@@ -77,6 +77,11 @@ Plug 'Rip-Rip/clang_complete'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'slashmili/alchemist.vim'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#build()}}
+" CoC Extensions {{{
+Plug 'tjdevries/coc-zsh'
+Plug 'neoclide/coc-vimtex', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
+"}}}
 Plug 'craigemery/vim-autotag'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
