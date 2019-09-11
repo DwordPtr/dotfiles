@@ -91,6 +91,7 @@ alias lconf='nvim ~/.lzshrc'
 alias reconf='source ~/.zshrc'
 alias vconf='vim ~/.config/nvim/init.vim'
 alias iconf='vim ~/.ideavimrc'
+alias mconf='vim ~/.muttrc'
 
 # spaceship theme options
 # todo breakout into other file
