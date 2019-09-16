@@ -31,4 +31,6 @@ if [ "$DISTRO" != "Darwin" ]; then
         ln -fs $PWD/i3/lock.sh $HOME/bin/lock.sh
 fi
 
+cp scripts/* ~/bin/
+
 place_all_aliases
