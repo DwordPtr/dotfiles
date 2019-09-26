@@ -14,6 +14,7 @@ ln -fs $PWD/dircolorsscr $HOME/.dircolorsscr
 ln -fs $PWD/tmux.conf.local $HOME/.tmux.conf.local
 ln -fs $PWD/zshrc $HOME/.zshrc
 ln -fs $PWD/mailcap $HOME/.mailcap
+ln -fs $PWD/muttkeys $HOME/.muttkeys
 ln -fs $PWD/signature $HOME/.signature
 ln -fs $PWD/todo_config $HOME/.todo/config
 
