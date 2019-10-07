@@ -17,6 +17,8 @@ ln -fs $PWD/mailcap $HOME/.mailcap
 ln -fs $PWD/muttkeys $HOME/.muttkeys
 ln -fs $PWD/signature $HOME/.signature
 ln -fs $PWD/todo_config $HOME/.todo/config
+ln -fs $PWD/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+ln -fs $PWD/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
 
 if [ "$DISTRO" = "Darwin" ]; then
 	cp chunkwm/skhdrc ~/.skhdrc

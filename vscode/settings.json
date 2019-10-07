@@ -1,0 +1,19 @@
+{
+    "workbench.colorTheme": "Gruvbox Dark (Medium)",
+    "window.zoomLevel": 1,
+    "vim.leader": "\\",
+    "vim.insertModeKeyBindings": [{
+        "before": ["j", "j"],
+        "after": ["<Esc>"]
+    }
+],
+"[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+},
+"editor.fontSize": 14,
+"editor.fontFamily": "Fira Code",
+"editor.fontLigatures": true,
+"[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+},
+}
