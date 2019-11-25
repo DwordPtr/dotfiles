@@ -11,6 +11,9 @@ if ! zgen saved; then
   zgen oh-my-zsh
   zgen oh-my-zsh plugin/git
   zgen oh-my-zsh gpg-agent
+  if [ "$DISTRO" = "Darwin" ]; then
+    zgen oh-my-zsh brew
+  fi
 
   zgen load twang817/zsh-fzf
   zgen load twang817/zsh-ssh-agent
@@ -22,6 +25,9 @@ if ! zgen saved; then
   # generate the init script from plugins above
   zgen save
 fi
+
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
