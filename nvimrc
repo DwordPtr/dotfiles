@@ -282,6 +282,13 @@ function! Find_Exception()
 	execute '/Exception'
 endfunction
 
+function! Leader_Off()
+        autocmd!
+        echo "autocmd cleared"
+endfunction
+
+map <leader><leader><leader> :call Leader_Off()<CR>
+
 
 "search for copied text
 map <leader>sh :call Search_clipboard()<CR>
