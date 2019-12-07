@@ -178,7 +178,7 @@ bindsym $mod+i mode "resize"
 
 #volume control 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --get-volume --change-volume -5 #increase sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --get-volume --change-volume +5 #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --get-volume --change-volume -5 #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 
@@ -196,3 +196,4 @@ bar {
 exec_always --no-startup-id feh --bg-fill $HOME/Pictures/ibm.jpg
 exec --no-startup-id redshift-gtk &
 exec_always --no-statup-id "xrandr --dpi 209"
+exec --no-startup-id blueman-applet
