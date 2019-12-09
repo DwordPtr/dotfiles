@@ -197,3 +197,4 @@ exec_always --no-startup-id feh --bg-fill $HOME/Pictures/ibm.jpg
 exec --no-startup-id redshift-gtk &
 exec_always --no-statup-id "xrandr --dpi 209"
 exec --no-startup-id blueman-applet
+exec --no-startup-id clipit
