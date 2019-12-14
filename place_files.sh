@@ -1,12 +1,12 @@
 #! /bin/bash
-ALIASES=$HOME/aliases
+export ALIASES=$HOME/aliases
+export DISTRO=`uname`
 source './lib/startup_funcs.zsh'
-DISTRO=`uname`
-echo $0
-if [ isMac = true ]; then
-        VSCODE_DIR=$HOME/Library/Application\ Support/Code/User
+
+if [ "$DISTRO" = "Darwin" ]; then
+        VSCODE_DIR="${HOME}/Library/Application\ Support/Code/User"
 else
-        VSCODE_DIR=$HOME/.config/Code/User
+        VSCODE_DIR="${HOME}/.config/Code/User"
 fi
 make_home_dir 'bin'
 make_home_dir 'lib'
@@ -27,7 +27,7 @@ place_config $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
 place_config $PWD/vscode/settings.json "${VSCODE_DIR}/settings.json"
 place_config $PWD/vscode/keybindings.json "${VSCODE_DIR}/keybindings.json"
 
-if [ isMac = true ]; then
+if [ "$DISTRO" = "Darwin" ]; then
         cp chunkwm/skhdrc ~/.skhdrc
         cp chunkwm/chunkwmrc ~/.chunkwmrc
 fi
@@ -35,9 +35,10 @@ fi
 mkdir -p $HOME/.config/nvim
 ln -sf $PWD/nvimrc $HOME/.config/nvim/init.vim
 
-if [ isMac = false ]; then
+if [ "$DISTRO" != "Darwin" ]; then
         place_config $PWD/i3/config $HOME/.config/i3/config
         place_config $PWD/i3/lock.sh $HOME/bin/lock.sh
+        place_config $PWD/rofi $HOME/.config/rofi/config.rasi
 fi
 
 cp scripts/* ~/bin/
