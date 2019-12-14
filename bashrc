@@ -116,3 +116,5 @@ if ! shopt -oq posix; then
   fi
 fi
 source aliases/git_aliases.sh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
