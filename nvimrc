@@ -150,7 +150,8 @@ nmap tl :tabclose<CR>
 "save
 map <leader>ss :w<CR>
 nnoremap <C-s> :w<CR>
-nnoremap s i_<Esc>r
+nnoremap s :w<CR>
+"nnoremap s i_<Esc>r
 nnoremap <leader>y ggVGy''
 nnoremap <leader>sa :wa<CR>
 "add line spacing without leaving normal mode
