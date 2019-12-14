@@ -1,40 +1,44 @@
 #! /bin/bash
-DISTRO=`uname`
 ALIASES=$HOME/aliases
-source './lib/startup_funcs.zsh' 
+source './lib/startup_funcs.zsh'
+DISTRO=`uname`
+echo $0
+if [ isMac = true ]; then
+        VSCODE_DIR=$HOME/Library/Application\ Support/Code/User
+else
+        VSCODE_DIR=$HOME/.config/Code/User
+fi
 make_home_dir 'bin'
 make_home_dir 'lib'
-ln -fs $PWD/lib/startup_funcs.zsh $HOME/lib/startup_funcs.zsh
+place_config $PWD/lib/startup_funcs.zsh $HOME/lib/startup_funcs.zsh
 
 #don't ever run me outisde of my dir
-ln -fs $PWD/ideavimrc $HOME/.ideavimrc
-ln -fs $PWD/vimrc $HOME/.vimrc
-ln -fs $PWD/tvrc $HOME/.tvrc
-ln -fs $PWD/dircolorsscr $HOME/.dircolorsscr
-ln -fs $PWD/tmux.conf.local $HOME/.tmux.conf.local
-ln -fs $PWD/zshrc $HOME/.zshrc
-ln -fs $PWD/mailcap $HOME/.mailcap
-ln -fs $PWD/muttkeys $HOME/.muttkeys
-ln -fs $PWD/signature $HOME/.signature
-ln -fs $PWD/todo_config $HOME/.todo/config
-ln -fs $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
-ln -fs $PWD/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
-ln -fs $PWD/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
+place_config $PWD/ideavimrc $HOME/.ideavimrc
+place_config $PWD/vimrc $HOME/.vimrc
+place_config $PWD/tvrc $HOME/.tvrc
+place_config $PWD/dircolorsscr $HOME/.dircolorsscr
+place_config $PWD/tmux.conf.local $HOME/.tmux.conf.local
+place_config $PWD/zshrc $HOME/.zshrc
+place_config $PWD/mailcap $HOME/.mailcap
+place_config $PWD/muttkeys $HOME/.muttkeys
+place_config $PWD/signature $HOME/.signature
+place_config $PWD/todo_config $HOME/.todo/config
+place_config $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
+place_config $PWD/vscode/settings.json "${VSCODE_DIR}/settings.json"
+place_config $PWD/vscode/keybindings.json "${VSCODE_DIR}/keybindings.json"
 
-if [ "$DISTRO" = "Darwin" ]; then
-	cp chunkwm/skhdrc ~/.skhdrc
-	cp chunkwm/chunkwmrc ~/.chunkwmrc
+if [ isMac = true ]; then
+        cp chunkwm/skhdrc ~/.skhdrc
+        cp chunkwm/chunkwmrc ~/.chunkwmrc
 fi
 
 mkdir -p $HOME/.config/nvim
 ln -sf $PWD/nvimrc $HOME/.config/nvim/init.vim
 
-if [ "$DISTRO" != "Darwin" ]; then
-	mkdir -p $HOME/config/i3
-	ln -sf $PWD/i3/config $HOME/.config/i3/config
-        ln -fs $PWD/i3/lock.sh $HOME/bin/lock.sh
+if [ isMac = false ]; then
+        place_config $PWD/i3/config $HOME/.config/i3/config
+        place_config $PWD/i3/lock.sh $HOME/bin/lock.sh
 fi
 
 cp scripts/* ~/bin/
-
 place_all_aliases

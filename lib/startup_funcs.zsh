@@ -8,6 +8,14 @@
 
 alias sconf="nvim $HOME/lib/startup_funcs.zsh"
 
+function isMac(){
+        if [ "$DISTRO" = "Darwin" ]; then
+                return 0;
+        else
+                return 1;
+        fi
+}
+
 function make_clone_dir(){
 	if [ ! -d "$HOME/$1" ]; then
 		git clone ${2} ${HOME}/${1}
@@ -37,6 +45,13 @@ function place_all_aliases(){
 	for file in $PWD/aliases/*;
 	do place_alias `basename $file`;
 	done
+}
+
+function place_config(){
+        if [ ! -f `dirname $2` ]; then
+                mkdir -p "$(dirname "$2")"
+        fi
+        ln -sf $1 $2
 }
 
 function src_all_aliases(){
