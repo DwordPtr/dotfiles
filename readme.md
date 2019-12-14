@@ -4,7 +4,7 @@ My main goals are:
 
 1. Macos/Linux compatibility: I want to be able to move from mac to linux
 with these same config files with as little pain as possible.
-2. Reproducibleish new computer setup be fast.
+2. Reproducibleish new computer setup be fast and it should be pretty idempotent.
 3. Useful I want to have stuff in hear that actually saves me time.
 4. Readable & Documented
 
