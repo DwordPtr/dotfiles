@@ -1,10 +1,19 @@
+#   ╺━┓┏━┓╻ ╻┏━┓┏━╸
+#   ┏━┛┗━┓┣━┫┣┳┛┃  
+#   ┗━╸┗━┛╹ ╹╹┗╸┗━╸
+# vim:fdm=marker
+# setopts {{{
 unsetopt AUTO_CD
 setopt inc_append_history
 setopt share_history
+# }}}
+# load library functions {{{
 source  $HOME/lib/startup_funcs.zsh
+# }}}
+# zgen plugins {{{
+# if the init script doesn't exist
 make_clone_dir ".zgen" "https://github.com/tarjoilija/zgen"
 source "${HOME}/.zgen/zgen.zsh"
-# if the init script doesn't exist
 if ! zgen saved; then
 
   # specify plugins here
@@ -25,33 +34,36 @@ if ! zgen saved; then
   # generate the init script from plugins above
   zgen save
 fi
-
+# }}}
+# bindkeys {{{
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
-
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
+bindkey '^ ' forward-word
+#}}}
+# vagrant aliases {{{
 alias vg=vagrant
 alias vs='vagrant ssh'
 alias vh='vagrant halt'
 alias vu='vagrant up'
-
+# }}}
+# alias sourcing {{{
 ALIAS_DIR="$HOME/aliases"
 make_home_dir "aliases"
 src_all_aliases
-#network stuff
+#}}}
+# random aliases {{{
 alias ports='netstat -tulpn'
-
-#computer dirs
-DOWNLOADS=$HOME/Downloads
-alias dl='cd $DOWNLOADS'
-
-
-#weather aliases
+alias r='fc -e -'
 alias here='curl wttr.in/37067'
 alias home='curl wttr.in/37055'
-
-#cross platflorm clipboard aliases
+alias t='todo.sh'
+alias fname='basename'
+alias notes='terminal_velocity'
+alias tmux='TERM=xterm-256color tmux 2> /dev/null '
+alias html='w3m -I %{charset} -T text/html'
+alias rmcodes='sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g"'
+# }}}
+#cross platflorm clipboard aliases {{{
 function copy(){
         if [ `uname` = 'Darwin' ]; then
                 pbcopy
@@ -74,33 +86,22 @@ function o(){
                 disown
         fi
 }
-alias r='fc -e -'
-alias d='cd $HOME/dev'
-alias h='cd $HOME'
-alias bin='cd $HOME/bin'
 alias p='paste'
 alias y='copy'
-
-
-#todo add cross platform update function
-# really just macos/ubuntu
-
-#complete up work in progress
-#alias cup='up && sudo pip2 install -U && sudo pip3 install -U && sudo snap refresh'
+# }}}
+# program aliases and config edit aliases {{{
 alias m='neomutt'
 alias mutt='neomutt'
 alias vim='nvim'
 #for adding stuff to the bashrc
-alias t='todo.sh'
 alias conf='vim ~/.zshrc'
 alias lconf='nvim ~/.lzshrc'
 alias reconf='source ~/.zshrc'
 alias vconf='vim ~/.config/nvim/init.vim'
 alias iconf='vim ~/.ideavimrc'
 alias mconf='vim ~/.muttrc'
-
-# spaceship theme options
-# todo breakout into other file
+# }}}
+# spaceship config {{{
 cyan_replacement=208
 SPACESHIP_DIR_COLOR=$cyan_replacement
 SPACESHIP_ELM_COLOR=$cyan_replacement
@@ -120,40 +121,25 @@ SPACESHIP_USER_COLOR=$white_replacement
 SPACESHIP_SWIFT_COLOR=$white_replacement
 SPACESHIP_PYENV_COLOR=$white_replacement
 SPACESHIP_EXEC_TIME_COLOR=$white_replacement
-
-#dircolors
-#eval "`dircolors -b $HOME/.dircolorsscr`"
-#export LS_OPTIONS='--color=auto'
-
-# iterm2 profile
-it2prof() { echo -e "\033]50;SetProfile=$1\a" }
-# git extras completion
-#source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
-# put bitbucket cli on path
-#export PATH=$PATH:$HOME/Library/Python/2.7/bin
-# set neovim as default editor
-export EDITOR='nvr'
-alias notes='terminal_velocity'
-#z stuff
-#. `brew --prefix`/etc/profile.d/z.sh
-#source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-#annoying warning about nesting sessions
-alias tmux='TERM=xterm-256color tmux 2> /dev/null '
-alias getBoard='echo 73913 | pbcopy'
-#alias ctags="`brew --prefix`/bin/ctags"
-alias html='w3m -I %{charset} -T text/html'
-# cd..
+# }}}
+# cd aliases {{{
 function cd_up() {
         cd $(printf "%0.s../" $(seq 1 $1 ));
 }
 function cddir() {
         cd $(dirname $1)
 }
-alias fname='basename'
 # short for back
 alias b='cd -'
 alias 'cd..'='cd_up'
+alias d='cd $HOME/dev'
+alias h='cd $HOME'
+alias bin='cd $HOME/bin'
+DOWNLOADS=$HOME/Downloads
+alias dl='cd $DOWNLOADS'
+# }}}
+# vim/neovim stuff {{{
+export EDITOR='nvr'
 function v(){
         if [ -z $NVIM_LISTEN_ADDRESS ]; then
                 nvim "$@"
@@ -161,29 +147,28 @@ function v(){
                 nvr "$@"
         fi
 }
-
-alias rmcodes='sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g"'
-# clear nvim swap
+# }}}
+# clear nvim swap {{{
 function clear_nvim_swap(){
         rm $HOME/.local/share/nvim/swap/*
 }
 alias cns=clear_nvim_swap
+# }}}
+# junk {{{
+make_home_dir "junk"
+export JUNK=$HOME/junk
+# }}}
+# elixir aliases {{{
+alias mf='mix format'
+# }}}
+# log every command {{{
+make_home_dir ".logs"
+make_home_dir ".memory"
 function remember(){
         $@ | tee -a ~/.memory/output-$(date "+%Y-%m-%d").log
 }
-# make a junk folder for
-# files so they don't clutter git dirs
-make_home_dir "junk"
-export JUNK=$HOME/junk
-make_home_dir ".logs"
-make_home_dir ".memory"
-
-# elixir aliases
-alias mf='mix format'
-#zsh bind keys
-bindkey '^ ' forward-word
-alias today='nvim ~/.logs/shell-history-$(date "+%Y-%m-%d").log'
 alias logs='cd ~/.logs/'
+alias today='nvim ~/.logs/shell-history-$(date "+%Y-%m-%d").log'
 PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
 if [ -f $HOME/.lzshrc ]; then
         source $HOME/.lzshrc
@@ -191,6 +176,5 @@ else
         echo "no local zshrc"
 fi
 preexec(){ eval $PROMPT_COMMAND }
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-#[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# }}}
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
