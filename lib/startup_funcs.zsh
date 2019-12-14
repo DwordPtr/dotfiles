@@ -5,6 +5,7 @@
 # anywhere in the zshrc file
 # I have anecdotal evidence
 # that they work
+SCRIPT_PATH="${0:A:h}"
 
 alias sconf="nvim $HOME/lib/startup_funcs.zsh"
 
@@ -44,6 +45,19 @@ function place_config(){
                 mkdir -p "$(dirname "$2")"
         fi
         ln -sf "$1" "$2"
+}
+
+function place_scripts(){
+        find $PWD/scripts/ -maxdepth 1 -type f | xargs -I {} ln -sf {} $HOME/bin
+        if [ "$DISTRO" = "Darwin" ]; then
+                OS_SPECIFIC_SCRIPTS=$PWD/scripts/macos
+        else
+                OS_SPECIFIC_SCRIPTS=$PWD/scripts/linux
+        fi
+        for file in $OS_SPECIFIC_SCRIPTS;
+        do ln -sf $file $OS_SPECIFIC_SCRIPTS/`basename $file`
+        done
+
 }
 
 function src_all_aliases(){

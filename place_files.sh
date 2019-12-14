@@ -1,6 +1,8 @@
 #! /bin/bash
 export ALIASES=$HOME/aliases
 export DISTRO=`uname`
+SCRIPT_PATH="${0:A:h}"
+echo $SCRIPT_PATH
 source './lib/startup_funcs.zsh'
 
 if [ "$DISTRO" = "Darwin" ]; then
@@ -40,6 +42,5 @@ if [ "$DISTRO" != "Darwin" ]; then
         place_config $PWD/i3/lock.sh $HOME/bin/lock.sh
         place_config $PWD/rofi $HOME/.config/rofi/config.rasi
 fi
-
-cp scripts/* ~/bin/
+place_scripts
 place_all_aliases
