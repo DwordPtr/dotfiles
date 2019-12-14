@@ -12,7 +12,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugin/git
   zgen oh-my-zsh gpg-agent
   if [ "$DISTRO" = "Darwin" ]; then
-    zgen oh-my-zsh brew
+          zgen oh-my-zsh brew
   fi
 
   zgen load twang817/zsh-fzf
@@ -53,29 +53,29 @@ alias home='curl wttr.in/37055'
 
 #cross platflorm clipboard aliases
 function copy(){
-	if [ `uname` = 'Darwin' ]; then
-		pbcopy
-	else
-		xclip -sel clip
-	fi
+        if [ `uname` = 'Darwin' ]; then
+                pbcopy
+        else
+                xclip -sel clip
+        fi
 }
 function paste(){
-	if [ `uname` = 'Darwin' ]; then
-		pbpaste
-	else
-		xclip -o
-	fi
+        if [ `uname` = 'Darwin' ]; then
+                pbpaste
+        else
+                xclip -o
+        fi
 }
 function o(){
-	if [ `uname` = 'Darwin' ]; then
-		open "$@"
-	else 
-		xdg-open "$@" &;
-		disown
-	fi
+        if [ `uname` = 'Darwin' ]; then
+                open "$@"
+        else
+                xdg-open "$@" &;
+                disown
+        fi
 }
 alias r='fc -e -'
-alias d='cd $HOME/dev' 
+alias d='cd $HOME/dev'
 alias h='cd $HOME'
 alias bin='cd $HOME/bin'
 alias p='paste'
@@ -124,11 +124,11 @@ SPACESHIP_EXEC_TIME_COLOR=$white_replacement
 #dircolors
 #eval "`dircolors -b $HOME/.dircolorsscr`"
 #export LS_OPTIONS='--color=auto'
- 
+
 # iterm2 profile
- it2prof() { echo -e "\033]50;SetProfile=$1\a" }
+it2prof() { echo -e "\033]50;SetProfile=$1\a" }
 # git extras completion
-  #source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
+#source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
 # put bitbucket cli on path
 #export PATH=$PATH:$HOME/Library/Python/2.7/bin
 # set neovim as default editor
@@ -145,31 +145,31 @@ alias getBoard='echo 73913 | pbcopy'
 alias html='w3m -I %{charset} -T text/html'
 # cd..
 function cd_up() {
-  cd $(printf "%0.s../" $(seq 1 $1 ));
+        cd $(printf "%0.s../" $(seq 1 $1 ));
 }
 function cddir() {
-	cd $(dirname $1)
+        cd $(dirname $1)
 }
 alias fname='basename'
 # short for back
 alias b='cd -'
 alias 'cd..'='cd_up'
 function v(){
-	if [ -z $NVIM_LISTEN_ADDRESS ]; then
-		nvim "$@"
-	else
-		nvr "$@"
-	fi
+        if [ -z $NVIM_LISTEN_ADDRESS ]; then
+                nvim "$@"
+        else
+                nvr "$@"
+        fi
 }
- 
+
 alias rmcodes='sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g"'
 # clear nvim swap
 function clear_nvim_swap(){
-	rm $HOME/.local/share/nvim/swap/*
+        rm $HOME/.local/share/nvim/swap/*
 }
 alias cns=clear_nvim_swap
 function remember(){
-	$@ | tee -a ~/.memory/output-$(date "+%Y-%m-%d").log
+        $@ | tee -a ~/.memory/output-$(date "+%Y-%m-%d").log
 }
 # make a junk folder for
 # files so they don't clutter git dirs
@@ -186,9 +186,9 @@ alias today='nvim ~/.logs/shell-history-$(date "+%Y-%m-%d").log'
 alias logs='cd ~/.logs/'
 PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
 if [ -f $HOME/.lzshrc ]; then
-   source $HOME/.lzshrc
-else 
-   echo "no local zshrc"
+        source $HOME/.lzshrc
+else
+        echo "no local zshrc"
 fi
 preexec(){ eval $PROMPT_COMMAND }
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
