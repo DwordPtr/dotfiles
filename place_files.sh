@@ -1,8 +1,6 @@
 #! /bin/bash
 export ALIASES=$HOME/aliases
 export DISTRO=`uname`
-SCRIPT_PATH="${0:A:h}"
-echo $SCRIPT_PATH
 source './lib/startup_funcs.zsh'
 
 if [ "$DISTRO" = "Darwin" ]; then
@@ -28,19 +26,19 @@ place_config $PWD/todo_config $HOME/.todo/config
 place_config $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
 place_config $PWD/vscode/settings.json "${VSCODE_DIR}/settings.json"
 place_config $PWD/vscode/keybindings.json "${VSCODE_DIR}/keybindings.json"
+place_config $PWD/nvimrc $HOME/.config/nvim/init.nvim
 
 if [ "$DISTRO" = "Darwin" ]; then
-        cp chunkwm/skhdrc ~/.skhdrc
-        cp chunkwm/chunkwmrc ~/.chunkwmrc
+        place_config chunkwm/skhdrc ~/.skhdrc
+        place_config chunkwm/chunkwmrc ~/.chunkwmrc
+        place_config $PWD/assets/apple.jpg $HOME/Pictures/apple.jpg
 fi
-
-mkdir -p $HOME/.config/nvim
-ln -sf $PWD/nvimrc $HOME/.config/nvim/init.vim
 
 if [ "$DISTRO" != "Darwin" ]; then
         place_config $PWD/i3/config $HOME/.config/i3/config
         place_config $PWD/i3/lock.sh $HOME/bin/lock.sh
         place_config $PWD/rofi $HOME/.config/rofi/config.rasi
+        place_config $PWD/assets/ibm.jpg $HOME/Pictures/ibm.jpg
 fi
 place_scripts
 place_all_aliases
