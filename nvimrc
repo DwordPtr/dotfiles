@@ -133,7 +133,6 @@ call plug#end()
 "addbreviations {{{
 :abbreviate #t # TODO(btidwell):
 " }}}
-
 " #Custom leader mappings {{{
 "refresh
 map <leader>e :e!<CR>
@@ -183,7 +182,6 @@ vnoremap <leader>ce :ChecklistEnableCheckbox<cr>
 vnoremap <leader>cd :ChecklistDisableCheckbox<cr>
 " }}}
 " }}}
-
 " fzf {{{
 map <leader>fi :Files<CR>
 map <leader>hi :History:<CR>
@@ -200,7 +198,6 @@ let g:fzf_action = {
 			\ 'ctrl-v': 'vsplit' }
 
 " }}}
-
 " open config files {{{
 nnoremap <leader>rr :source $MYVIMRC<CR>
 nnoremap <leader>re :tabnew $MYVIMRC<CR>
@@ -215,7 +212,6 @@ endif
 nnoremap <leader>rz :tabnew ~/.zshrc<CR>
 nnoremap <leader>rlz :tabnew ~/.lzshrc<CR>
 "}}}
-
 " spelling {{{
 nnoremap <leader>sp :setlocal spell! spell?<CR>
 set complete+=kspell
@@ -241,7 +237,6 @@ if has("gui_running")
 	unset termguicolors
 endif
 " }}}
-
 "vim session settings {{{
 let g:session_autosave_silent = 'true'
 let g:session_autosave_periodic = 5
@@ -249,7 +244,6 @@ let g:session_autoload = 'no'
 let g:session_autosave = 'yes'
 let g:session_default_name = 'default'
 " }}}
-
 "diff settings {{{
 set diffopt+=vertical
 set diffopt+=iwhite
@@ -257,12 +251,10 @@ set diffexpr="\n"
 "show vim-confliced info in statusbar
 set stl+=%{ConflictedVersion()}
 " }}}
-
 "tab remappings {{{ 
 noremap <left> :tabprevious<CR>
 nnoremap <right> :tabnext<CR>
 " }}}
-
 "folds {{{
 autocmd FileType c setlocal foldmethod=syntax
 autocmd FileType python setlocal foldmethod=indent
@@ -296,7 +288,6 @@ map <leader>sh :call Search_clipboard()<CR>
 map <leader>tsp :call Find_trailing_spaces()<CR>
 map <leader>err :call Find_Exception()<CR>
 " }}}
-
 "Markdown {{{
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
@@ -334,7 +325,6 @@ augroup END
 " dwm {{{
   let g:dwm_master_pane_width=80
 " }}}
-
 " GitGutter remappings {{{
 nmap gs :GitGutterStageHunk<CR>
 nnoremap gu :GitGutterUndoHunk<CR>
@@ -348,13 +338,11 @@ if has('nvim')
 	let $VISUAL = 'nvr -cc split --remote-wait'
 endif
 " }}}
-
 " vim folder/files stuff {{{
 nnoremap gk :let @+ = expand("%:p")<cr>
 nnoremap gke :let @+ = expand("%:t")<cr>
 nnoremap pwd :let @+ = getcwd()<cr>
 " }}}
-
 " Crontab {{{
 " "https://www.calebthompson.io/crontab-and-vim-sitting-in-a-tree
 autocmd filetype crontab setlocal nobackup nowritebackup
@@ -377,7 +365,6 @@ autocmd BufReadPost *
 			\ endif
 
 " }}}
-
 " airline {{{
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -386,7 +373,6 @@ let g:airline_solarized_bg='dark'
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 " }}}
-
 " Android {{{
 "android
 let g:android_sdk_path = $ANDROID_SDK
@@ -401,7 +387,6 @@ let g:startify_session_dir = '~/.vim/session'
           \ { 'type': 'commands',  'header': ['   Commands']       },
           \ ]
 " }}}
-
 " Coc mostly copied from github {{{
 
 autocmd BufRead coc-settings.json syntax match Comment +\/\/.\+$+
