@@ -62,6 +62,7 @@ alias notes='terminal_velocity'
 alias tmux='TERM=xterm-256color tmux 2> /dev/null '
 alias html='w3m -I %{charset} -T text/html'
 alias rmcodes='sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g"'
+alias icat="kitty +kitten icat"
 # }}}
 #cross platflorm clipboard aliases {{{
 function copy(){
