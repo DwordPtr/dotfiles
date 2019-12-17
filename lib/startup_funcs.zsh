@@ -5,7 +5,6 @@
 # anywhere in the zshrc file
 # I have anecdotal evidence
 # that they work
-SCRIPT_PATH="${0:A:h}"
 
 alias sconf="nvim $HOME/lib/startup_funcs.zsh"
 
