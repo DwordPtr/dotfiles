@@ -27,5 +27,3 @@ on my actual real job. So I have to be able take on tech debt when I'm busy.
 
 Anyway there's some cool stuff in here IMHO and eventually it will mostly be
 documented.
-
-
