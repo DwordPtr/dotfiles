@@ -49,12 +49,12 @@ function place_config(){
 function place_scripts(){
         find $PWD/scripts/ -maxdepth 1 -type f | xargs -I {} ln -sf {} $HOME/bin
         if [ "$DISTRO" = "Darwin" ]; then
-                OS_SPECIFIC_SCRIPTS=$PWD/scripts/macos
+                OS_SPECIFIC_SCRIPTS=${PWD}/scripts/macos
         else
-                OS_SPECIFIC_SCRIPTS=$PWD/scripts/linux
+                OS_SPECIFIC_SCRIPTS=${PWD}/scripts/linux
         fi
-        for file in $OS_SPECIFIC_SCRIPTS;
-        do ln -sf $file $OS_SPECIFIC_SCRIPTS/`basename $file`
+        for file in $(find "$OS_SPECIFIC_SCRIPTS" -type f); do
+                place_config $file ${HOME}/bin/"$(basename "$file")"
         done
 
 }
