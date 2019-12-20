@@ -6,6 +6,7 @@
 unsetopt AUTO_CD
 setopt inc_append_history
 setopt share_history
+export TERMINAL=$HOME/dev/kitty/kitty/launcher/./kitty
 # }}}
 # load library functions {{{
 source  $HOME/lib/startup_funcs.zsh
@@ -148,8 +149,6 @@ function v(){
                 nvr "$@"
         fi
 }
-# }}}
-# clear nvim swap {{{
 function clear_nvim_swap(){
         rm $HOME/.local/share/nvim/swap/*
 }
