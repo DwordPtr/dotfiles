@@ -19,6 +19,7 @@
 # }}}
 # set mod {{{
 set $mod Mod4
+set $i3-sensible-terminal $HOME/dev/kitty/kitty/launcher/./kitty
 # }}}
 #GAPS {{{
 for_window [class="^.*"] border pixel 0
@@ -166,7 +167,7 @@ bindsym XF86AudioPlay exec --no-startup-id dbus-send --print-reply --dest=org.mp
 # }}}
 # android rules {{{
 for_window [instance="Android Emulator - nougat"] floating enabled
-bindsym Shift+$mod+m exec ./emulator-script.sh
+bindsym Shift+$mod+m exec --no-startup-id better_help.sh
 # }}}
 # i3bar {{{
 # Start i3bar to display a workspace bar (plus the system information i3status
