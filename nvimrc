@@ -1,10 +1,10 @@
 " vim:fdm=marker
-"     __                                    _                    
+"     __                                    _
 "    / /_  _______  ______ _____     _   __(_)___ ___  __________
 "   / __ \/ ___/ / / / __ `/ __ \   | | / / / __ `__ \/ ___/ ___/
-"  / /_/ / /  / /_/ / /_/ / / / /   | |/ / / / / / / / /  / /__  
-" /_.___/_/   \__, /\__,_/_/ /_/    |___/_/_/ /_/ /_/_/   \___/  
-"           /____/                                              
+"  / /_/ / /  / /_/ / /_/ / / / /   | |/ / / / / / / / /  / /__
+" /_.___/_/   \__, /\__,_/_/ /_/    |___/_/_/ /_/ /_/_/   \___/
+"           /____/
 " essential state and remappings {{{
 set nocompatible
 :set nu
@@ -28,18 +28,15 @@ imap jj <Esc>
 tnoremap jj <C-\><C-n>
 " virtual j k
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-nnoremap zn ]s
-nnoremap zp [s
-nnoremap ze z=
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 tnoremap <Esc> <C-\><C-N>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 " }}}
 " Plugins {{{
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+        silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+                                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 "Plug
@@ -112,6 +109,7 @@ Plug 'glts/vim-radical'
 Plug 'glts/vim-magnum'
 Plug 'LucHermitte/vim-refactor'
 Plug 'Chiel92/vim-autoformat'
+Plug 'sedm0784/vim-you-autocorrect'
 Plug 'danro/rename.vim'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
@@ -120,7 +118,7 @@ Plug 'junegunn/goyo.vim'
 
 " colors
 if has('mac')
-	Plug 'Dinduks/vim-holylight'
+        Plug 'Dinduks/vim-holylight'
 endif
 Plug 'wimstefan/vim-artesanal'
 Plug 'lifepillar/vim-wwdc17-theme'
@@ -194,20 +192,20 @@ map <leader>gs :GFiles?<CR>
 map <leader>ff :Buffers<CR>
 "fzf config
 let g:fzf_action = {
-			\ 'ctrl-t': 'tab split',
-			\ 'ctrl-s': 'split',
-			\ 'ctrl-v': 'vsplit' }
+                        \ 'ctrl-t': 'tab split',
+                        \ 'ctrl-s': 'split',
+                        \ 'ctrl-v': 'vsplit' }
 
 " }}}
 " open config files {{{
 nnoremap <leader>rr :source $MYVIMRC<CR>
 nnoremap <leader>re :tabnew $MYVIMRC<CR>
 if !has('mac') && !has('wsl')
-   nnoremap <leader>i3 :tabnew ~/.config/i3/config<CR>
+        nnoremap <leader>i3 :tabnew ~/.config/i3/config<CR>
 endif
 if has('mac')
-   nnoremap <leader>ch :tabnew ~/.chunkwmrc<CR>
-   nnoremap <leader>sk :tabnew ~/.skhdrc<CR>
+        nnoremap <leader>ch :tabnew ~/.chunkwmrc<CR>
+        nnoremap <leader>sk :tabnew ~/.skhdrc<CR>
 endif
 
 nnoremap <leader>rz :tabnew ~/.zshrc<CR>
@@ -217,10 +215,13 @@ nnoremap <leader>rlz :tabnew ~/.lzshrc<CR>
 nnoremap <leader>sp :setlocal spell! spell?<CR>
 set complete+=kspell
 set thesaurus+=~/moby.txt
+nnoremap zn ]s
+nnoremap zp [s
+nnoremap ze z=
 " override color scheme to make bad spellings red.
 augroup vimrc
-	autocmd!
-	autocmd ColorScheme * highlight SpellBad ctermbg=red guibg=red
+        autocmd!
+        autocmd ColorScheme * highlight SpellBad ctermbg=red guibg=red
 augroup END
 " }}}
 " colors {{{
@@ -235,7 +236,7 @@ let g:gruvbox_contrast_light = "hard"
 let g:gruvbox_contrast_dark = "hard"
 colorscheme gruvbox
 if has("gui_running")
-	unset termguicolors
+        unset termguicolors
 endif
 " }}}
 "vim session settings {{{
@@ -252,7 +253,7 @@ set diffexpr="\n"
 "show vim-confliced info in statusbar
 set stl+=%{ConflictedVersion()}
 " }}}
-"tab remappings {{{ 
+"tab remappings {{{
 noremap <left> :tabprevious<CR>
 nnoremap <right> :tabnext<CR>
 " }}}
@@ -270,23 +271,23 @@ let g:closetag_filetypes = 'html,xhtml,phtml,txt'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx'
 let g:closetag_emptyTags_caseSensitive = 1
 "let g:closetag_regions = {
-    "\ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    "\ 'javascript.jsx': 'jsxRegion',
-    "\ }
+                        "\ 'typescript.tsx': 'jsxRegion,tsxRegion',
+                        "\ 'javascript.jsx': 'jsxRegion',
+                        "\ }
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>+>'
 " }}}
 " search macros and mappings {{{
 function! Search_clipboard()
-	execute '/' . @*
+        execute '/' . @*
 endfunction
 
 function! Find_trailing_spaces()
-	execute '/\s$'
+        execute '/\s$'
 endfunction
 
 function! Find_Exception()
-	execute '/Exception'
+        execute '/Exception'
 endfunction
 
 function! Leader_Off()
@@ -294,8 +295,7 @@ function! Leader_Off()
         echo "autocmd cleared"
 endfunction
 
-map <leader><leader><leader> :call Leader_Off()<CR>
-
+map <leader>nln :%s/[.!?]/\1y\r/g <CR>
 
 "search for copied text
 map <leader>sh :call Search_clipboard()<CR>
@@ -309,9 +309,9 @@ let g:mkdp_refresh_slow = 0
 let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
 if has('mac')
-	let g:mkdp_browser = 'FireFox'
+        let g:mkdp_browser = 'FireFox'
 else
-	let g:mkdp_browser='firefox'
+        let g:mkdp_browser='firefox'
 endif
 "vim-markdown options
 let g:vim_markdown_no_extensions_in_markdown = 1
@@ -324,6 +324,8 @@ au BufRead,BufNewFile *.txt setlocal textwidth=80
 " auto save {{{
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
+let s:home=$HOME + "/ghost_log.txt"
+:let g:ghost_text_log_file = s:home
 " }}}
 " vagrant ruby highlight {{{
 " Teach vim to syntax highlight Vagrantfile as ruby
@@ -332,12 +334,12 @@ let g:auto_save_silent = 1
 " Author: Brandon Philips <brandon@ifup.org>
 
 augroup vagrant
-	au!
-	au BufRead,BufNewFile Vagrantfile set filetype=ruby
+        au!
+        au BufRead,BufNewFile Vagrantfile set filetype=ruby
 augroup END
 " }}}
 " dwm {{{
-  let g:dwm_master_pane_width=80
+let g:dwm_master_pane_width=80
 " }}}
 " GitGutter remappings {{{
 nmap gs :GitGutterStageHunk<CR>
@@ -349,7 +351,7 @@ nnoremap gp :GitGutterPrevHunk<CR>
 " nvim remote {{{
 " set neovim remote
 if has('nvim')
-	let $VISUAL = 'nvr -cc split --remote-wait'
+        let $VISUAL = 'nvr -cc split --remote-wait'
 endif
 " }}}
 " vim folder/files stuff {{{
@@ -374,9 +376,9 @@ let g:yapf#auto_format_on_insert_leave='0'
 " remember last pos in file {{{
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-			\ if line("'\"") > 0 && line("'\"") <= line("$") |
-			\   exe "normal! g`\"" |
-			\ endif
+                        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+                        \   exe "normal! g`\"" |
+                        \ endif
 
 " }}}
 " airline {{{
@@ -393,13 +395,13 @@ let g:android_sdk_path = $ANDROID_SDK
 " }}}
 " startify {{{
 let g:startify_session_dir = '~/.vim/session'
-    let g:startify_lists = [
-          \ { 'type': 'files',     'header': ['   MRU']            },
-          \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-          \ { 'type': 'sessions',  'header': ['   Sessions']       },
-          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-          \ { 'type': 'commands',  'header': ['   Commands']       },
-          \ ]
+let g:startify_lists = [
+                        \ { 'type': 'files',     'header': ['   MRU']            },
+                        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+                        \ { 'type': 'sessions',  'header': ['   Sessions']       },
+                        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+                        \ { 'type': 'commands',  'header': ['   Commands']       },
+                        \ ]
 " }}}
 " Coc mostly copied from github {{{
 
@@ -422,14 +424,14 @@ set signcolumn=yes
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
-			\ coc#refresh()
+                        \ pumvisible() ? "\<C-n>" :
+                        \ <SID>check_back_space() ? "\<TAB>" :
+                        \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> for trigger completion.
@@ -454,11 +456,11 @@ nmap <silent> gr <Plug>(coc-references)
 "nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-	if &filetype == 'vim'
-		execute 'h '.expand('<cword>')
-	else
-		call CocAction('doHover')
-	endif
+        if &filetype == 'vim'
+                execute 'h '.expand('<cword>')
+        else
+                call CocAction('doHover')
+        endif
 endfunction
 
 " Highlight symbol under cursor on CursorHold
@@ -472,11 +474,11 @@ vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-	autocmd!
-	" Setup formatexpr specified filetype(s).
-	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-	" Update signature help on jump placeholder
-	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+        autocmd!
+        " Setup formatexpr specified filetype(s).
+        autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+        " Update signature help on jump placeholder
+        autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
