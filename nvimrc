@@ -33,11 +33,13 @@ tnoremap <Esc> <C-\><C-N>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 " }}}
 " Plugins {{{
+" Plug autoload {{{
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
         silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
                                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+" }}}
 
 "Plug
 call plug#begin('~/.vim/plugged')
@@ -51,36 +53,43 @@ Plug 'vim-scripts/PapayaWhip'
 Plug 'vim-scripts/a.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
+" tag plugins {{{
 Plug 'vim-scripts/taglist.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'craigemery/vim-autotag'
+Plug 'simplyzhao/cscope_maps.vim'
+" }}}
 Plug 'apalmer1377/factorus'
+" fzf {{{
 Plug 'junegunn/fzf.vim'
+"local fzf install watch out on new machines
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" }}}
 Plug 'mhinz/neovim-remote'
 Plug 'mhinz/vim-startify'
 Plug 'elzr/vim-json'
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 Plug 'spolu/dwm.vim'
 Plug 'embear/vim-localvimrc'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'simplyzhao/cscope_maps.vim'
 Plug 'gburca/vim-logcat'
 Plug 'neomutt/neomutt.vim'
 Plug 'tfnico/vim-gradle'
 Plug 'wincent/replay'
 Plug 'Houl/repmo-vim'
-"local fzf install watch out on new machines
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" formatting plugins {{{
 Plug 'rhysd/vim-grammarous'
 Plug 'bennyyip/vim-yapf'
 Plug 'Rip-Rip/clang_complete'
 Plug 'maksimr/vim-jsbeautify'
+Plug 'Chiel92/vim-autoformat'
+" }}}
 Plug 'slashmili/alchemist.vim'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#build()}}
 " CoC Extensions {{{
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#build()}}
 Plug 'tjdevries/coc-zsh'
 Plug 'neoclide/coc-vimtex', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
 "}}}
-Plug 'craigemery/vim-autotag'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
@@ -108,24 +117,25 @@ Plug 'vim-scripts/vcscommand.vim'
 Plug 'glts/vim-radical'
 Plug 'glts/vim-magnum'
 Plug 'LucHermitte/vim-refactor'
-Plug 'Chiel92/vim-autoformat'
 Plug 'sedm0784/vim-you-autocorrect'
 Plug 'danro/rename.vim'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
-
-" colors
+" mac plugins {{{
 if has('mac')
         Plug 'Dinduks/vim-holylight'
 endif
+" }}}
+" color schemes {{{
 Plug 'wimstefan/vim-artesanal'
 Plug 'lifepillar/vim-wwdc17-theme'
 Plug 'plan9-for-vimspace/acme-colors'
 Plug 'altercation/vim-colors-solarized'
 Plug 'gruvbox-community/gruvbox'
 Plug 'icymind/NeoSolarized'
+" }}}
 
 call plug#end()
 " }}}
