@@ -132,7 +132,7 @@ call plug#end()
 "addbreviations {{{
 :abbreviate #t # TODO(btidwell):
 " }}}
-" #Custom leader mappings {{{
+" Custom leader mappings {{{
 "refresh
 map <leader>e :e!<CR>
 " close
@@ -321,11 +321,18 @@ autocmd filetype markdown hi SpellBad ctermfg=red guifg=red
 au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.txt setlocal textwidth=80
 " }}}
+" ghost config {{{
+augroup ghost
+        au!
+        autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
+        autocmd BufNewFile,BufRead *stackoverflow.com* set filetype=markdown
+        autocmd BufNewFile,BufRead *www.betterhelp.com* set filetype=html
+augroup END
+
+" }}}
 " auto save {{{
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
-let s:home=$HOME + "/ghost_log.txt"
-:let g:ghost_text_log_file = s:home
 " }}}
 " vagrant ruby highlight {{{
 " Teach vim to syntax highlight Vagrantfile as ruby
