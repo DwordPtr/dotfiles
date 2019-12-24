@@ -307,7 +307,7 @@ function! Leader_Off()
         echo "autocmd cleared"
 endfunction
 
-map <leader>nln :%s/[.!?]/\1y\r/g <CR>
+map <leader>nln :%s/[.!?]\+\s\+/\1 \r/g <CR>
 
 "search for copied text
 map <leader>sh :call Search_clipboard()<CR>
@@ -334,6 +334,7 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.txt setlocal textwidth=80
 " }}}
 " ghost config {{{
+let g:ghost_autostart = 1
 augroup ghost
         au!
         autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
