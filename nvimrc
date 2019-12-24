@@ -286,6 +286,8 @@ let g:closetag_emptyTags_caseSensitive = 1
                         "\ }
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>+>'
+let delimitMate_matchpairs = "(:),[:],{:},<:>"
+au FileType vim,html let b:delimitMate_matchpairs = "(:),[:],{:}"
 " }}}
 " search macros and mappings {{{
 function! Search_clipboard()
