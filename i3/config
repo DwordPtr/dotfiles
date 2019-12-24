@@ -25,6 +25,9 @@ set $i3-sensible-terminal $HOME/dev/kitty/kitty/launcher/./kitty
 for_window [class="^.*"] border pixel 0
 gaps inner 5
 gaps outer 0
+smart_borders on
+smart_gaps on
+new_window 5 
 # }}}
 # font {{{
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
