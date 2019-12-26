@@ -307,7 +307,7 @@ function! Leader_Off()
         echo "autocmd cleared"
 endfunction
 
-map <leader>nln :%s/[.!?]\+\s\+/\1 \r/g <CR>
+map <leader>nln :%s/[.!?]\s\+/\1\ \r/g <CR>
 
 "search for copied text
 map <leader>sh :call Search_clipboard()<CR>
