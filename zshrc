@@ -40,6 +40,13 @@ fi
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 bindkey '^ ' forward-word
+if [ -z $VIMRUNTIME ]; then
+        bindkey -v
+        export KEYTIMEOUT=1
+        bindkey "jj" vi-cmd-mode
+else
+        bindkey -e
+fi
 #}}}
 # vagrant aliases {{{
 alias vg=vagrant
