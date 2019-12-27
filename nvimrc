@@ -4,7 +4,8 @@
 "   / __ \/ ___/ / / / __ `/ __ \   | | / / / __ `__ \/ ___/ ___/
 "  / /_/ / /  / /_/ / /_/ / / / /   | |/ / / / / / / / /  / /__
 " /_.___/_/   \__, /\__,_/_/ /_/    |___/_/_/ /_/ /_/_/   \___/
-"           /____/
+" 
+" 
 " essential state and remappings {{{
 set nocompatible
 :set nu
@@ -89,7 +90,10 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#build()}}
 Plug 'tjdevries/coc-zsh'
 Plug 'neoclide/coc-vimtex', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 "}}}
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gcmt/taboo.vim'
@@ -326,13 +330,14 @@ if has('mac')
 else
         let g:mkdp_browser='firefox'
 endif
-"vim-markdown options
+"vim-markdown options {{{
 let g:vim_markdown_no_extensions_in_markdown = 1
 autocmd filetype markdown  noremap <buffer> <C-m> :MarkdownPreview<CR>
 autocmd BufRead,BufNewFile *.md setlocal spell
-autocmd filetype markdown hi SpellBad ctermfg=red guifg=red
+autocmd filetype markdown hi SpellBad ctermfg=red guifg=red guibg=black
 au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.txt setlocal textwidth=80
+" }}}
 " }}}
 " ghost config {{{
 let g:ghost_autostart = 1
