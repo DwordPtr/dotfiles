@@ -1,5 +1,5 @@
 #   ╺━┓┏━┓╻ ╻┏━┓┏━╸
-#   ┏━┛┗━┓┣━┫┣┳┛┃  
+#   ┏━┛┗━┓┣━┫┣┳┛┃
 #   ┗━╸┗━┛╹ ╹╹┗╸┗━╸
 # vim:fdm=marker
 # setopts {{{
@@ -38,15 +38,16 @@ fi
 # }}}
 # bindkeys {{{
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-bindkey '^ ' forward-word
 if [ -z $VIMRUNTIME ]; then
-        bindkey -v
         export KEYTIMEOUT=1
+        bindkey -v
         bindkey "jj" vi-cmd-mode
 else
         bindkey -e
 fi
+
+bindkey '^e' edit-command-line
+bindkey '^ ' forward-word
 #}}}
 # vagrant aliases {{{
 alias vg=vagrant

@@ -200,6 +200,7 @@ map <leader>rg :Rg<CR>
 map <leader>gf :GFiles<CR>
 map <leader>gs :GFiles?<CR>
 map <leader>ff :Buffers<CR>
+map <leader>ec :EnableAutoCorrect<CR>
 "fzf config
 let g:fzf_action = {
                         \ 'ctrl-t': 'tab split',
