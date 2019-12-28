@@ -346,6 +346,7 @@ augroup ghost
         autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
         autocmd BufNewFile,BufRead *stackoverflow.com* set filetype=markdown
         autocmd BufNewFile,BufRead *www.betterhelp.com* set filetype=html
+        autocmd BufNewFile,BufRead *www.betterhelp.com* EnableAutocorrect
 augroup END
 
 " }}}
