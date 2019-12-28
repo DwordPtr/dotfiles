@@ -332,7 +332,8 @@ else
 endif
 "vim-markdown options {{{
 let g:vim_markdown_no_extensions_in_markdown = 1
-autocmd filetype markdown  noremap <buffer> <C-m> :MarkdownPreview<CR>
+autocmd filetype markdown noremap <buffer> <C-m> :MarkdownPreview<CR>
+autocmd filetype markdown EnableAutocorrect
 autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd filetype markdown hi SpellBad ctermfg=red guifg=red guibg=black
 au BufRead,BufNewFile *.md setlocal textwidth=80
