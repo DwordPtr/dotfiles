@@ -6,7 +6,9 @@
 unsetopt AUTO_CD
 setopt inc_append_history
 setopt share_history
-export TERMINAL=$HOME/dev/kitty/kitty/launcher/./kitty
+if [[ -a $HOME/dev/kitty/kitty/launcher/./kitty ]]; then
+        export TERMINAL=$HOME/dev/kitty/kitty/launcher/./kitty
+fi
 # }}}
 # load library functions {{{
 source  $HOME/lib/startup_funcs.zsh
