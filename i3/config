@@ -19,7 +19,6 @@
 # }}}
 # set mod {{{
 set $mod Mod4
-set $i3-sensible-terminal $HOME/dev/kitty/kitty/launcher/./kitty
 # }}}
 #GAPS {{{
 for_window [class="^.*"] border pixel 0
@@ -186,6 +185,7 @@ exec_always --no-startup-id feh --bg-fill $HOME/Pictures/ibm.jpg
 exec --no-startup-id redshift-gtk &
 exec_always --no-statup-id "xrandr --dpi 209"
 exec --no-startup-id blueman-applet
+exec --no-startup-id nm-applet
 exec --no-startup-id clipit
 # }}}
 # colors {{{
