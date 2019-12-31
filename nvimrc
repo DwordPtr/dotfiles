@@ -70,7 +70,6 @@ Plug 'mhinz/neovim-remote'
 Plug 'mhinz/vim-startify'
 Plug 'elzr/vim-json'
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
-Plug 'spolu/dwm.vim'
 Plug 'embear/vim-localvimrc'
 Plug 'gburca/vim-logcat'
 Plug 'neomutt/neomutt.vim'
