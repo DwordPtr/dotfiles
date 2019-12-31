@@ -48,27 +48,21 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'scrooloose/nerdtree'
 Plug 'wesQ3/vim-windowswap'
-Plug 'qwertologe/nextval.vim'
-Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/PapayaWhip'
 Plug 'vim-scripts/a.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'easymotion/vim-easymotion'
 " tag plugins {{{
 Plug 'vim-scripts/taglist.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'craigemery/vim-autotag'
 Plug 'simplyzhao/cscope_maps.vim'
 " }}}
-Plug 'apalmer1377/factorus'
 " fzf {{{
 Plug 'junegunn/fzf.vim'
 "local fzf install watch out on new machines
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " }}}
 Plug 'mhinz/neovim-remote'
-Plug 'mhinz/vim-startify'
-Plug 'elzr/vim-json'
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 Plug 'embear/vim-localvimrc'
 Plug 'gburca/vim-logcat'
@@ -83,7 +77,12 @@ Plug 'Rip-Rip/clang_complete'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'Chiel92/vim-autoformat'
 " }}}
+" language/file format specific plugins {{{
 Plug 'slashmili/alchemist.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'elzr/vim-json'
+Plug 'lervag/vimtex'
+" }}}
 " CoC Extensions {{{
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#build()}}
 Plug 'tjdevries/coc-zsh'
@@ -91,20 +90,26 @@ Plug 'neoclide/coc-vimtex', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 "}}}
+" snippet extensions {{{
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'vim-scripts/csv.vim'
+" }}}
+" cosmetic plugins {{{
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" }}}
 Plug 'gcmt/taboo.vim'
+" markdown plugins {{{
+Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'esalter-va/vim-checklist'
+" }}}
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'alvan/vim-closetag'
 Plug 'vim-scripts/vim-auto-save'
-Plug 'chrisbra/Colorizer'
-Plug 'vim-scripts/csv.vim'
 Plug 'vim-scripts/textutil.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -112,14 +117,19 @@ Plug 'tommcdo/vim-fubitive'
 Plug 'christoomey/vim-conflicted'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'esalter-va/vim-checklist'
-Plug 'lervag/vimtex'
 Plug 'vimlab/split-term.vim'
 Plug 'vim-scripts/vcscommand.vim'
+" numbers and colors {{{
+Plug 'qwertologe/nextval.vim'
 Plug 'glts/vim-radical'
 Plug 'glts/vim-magnum'
+Plug 'chrisbra/Colorizer'
+Plug 'junegunn/rainbow_parentheses.vim'
+" }}}
+" refactor plugins {{{
 Plug 'LucHermitte/vim-refactor'
+Plug 'apalmer1377/factorus'
+" }}}
 Plug 'sedm0784/vim-you-autocorrect'
 Plug 'danro/rename.vim'
 Plug 'xolox/vim-misc'
@@ -365,9 +375,6 @@ augroup vagrant
         au!
         au BufRead,BufNewFile Vagrantfile set filetype=ruby
 augroup END
-" }}}
-" dwm {{{
-let g:dwm_master_pane_width=80
 " }}}
 " GitGutter remappings {{{
 nmap gs :GitGutterStageHunk<CR>
