@@ -332,6 +332,7 @@ else
 endif
 "vim-markdown options {{{
 let g:vim_markdown_no_extensions_in_markdown = 1
+let g:vim_markdown_new_list_item_indent = 0
 autocmd filetype markdown noremap <buffer> <C-m> :MarkdownPreview<CR>
 autocmd filetype markdown EnableAutocorrect
 autocmd BufRead,BufNewFile *.md setlocal spell
