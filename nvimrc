@@ -234,6 +234,7 @@ endif
 
 nnoremap <leader>rz :tabnew ~/.zshrc<CR>
 nnoremap <leader>rlz :tabnew ~/.lzshrc<CR>
+nnoremap <leader>gls :tabnew ~/Documents/writing/2020_goals.md<CR>
 "}}}
 " spelling {{{
 nnoremap <leader>sp :setlocal spell! spell?<CR>
