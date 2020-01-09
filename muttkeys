@@ -2,6 +2,11 @@ set editor = "nvr"
 set charset = "utf-8"
 set record = ''
 macro pager \cb 'urlview' 'Follow links with urlview'
+# macros {{{ #
+macro compose \e5 "F pandoc -s -f markdown -t html \ny^T^Utext/html; charset=us-ascii\n"
+macro index,pager \Cu "<enter-command>set pipe_decode = yes<enter><pipe-message>urlscan<enter><enter-command>set pipe_decode = no<enter>" "view URLs"
+set wait_key=no
+# }}} 
 #vim keybindings
 bind browser,pager,index        N   search-opposite
 bind attach,browser,index       g   noop
