@@ -359,6 +359,7 @@ augroup ghost
         autocmd BufNewFile,BufRead *stackoverflow.com* set filetype=markdown
         autocmd BufNewFile,BufRead *www.betterhelp.com* set filetype=html
         autocmd BufNewFile,BufRead *www.betterhelp.com* EnableAutocorrect
+        autocmd BufNewFile,BufRead *www.betterhelp.com* setlocal textwidth=80
 augroup END
 
 " }}}
