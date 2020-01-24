@@ -41,7 +41,7 @@ fi
 # bindkeys {{{
 autoload edit-command-line; zle -N edit-command-line
 if [ -z $VIMRUNTIME ]; then
-        export KEYTIMEOUT=25
+        export KEYTIMEOUT=30
         bindkey -v
         bindkey "jj" vi-cmd-mode
 else
