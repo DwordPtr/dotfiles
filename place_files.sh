@@ -37,6 +37,7 @@ place_config $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
 place_config $PWD/vscode/settings.json "${VSCODE_DIR}/settings.json"
 place_config $PWD/vscode/keybindings.json "${VSCODE_DIR}/keybindings.json"
 place_config $PWD/nvimrc $HOME/.config/nvim/init.nvim
+place_configs $PWD/ranger $HOME/.config/ranger
 # }}}
 # macos specific configs {{{
 if [ "$DISTRO" = "Darwin" ]; then

@@ -45,6 +45,14 @@ function place_config(){
         fi
         ln -sf "$1" "$2"
 }
+function place_configs(){
+        src_dir="$1"
+        config_dir="$2"
+        for file in "$src_dir"/*;
+        do 
+                place_config $file $config_dir/`basename $file`;
+        done
+}
 
 function place_scripts(){
         find $PWD/scripts/ -maxdepth 1 -type f | xargs -I {} ln -sf {} $HOME/bin
