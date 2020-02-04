@@ -52,6 +52,7 @@ if [ "$DISTRO" != "Darwin" ]; then
         place_config $PWD/i3/lock.sh $HOME/bin/lock.sh
         place_config $PWD/rofi $HOME/.config/rofi/config.rasi
         place_config $PWD/assets/ibm.jpg $HOME/Pictures/ibm.jpg
+        place_configs $PWD/polybar $HOmE/.config/polybar/config
 fi
 # }}}
 # place scripts/aliases {{{
