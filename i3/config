@@ -171,6 +171,9 @@ bindsym XF86AudioPlay exec /usr/local/bin/playerctl play-pause
 for_window [instance="Android Emulator - nougat"] floating enabled
 bindsym Shift+$mod+m exec --no-startup-id better_help.sh
 bindsym Shift+$mod+a exec --no-startup-id home.sh
+# todo get mouse bindings working
+bindsym $mod+o /home/bryan/bin/ekeymouse.sh
+bindsym Shift+$mod+o /home/bryan/bin/dkeymouse.sh
 # }}}
 # i3bar {{{
 # Start i3bar to display a workspace bar (plus the system information i3status
