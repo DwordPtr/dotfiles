@@ -33,6 +33,21 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 tnoremap <Esc> <C-\><C-N>
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 " }}}
+" fvim {{{
+if exists('g:fvim_loaded')
+    nnoremap <silent> <C-1> :set guifont=+<CR>
+    nnoremap <silent> <C-2> :set guifont=-<CR>
+    guifont=Fira Code Retina
+    FVimCursorSmoothMove v:true
+    FVimCursorSmoothBlink v:true
+    FVimFontNormalWeight 400
+    FVimFontBoldWeitht 700
+    FVimUIPopupMenu v:true 
+    FVimBackgroundOpacity 0.85
+    FVimFontLigature v:true
+    FVimFontSubpixel v:true
+endif
+}}}
 " Plugins {{{
 " Plug autoload {{{
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
