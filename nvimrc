@@ -47,7 +47,7 @@ if exists('g:fvim_loaded')
     FVimFontLigature v:true
     FVimFontSubpixel v:true
 endif
-}}}
+" }}}
 " Plugins {{{
 " Plug autoload {{{
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
