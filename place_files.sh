@@ -41,8 +41,8 @@ place_configs $PWD/ranger $HOME/.config/ranger
 # }}}
 # macos specific configs {{{
 if [ "$DISTRO" = "Darwin" ]; then
-        place_config chunkwm/skhdrc ~/.skhdrc
-        place_config chunkwm/chunkwmrc ~/.chunkwmrc
+        place_config $PWD/chunkwm/skhdrc ~/.skhdrc
+        place_config $PWD/chunkwm/chunkwmrc ~/.chunkwmrc
         place_config $PWD/assets/apple.jpg $HOME/Pictures/apple.jpg
 fi
 # }}}
