@@ -337,7 +337,21 @@ function! Leader_Off()
         autocmd!
         echo "autocmd cleared"
 endfunction
+" {{{ save file with date
+function! SaveWithTS(filename) range
+    let l:extension = '.' . fnamemodify( a:filename, ':e' )
+    if len(l:extension) == 1
+        let l:extension = '.txt'
+    endif
 
+    let l:filename = escape( fnamemodify(a:filename, ':r') . strftime(" - %Y-%m-%d_%H-%M") . l:extension, ' ' )
+
+    execute "write " . l:filename
+endfunction
+command! -nargs=1 SWT call SaveWithTS( <q-args> )
+" }}}
+
+" split sentences to lines
 map <leader>nln :%s/\([.!?]\)\s\+/\1\ \r/g <CR> \nn
 
 "search for copied text
