@@ -1,13 +1,14 @@
 #! /bin/bash
-#    _____ __  __ ____     ____ ___   ___ 
+#    _____ __  __ ____     ____ ___   ___
 #   / ___// / / // __ \   / __ `__ \ / _ \
 #  / /   / /_/ // / / /  / / / / / //  __/
-# /_/    \__,_//_/ /_/  /_/ /_/ /_/ \___/ 
-                                        
+# /_/    \__,_//_/ /_/  /_/ /_/ /_/ \___/
+
 # vim:fdm=marker
 # export variables /source library {{{
 export ALIASES=$HOME/aliases
 export DISTRO=`uname`
+export WM='yabai'
 source './lib/startup_funcs.zsh'
 # }}}
 # find vscode config dir {{{
@@ -41,7 +42,14 @@ place_configs $PWD/ranger $HOME/.config/ranger
 # }}}
 # macos specific configs {{{
 if [ "$DISTRO" = "Darwin" ]; then
-        place_config $PWD/chunkwm/skhdrc ~/.skhdrc
+        if [ "$WM" = "yabai" ]; then
+                place_config $PWD/yabai/skhdrc ~/.skhdrc
+                place_config $PWD/yabai/yabairc ~/.yabairc
+        else
+                place_config $PWD/chunkwm/skhdrc ~/.skhdrc
+                place_config $PWD/chunkwm/chunkwmrc ~/.chunkwmrc
+        fi
+
         place_config $PWD/chunkwm/chunkwmrc ~/.chunkwmrc
         place_config $PWD/assets/apple.jpg $HOME/Pictures/apple.jpg
 fi
