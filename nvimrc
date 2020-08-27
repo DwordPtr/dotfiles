@@ -243,8 +243,12 @@ if !has('mac') && !has('wsl')
         nnoremap <leader>i3 :tabnew ~/.config/i3/config<CR>
 endif
 if has('mac')
-        nnoremap <leader>ch :tabnew ~/.chunkwmrc<CR>
         nnoremap <leader>sk :tabnew ~/.skhdrc<CR>
+        if filereadable($HOME + ".chunkwmrc")
+                nnoremap <leader>ch :tabnew ~/.chunkwmrc<CR>
+        else 
+                nnoremap <leader>yr :tabnew ~/.yabairc<CR>
+        endif 
 endif
 
 nnoremap <leader>rz :tabnew ~/.zshrc<CR>
