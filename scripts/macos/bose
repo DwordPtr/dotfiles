@@ -1,0 +1,2 @@
+#!/bin/bash
+ blueutil --paired | rg -i Bose | awk '{print $2}' | tr -d ',' | xargs -I {} blueutil --connect {}
