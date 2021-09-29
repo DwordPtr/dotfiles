@@ -6,6 +6,13 @@ set multiple-cursors
 set hls
 
 map \r :action ReformatCode<CR>
+map gu :action Vcs.RollbackChangedLines<CR>
+map <leader>fu  :action FindUsages<CR>
+map <leader>ho :action OpenFile<CR>
+map <leader>hh :action :RecentFiles<CR>
+map <leader>e :action ReloadFromDisk<CR>
+map <leader>te :action Terminal.OpenInTerminal<CR>
+map <leader>rn :action RenameElement<CR>
 imap <C-i> <Esc>
 vmap <C-i> <Esc>
 imap jj <Esc>
