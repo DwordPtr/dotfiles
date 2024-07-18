@@ -20,19 +20,22 @@ source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
 
   # specify plugins here
-  zgen oh-my-zsh
-  zgen oh-my-zsh plugin/git
-  zgen oh-my-zsh gpg-agent
+  #zgen oh-my-zsh
+  #zgen oh-my-zsh plugin/git
+  #zgen oh-my-zsh gpg-agent
   if [ "$DISTRO" = "Darwin" ]; then
-          zgen oh-my-zsh brew
+          #zgen oh-my-zsh brew
   fi
 
   zgen load twang817/zsh-fzf
   zgen load twang817/zsh-ssh-agent
-  zgen load agkozak/zsh-z
   zgen load zsh-users/zsh-autosuggestions
+  zgen load zsh-users/zsh-syntax-highlighting
   zgen load unixorn/autoupdate-zgen
   zgen load denysdovhan/spaceship-prompt spaceship
+  zgen load atuinsh/atuin
+  zgen load jeffreytse/zsh-vi-mode
+  zgen load loiccoyle/zsh-github-copilot
 
   # generate the init script from plugins above
   zgen save
@@ -40,23 +43,69 @@ fi
 # }}}
 # bindkeys {{{
 autoload edit-command-line; zle -N edit-command-line
+#function vi-yank-xclip {
+#    zle vi-yank
+#   echo "$CUTBUFFER" | pbcopy -i
+#}
+#
+## fixing the clipboard up is a work in progress
+#function zvm_vi_put_after() {
+#  local head= foot=
+#  local content=$(pbpaste)
+#  zvm_vi_put_after
+#  zvm_highlight clear # zvm_vi_put_before introduces weird highlighting for me
+#}
+#
+#function zvm_vi_put_before() {
+#  local head= foot=
+#  local content=$(pbpaste)
+#  zvm_vi_put_before
+#  zvm_highlight clear # zvm_vi_put_before introduces weird highlighting for me
+#}
+#function zvm_vi_yank() {
+#	zvm_yank
+#	echo ${CUTBUFFER} | pbcopy
+#	zvm_exit_visual_mode
+#}
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+ZVM_VI_INSERT_ESCAPE_BINDKEY='jj' 
+ZVM_VI_SURROUND_BINDKEY="classic"
+ZVM_ESCAPE_KEYTIMEOUT=50000
+function zvm_config() {
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+  ZVM_VI_INSERT_ESCAPE_BINDKEY='jj' 
+  ZVM_VI_SURROUND_BINDKEY="classic"
+  ZVM_ESCAPE_KEYTIMEOUT=50000
+}
+
 if [ -z $VIMRUNTIME ]; then
         export KEYTIMEOUT=30
         bindkey -v
         bindkey "jj" vi-cmd-mode
+        zle -N vi-yank-xclip
+        bindkey -M vicmd 'y' vi-yank-xclip
 else
         bindkey -e
 fi
 
+autoload -U select-word-style
+select-word-style bash
+# bindkey '^\' zsh_gh_copilot_explain  # bind Ctrl+\ to explain
+# bindkey '^[\' zsh_gh_copilot_suggest  # bind Alt+\ to suggest
 bindkey '^e' edit-command-line
 bindkey '^ ' forward-word
+bindkey '^U' kill-whole-line
+bindkey -v '^?' backward-delete-char
+ # Ctrl-w - delete a full WORD (including colon, dot, comma, quotes...)
+# my-backward-kill-word () {
+#     # Add colon, comma, single/double quotes to word chars
+#     local WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>:,"'"'"
+#     zle -f kill # Append to the kill ring on subsequent kills.
+#     zle backward-kill-word
+# }
+# zle -N my-backward-kill-word
+# bindkey '^w' my-backward-kill-word
 #}}}
-# vagrant aliases {{{
-alias vg=vagrant
-alias vs='vagrant ssh'
-alias vh='vagrant halt'
-alias vu='vagrant up'
-# }}}
 # alias sourcing {{{
 ALIAS_DIR="$HOME/aliases"
 make_home_dir "aliases"
@@ -65,12 +114,13 @@ src_all_aliases
 # random aliases {{{
 alias ports='netstat -tulpn'
 alias r='fc -e -'
+alias rr='source ~/.zshrc'
 alias here='curl wttr.in/37067'
 alias home='curl wttr.in/37055'
 alias t='todo.sh'
 alias fname='basename'
 alias notes='terminal_velocity'
-alias tmux='TERM=xterm-256color tmux 2> /dev/null '
+#alias tmux='TERM=xterm-256color tmux 2> /dev/null '
 alias html='w3m -I %{charset} -T text/html'
 alias rmcodes='sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g"'
 alias icat="kitty +kitten icat"
@@ -100,43 +150,80 @@ function o(){
 }
 alias p='paste'
 alias y='copy'
+function yd(){
+  local in
+  read in
+  echo $in | tr -d '\n' | copy
+}
+#fix zsh-vi-mode clipboard stuff {{{
+my_zvm_vi_yank() {
+  zvm_vi_yank
+  echo -en "${CUTBUFFER}" | copy
+}
+
+my_zvm_vi_delete() {
+  zvm_vi_delete
+  echo -en "${CUTBUFFER}" | copy
+}
+
+my_zvm_vi_change() {
+  zvm_vi_change
+  echo -en "${CUTBUFFER}" | copy
+}
+
+my_zvm_vi_change_eol() {
+  zvm_vi_change_eol
+  echo -en "${CUTBUFFER}" | copy
+}
+
+my_zvm_vi_put_after() {
+  CUTBUFFER=$(paste)
+  zvm_vi_put_after
+  zvm_highlight clear # zvm_vi_put_after introduces weird highlighting for me
+}
+
+my_zvm_vi_put_before() {
+  CUTBUFFER=$(paste)
+  zvm_vi_put_before
+  zvm_highlight clear # zvm_vi_put_before introduces weird highlighting for me
+}
+
+zvm_after_lazy_keybindings() {
+  zvm_define_widget my_zvm_vi_yank
+  zvm_define_widget my_zvm_vi_delete
+  zvm_define_widget my_zvm_vi_change
+  zvm_define_widget my_zvm_vi_change_eol
+  zvm_define_widget my_zvm_vi_put_after
+  zvm_define_widget my_zvm_vi_put_before
+
+  zvm_bindkey visual 'y' my_zvm_vi_yank
+  zvm_bindkey visual 'd' my_zvm_vi_delete
+  zvm_bindkey visual 'x' my_zvm_vi_delete
+  zvm_bindkey vicmd  'C' my_zvm_vi_change_eol
+  zvm_bindkey visual 'c' my_zvm_vi_change
+  zvm_bindkey vicmd  'p' my_zvm_vi_put_after
+  zvm_bindkey vicmd  'P' my_zvm_vi_put_before
+} 
+# }}}
 # }}}
 # program aliases and config edit aliases {{{
 alias m='neomutt'
 alias mutt='neomutt'
-alias vim='nvim'
+#alias vim='nvim'
 #for adding stuff to the bashrc
 alias conf='vim ~/.zshrc'
 alias lconf='nvim ~/.lzshrc'
 alias reconf='source ~/.zshrc'
-alias vconf='vim ~/.config/nvim/init.vim'
+alias vconf='vim ~/.config/nvim/init.lua'
 alias iconf='vim ~/.ideavimrc'
 alias mconf='vim ~/.muttrc'
 # }}}
 # spaceship config {{{
 cyan_replacement=208
-SPACESHIP_DIR_COLOR=$cyan_replacement
-SPACESHIP_ELM_COLOR=$cyan_replacement
-SPACESHIP_GOLANG_COLOR=$cyan_replacement
-SPACESHIP_DOCKER_COLOR=$cyan_replacement
-SPACESHIP_KUBECONTEXT_COLOR=$cyan_replacement
-SPACESHIP_DIR_COLOR=$cyan_replacement
-SPACESHIP_PROMPT_DEFAULT_PREFIX=$cyan_replacement
-SPACESHIP_PROMPT_DEFAULT_SUFFIX=$cyan_replacement
-white_replacement=16
-SPACESHIP_VI_MODE_COLOR=$white_replacement
-SPACESHIP_FOOBAR_COLOR=$white_replacement
-
-SPACESHIP_CHAR_COLOR_SECONDARY=$white_replacement
-SPACESHIP_TIME_COLOR=$white_replacement
-SPACESHIP_USER_COLOR=$white_replacement
-SPACESHIP_SWIFT_COLOR=$white_replacement
-SPACESHIP_PYENV_COLOR=$white_replacement
-SPACESHIP_EXEC_TIME_COLOR=$white_replacement
 # }}}
 # cd aliases {{{
 function cd_up() {
-        cd $(printf "%0.s../" $(seq 1 $1 ));
+        z $(printf "%0.s../" $(seq 1 $1 ));
 }
 function cddir() {
         cd $(dirname $1)
@@ -151,7 +238,7 @@ DOWNLOADS=$HOME/Downloads
 alias dl='cd $DOWNLOADS'
 # }}}
 # vim/neovim stuff {{{
-export EDITOR='nvr'
+export EDITOR='vim'
 function v(){
         if [ -z $NVIM_LISTEN_ADDRESS ]; then
                 nvim "$@"
@@ -164,27 +251,17 @@ function clear_nvim_swap(){
 }
 alias cns=clear_nvim_swap
 # }}}
-# junk {{{
-make_home_dir "junk"
-export JUNK=$HOME/junk
-# }}}
-# elixir aliases {{{
-alias mf='mix format'
-# }}}
-# log every command {{{
-make_home_dir ".logs"
-make_home_dir ".memory"
-function remember(){
-        $@ | tee -a ~/.memory/output-$(date "+%Y-%m-%d").log
-}
-alias logs='cd ~/.logs/'
-alias today='nvim ~/.logs/shell-history-$(date "+%Y-%m-%d").log'
-PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(fc -l -1)" >> ~/.logs/shell-history-$(date "+%Y-%m-%d").log; fi'
 if [ -f $HOME/.lzshrc ]; then
         source $HOME/.lzshrc
 else
         echo "no local zshrc"
 fi
-preexec(){ eval $PROMPT_COMMAND }
 # }}}
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init zsh)"
+zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
+zvm_bindkey vicmd '^r' atuin-search
+alias cd='z'
+bindkey '^u' kill-whole-line
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
