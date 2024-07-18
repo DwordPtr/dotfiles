@@ -4,7 +4,7 @@
 # open terminal, vsocde, and safari with shortcuts
 cmd - return : open -a iTerm
 cmd + shift - return : pcode
-alt - return : open -a Safari
+#alt - return : open -a Safari
 
 # focus window
 alt - h : yabai -m window --focus west
@@ -106,7 +106,7 @@ shift + alt - w : yabai -m window --resize top:0:-20
 shift + alt - d : yabai -m window --resize right:20:0
 
 # decrease window size
-shift + cmd - a : yabai -m window --resize left:20:0
+#shift + cmd - a : yabai -m window --resize left:20:0
 shift + cmd - s : yabai -m window --resize bottom:0:-20
 shift + cmd - w : yabai -m window --resize top:0:20
 shift + cmd - d : yabai -m window --resize right:-20:0
@@ -136,7 +136,7 @@ alt - d : yabai -m window --toggle zoom-parent
 alt - f : yabai -m window --toggle zoom-fullscreen
 
 # toggle window native fullscreen
-# shift + alt - f : yabai -m window --toggle native-fullscreen
+ shift + alt - f : yabai -m window --toggle native-fullscreen
 
 # toggle window border
 shift + alt - b : yabai -m window --toggle border
