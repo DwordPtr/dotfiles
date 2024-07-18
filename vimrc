@@ -1,3 +1,4 @@
+" Hope this is allowed
 " Copy-Paste stuff
 set clipboard=unnamedplus
 imap <C-i> <Esc>
@@ -13,6 +14,7 @@ endif
 
  "vim plug
 call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
