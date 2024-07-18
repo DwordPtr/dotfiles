@@ -1,11 +1,14 @@
-"set rnu
+" full list of actions https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+set rnu
+set noerrorbells " no beeps
 let mapleader = "\"
 set clipboard+=unnamed
 set surround
 set multiple-cursors
 set hls
+set scrolloff=0
 
-map \r :action ReformatCode<CR>
+map <leader>r :action ReformatCode<CR>
 map gu :action Vcs.RollbackChangedLines<CR>
 map <leader>fu  :action FindUsages<CR>
 map <leader>ho :action OpenFile<CR>
@@ -13,17 +16,39 @@ map <leader>hh :action :RecentFiles<CR>
 map <leader>e :action ReloadFromDisk<CR>
 map <leader>te :action Terminal.OpenInTerminal<CR>
 map <leader>rn :action RenameElement<CR>
+"todo figure out how to get this to execute as
+let @f='ds)dT<space>'
+nnoremap <silent> csf [(cb
+map <C-x>x :action MoveEditorToOppositeTabGroup<CR>
+imap <C-n> <ESC>:action HippieCompletion<CR>a
+imap <C-p> <ESC>:action HippieBackwardCompletion<CR>a
 imap <C-i> <Esc>
 vmap <C-i> <Esc>
+"" this should be standardized
+map gj :action VcsShowNextChangeMarker<CR>
+map gk :action  VcsShowPrevChangeMarker<CR>
+map <A-j> :action VcsShowNextChangeMarker<CR>
+map <A-k> :action VcsShowPrevChangeMarker<CR>
+sethandler <c-h> a:vim
+sethandler <c-l> a:vim
+sethandler <c-j> a:vim
+sethandler <c-k> a:vim
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
 imap jj <Esc>
 map <leader>nn :noh<CR>
 " leader mappings
-map <leader>cl :q!<CR>
+map <leader>cl :action CloseProject<CR>
+map <C-x><C-j>  :action GotoNextError<CR>
+map <C-x><C-k>  :action GotoPreviousError<CR>
 map <leader>tl :tabclose<CR>
+map <C-c> :close<CR>
 "save
 map <leader>ss :w<CR>
 nnoremap <Space> i<Space><Esc>
-nnoremap <Tab> a<Space><Esc>
+#nnoremap <Tab> a<Space><Esc>
 s\noremap <leader>y ggVGy''
 nnoremap <leader>sa :wa<CR>
 nnoremap <leader>s :save<CR>
@@ -34,14 +59,17 @@ nmap zz :q!<CR>
 map <leader>tl :close<CR>
 map <leader>rr :source ~/.ideavimrc<CR>
 map <leader>re :e ~/.ideavimrc<CR>
-"map ideavim comment like vim 
+map <leader>le :e ~/.zshrc<CR>
+"map ideavim comment like vim
 "so my macro will work in both places
 map \c :action CommentByLineComment<CR>
 
 "tabs
-noremap <left> gT 
+noremap <left> gT
 nnoremap <right> gt
 
 imap <i-j> <Esc>
 vmap <i-j> <Esc>
 set nu
+nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
+nnoremap Q :tabclose<CR>
