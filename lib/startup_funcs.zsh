@@ -30,7 +30,7 @@ function asource(){
 }
 
 function place_alias(){
-        ln -sf $PWD/aliases/$1 $ALIASES/$1
+        ln -sf $PWD/aliases/$1 $HOME/aliases/$1
 }
 
 function place_all_aliases(){
