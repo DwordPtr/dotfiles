@@ -22,7 +22,7 @@ if ! zgen saved; then
   # specify plugins here
   #zgen oh-my-zsh
   #zgen oh-my-zsh plugin/git
-  #zgen oh-my-zsh gpg-agent
+  zgen oh-my-zsh gpg-agent
   if [ "$DISTRO" = "Darwin" ]; then
           #zgen oh-my-zsh brew
   fi
@@ -43,50 +43,26 @@ fi
 # }}}
 # bindkeys {{{
 autoload edit-command-line; zle -N edit-command-line
-#function vi-yank-xclip {
-#    zle vi-yank
-#   echo "$CUTBUFFER" | pbcopy -i
-#}
-#
-## fixing the clipboard up is a work in progress
-#function zvm_vi_put_after() {
-#  local head= foot=
-#  local content=$(pbpaste)
-#  zvm_vi_put_after
-#  zvm_highlight clear # zvm_vi_put_before introduces weird highlighting for me
-#}
-#
-#function zvm_vi_put_before() {
-#  local head= foot=
-#  local content=$(pbpaste)
-#  zvm_vi_put_before
-#  zvm_highlight clear # zvm_vi_put_before introduces weird highlighting for me
-#}
-#function zvm_vi_yank() {
-#	zvm_yank
-#	echo ${CUTBUFFER} | pbcopy
-#	zvm_exit_visual_mode
-#}
-ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
-ZVM_VI_INSERT_ESCAPE_BINDKEY='jj' 
-ZVM_VI_SURROUND_BINDKEY="classic"
-ZVM_ESCAPE_KEYTIMEOUT=50000
+# vi mode config {{{
 function zvm_config() {
   ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+  ZVM_VI_ESCAPE_BINDKEY='jj' 
   ZVM_VI_INSERT_ESCAPE_BINDKEY='jj' 
   ZVM_VI_SURROUND_BINDKEY="classic"
   ZVM_ESCAPE_KEYTIMEOUT=50000
+  # for now NEX (the default key engine) fails after
+  # every escape press when it's remapped
+  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE 
 }
 
 if [ -z $VIMRUNTIME ]; then
         export KEYTIMEOUT=30
         bindkey -v
-        bindkey "jj" vi-cmd-mode
-        zle -N vi-yank-xclip
-        bindkey -M vicmd 'y' vi-yank-xclip
+        zvm_config
 else
         bindkey -e
 fi
+# }}}
 
 autoload -U select-word-style
 select-word-style bash
@@ -207,9 +183,7 @@ zvm_after_lazy_keybindings() {
 # }}}
 # }}}
 # program aliases and config edit aliases {{{
-alias m='neomutt'
-alias mutt='neomutt'
-#alias vim='nvim'
+alias vim='nvim'
 #for adding stuff to the bashrc
 alias conf='vim ~/.zshrc'
 alias lconf='nvim ~/.lzshrc'
@@ -238,7 +212,7 @@ DOWNLOADS=$HOME/Downloads
 alias dl='cd $DOWNLOADS'
 # }}}
 # vim/neovim stuff {{{
-export EDITOR='vim'
+export EDITOR='nvim'
 function v(){
         if [ -z $NVIM_LISTEN_ADDRESS ]; then
                 nvim "$@"
@@ -262,6 +236,11 @@ zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 zvm_bindkey vicmd '^r' atuin-search
 alias cd='z'
 bindkey '^u' kill-whole-line
+# sdk man required boilerplate {{{
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# }}}
+# turn on direnv support {{{
+eval "$(direnv hook zsh)"
+# }}}
