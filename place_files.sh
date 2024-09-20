@@ -39,20 +39,9 @@ place_config $PWD/vscode/settings.json "${VSCODE_DIR}/settings.json"
 place_config $PWD/vscode/keybindings.json "${VSCODE_DIR}/keybindings.json"
 place_config $PWD/nvimrc $HOME/.config/nvim/init.vim
 place_configs $PWD/ranger $HOME/.config/ranger
-# }}}
-# macos specific configs {{{
-if [ "$DISTRO" = "Darwin" ]; then
-        if [ "$WM" = "yabai" ]; then
-                place_config $PWD/yabai/skhdrc ~/.skhdrc
-                place_config $PWD/yabai/yabairc ~/.yabairc
-        else
-                place_config $PWD/chunkwm/skhdrc ~/.skhdrc
-                place_config $PWD/chunkwm/chunkwmrc ~/.chunkwmrc
-        fi
-
-        place_config $PWD/chunkwm/chunkwmrc ~/.chunkwmrc
-        place_config $PWD/assets/apple.jpg $HOME/Pictures/apple.jpg
-fi
+# no harm if a linux system gets a useless config
+place_config $PWD/yabai/skhdrc $HOME/skhd/skhdrc
+place_config $PWD/yabai/yabairc $HOME/yabai/yabairc
 # }}}
 # linux specific configs {{{
 if [ "$DISTRO" != "Darwin" ]; then
