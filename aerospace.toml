@@ -8,6 +8,7 @@ enable-normalization-flatten-containers = false
 enable-normalization-opposite-orientation-for-nested-containers = false
 
 [mode.main.binding]
+# todo change to iterm
 alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
 
 alt-j = 'focus left'
@@ -19,6 +20,10 @@ alt-shift-j = 'move left'
 alt-shift-k = 'move down'
 alt-shift-l = 'move up'
 alt-shift-semicolon = 'move right'
+
+alt-n = 'focus-monitor LG HDR 4K (1)'
+alt-m = 'focus-monitor LG HDR 4K (2)'
+alt-y = 'focus-monitor Built-in Retina Display'
 
 # Consider using 'join-with' command as a 'split' replacement if you want to enable normalizations
 alt-h = 'split horizontal'
@@ -73,3 +78,16 @@ k = 'resize height -50'
 l = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
+
+#[workspace-to-monitor-force-assignment]
+# 1 = 'LG HDR 4K (1)'
+# 2 = 'LG HDR 4K (2)'
+# 3 = 'Built-in Retina Display'
+# 4 = 'LG HDR 4K (1)'
+# 5 = 'LG HDR 4K (2)'
+# 6 = 'Built-in Retina Display'
+# 7 = 'LG HDR 4K (1)'
+# 8 = 'LG HDR 4K (2)'
+# 9 = 'Built-in Retina Display'
+#10 = 'LG HDR 4K (1)'
+
