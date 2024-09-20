@@ -12,6 +12,8 @@ fi
 # }}}
 # load library functions {{{
 source  $HOME/lib/startup_funcs.zsh
+make_home_dir "bin"
+export PATH=$HOME/bin:$PATH
 # }}}
 # zgen plugins {{{
 # if the init script doesn't exist
@@ -23,10 +25,6 @@ if ! zgen saved; then
   #zgen oh-my-zsh
   #zgen oh-my-zsh plugin/git
   zgen oh-my-zsh gpg-agent
-  if [ "$DISTRO" = "Darwin" ]; then
-          #zgen oh-my-zsh brew
-  fi
-
   zgen load twang817/zsh-fzf
   zgen load twang817/zsh-ssh-agent
   zgen load zsh-users/zsh-autosuggestions
@@ -244,3 +242,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # turn on direnv support {{{
 eval "$(direnv hook zsh)"
 # }}}
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
