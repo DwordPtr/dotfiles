@@ -96,7 +96,7 @@ alias url='git config --get remote.origin.url'
 alias gplsh='gpullr && gpsh'
 
 alias gdiff='git difftool --tool=meld'
-alias diff='git difftool --tool=meld --dir-diff'
+#alias diff='git difftool --tool=meld --dir-diff'
 
 alias stash='git stash' #make function for including ticket number
 alias apply='git stash apply'
