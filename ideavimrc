@@ -1,4 +1,5 @@
 " full list of actions https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+let mapleader=","
 set rnu
 set noerrorbells " no beeps
 let mapleader = "\"
@@ -11,6 +12,7 @@ set scrolloff=0
 map <leader>r :action ReformatCode<CR>
 map gu :action Vcs.RollbackChangedLines<CR>
 map <leader>fu  :action FindUsages<CR>
+map gr :action FindUsages<CR>
 map <leader>ho :action OpenFile<CR>
 map <leader>hh :action :RecentFiles<CR>
 map <leader>e :action ReloadFromDisk<CR>
@@ -27,8 +29,8 @@ vmap <C-i> <Esc>
 "" this should be standardized
 map gj :action VcsShowNextChangeMarker<CR>
 map gk :action  VcsShowPrevChangeMarker<CR>
-map <A-j> :action VcsShowNextChangeMarker<CR>
-map <A-k> :action VcsShowPrevChangeMarker<CR>
+map gn :action VcsShowNextChangeMarker<CR>
+map gp :action VcsShowPrevChangeMarker<CR>
 sethandler <c-h> a:vim
 sethandler <c-l> a:vim
 sethandler <c-j> a:vim
@@ -62,7 +64,8 @@ map <leader>re :e ~/.ideavimrc<CR>
 map <leader>le :e ~/.zshrc<CR>
 "map ideavim comment like vim
 "so my macro will work in both places
-map \c :action CommentByLineComment<CR>
+map gc :action CommentByLineComment<CR>
+map gb :action CommentByBlockComment<CR>
 
 "tabs
 noremap <left> gT
@@ -73,3 +76,25 @@ vmap <i-j> <Esc>
 set nu
 nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
 nnoremap Q :tabclose<CR>
+"Map common used global vim letter bookmarks to Intellij number bookmarks
+nnoremap mA :action ToggleBookmark0<CR>
+nnoremap mB :action ToggleBookmark1<CR>
+nnoremap mC :action ToggleBookmark2<CR>
+nnoremap mD :action ToggleBookmark3<CR>
+nnoremap mE :action ToggleBookmark4<CR>
+nnoremap mF :action ToggleBookmark5<CR>
+nnoremap mG :action ToggleBookmark6<CR>
+nnoremap mH :action ToggleBookmark7<CR>
+nnoremap mI :action ToggleBookmark8<CR>
+nnoremap mJ :action ToggleBookmark9<CR>
+
+nnoremap 'A :action GotoBookmark0<CR>
+nnoremap 'B :action GotoBookmark1<CR>
+nnoremap 'C :action GotoBookmark2<CR>
+nnoremap 'D :action GotoBookmark3<CR>
+nnoremap 'E :action GotoBookmark4<CR>
+nnoremap 'F :action GotoBookmark5<CR>
+nnoremap 'G :action GotoBookmark6<CR>
+nnoremap 'H :action GotoBookmark7<CR>
+nnoremap 'I :action GotoBookmark8<CR>
+nnoremap 'J :action GotoBookmark9<CR>
