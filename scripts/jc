@@ -1,0 +1,14 @@
+#! /usr/bin/env python3
+import sys
+
+def processOutput():
+    if len(sys.argv) > 1:
+        return sys.argv[1]
+    else:
+        return sys.stdin.read()
+
+def parse(url):
+  issue_key = url.split("/")[-1]
+  return issue_key
+
+print(parse(processOutput()))
