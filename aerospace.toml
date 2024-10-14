@@ -1,73 +1,91 @@
-# Reference: https://github.com/i3/i3/blob/next/etc/config
+#exec-on-workspace-change = ['/bin/bash', '-c',
+#    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+#]
 
-# i3 didn't have "normalizations" feature that why we disable them here.
-# But the feature is very helpful.
-# Normalizations eliminate all sorts of weird tree configurations that don't make sense.
-# Give normalizations a chance and enable them back.
-enable-normalization-flatten-containers = false
-enable-normalization-opposite-orientation-for-nested-containers = false
+#on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+[workspace-to-monitor-force-assignment]
+ 1 = 1
+ 2 = 2
+ 3 = 3
+ 4 = 1
+ 5 = 2
+ 6 = 3
+ 7 = 1
+ 8 = 2
+ 9 = 3
+10 = 1
+
+[gaps]
+inner.horizontal = 5
+inner.vertical   = 5
+outer.left       = 0
+outer.bottom     = 0
+# todo fix this
+# outer.top        = [{ monitor.'built-in' = 15 }, { monitor.main = 39 }, 15]
+outer.top        = 1
+outer.right      = 0
 
 [mode.main.binding]
-# todo change to iterm
-alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
+alt-enter = 'exec-and-forget /Applications/Alacritty.app/Contents/MacOS/alacritty'
 
-alt-j = 'focus left'
-alt-k = 'focus down'
-alt-l = 'focus up'
-alt-semicolon = 'focus right'
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
 
-alt-shift-j = 'move left'
-alt-shift-k = 'move down'
-alt-shift-l = 'move up'
-alt-shift-semicolon = 'move right'
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
 
-alt-n = 'focus-monitor LG HDR 4K (1)'
-alt-m = 'focus-monitor LG HDR 4K (2)'
-alt-y = 'focus-monitor Built-in Retina Display'
+ctrl-shift-h = 'focus-monitor left'
+ctrl-shift-j = 'focus-monitor down'
+ctrl-shift-k = 'focus-monitor up'
+ctrl-shift-l = 'focus-monitor right'
 
-# Consider using 'join-with' command as a 'split' replacement if you want to enable normalizations
-alt-h = 'split horizontal'
-alt-v = 'split vertical'
+alt-shift-a='focus-monitor 1'
+alt-shift-b='focus-monitor 2'
+alt-shift-c='focus-monitor 3'
 
 alt-f = 'fullscreen'
+alt-s = 'layout h_accordion'
+alt-v =  'layout v_accordion'
+alt-shift-s='layout h_tiles'
+alt-shift-v='layout v_tiles'
 
-alt-s = 'layout v_accordion' # 'layout stacking' in i3
-alt-w = 'layout h_accordion' # 'layout tabbed' in i3
-alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
+cmd-shift-space = 'layout floating tiling'
 
-alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
+ctrl-1 = 'workspace 1'
+ctrl-2 = 'workspace 2'
+ctrl-3 = 'workspace 3'
+ctrl-4 = 'workspace 4'
+ctrl-5 = 'workspace 5'
+ctrl-6 = 'workspace 6'
+ctrl-7 = 'workspace 7'
+ctrl-8 = 'workspace 8'
+ctrl-9 = 'workspace 9'
+ctrl-0 = 'workspace 10'
 
-# Not supported, because this command is redundant in AeroSpace mental model.
-# See: https://nikitabobko.github.io/AeroSpace/guide#floating-windows
-#alt-space = 'focus toggle_tiling_floating'
+ctrl-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+ctrl-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+ctrl-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+ctrl-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+ctrl-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+ctrl-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+ctrl-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+ctrl-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+ctrl-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+ctrl-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 
-# `focus parent`/`focus child` are not yet supported, and it's not clear whether they
-# should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
-# alt-a = 'focus parent'
+cmd-shift-c = 'reload-config'
+# cmd-shift-n = ['move-node-to-monitor next', 'focus-monitor next']
+# cmd-shift-p = ['move-node-to-monitor prev', 'focus-monitor prev']
 
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
-alt-0 = 'workspace 10'
-
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-7 = 'move-node-to-workspace 7'
-alt-shift-8 = 'move-node-to-workspace 8'
-alt-shift-9 = 'move-node-to-workspace 9'
-alt-shift-0 = 'move-node-to-workspace 10'
-
-alt-shift-c = 'reload-config'
+cmd-shift-h = ['move-node-to-monitor left', 'focus-monitor left']
+cmd-shift-j = ['move-node-to-monitor down', 'focus-monitor down']
+cmd-shift-k = ['move-node-to-monitor up', 'focus-monitor up']
+cmd-shift-l = ['move-node-to-monitor right', 'focus-monitor right']
 
 alt-r = 'mode resize'
 
@@ -79,15 +97,22 @@ l = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
 
-#[workspace-to-monitor-force-assignment]
-# 1 = 'LG HDR 4K (1)'
-# 2 = 'LG HDR 4K (2)'
-# 3 = 'Built-in Retina Display'
-# 4 = 'LG HDR 4K (1)'
-# 5 = 'LG HDR 4K (2)'
-# 6 = 'Built-in Retina Display'
-# 7 = 'LG HDR 4K (1)'
-# 8 = 'LG HDR 4K (2)'
-# 9 = 'Built-in Retina Display'
-#10 = 'LG HDR 4K (1)'
-
+#[[on-window-detected]]
+#if.app-id = 'org.alacritty'
+#run = 'move-node-to-workspace 2'
+#
+#[[on-window-detected]]
+#if.app-id = 'net.whatsapp.WhatsApp'
+#run = 'move-node-to-workspace 6'
+#
+#[[on-window-detected]]
+#if.app-id = 'com.tinyspeck.slackmacgap'
+#run = 'move-node-to-workspace 7'
+#
+#[[on-window-detected]]
+#if.app-id = 'com.hnc.Discord'
+#run = 'move-node-to-workspace 8'
+#
+#[[on-window-detected]]
+#if.app-id = 'com.spotify.client'
+#run = 'move-node-to-workspace 9'
