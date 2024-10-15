@@ -37,6 +37,8 @@ plugins = {
   'neovim/nvim-lspconfig',
   "williamboman/mason-lspconfig.nvim",
   "williamboman/mason.nvim",
+  "mfussenegger/nvim-dap",
+  "jay-babu/mason-nvim-dap.nvim",
   "pmizio/typescript-tools.nvim",
   --'tpope/vim-surround',
   {
@@ -50,6 +52,16 @@ plugins = {
     end
   },
   'williamboman/nvim-lsp-installer',
+  {
+     "amitds1997/remote-nvim.nvim",
+     version = "*", -- Pin to GitHub releases
+     dependencies = {
+         "nvim-lua/plenary.nvim", -- For standard functions
+         "MunifTanjim/nui.nvim", -- To build the plugin UI
+         "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+     },
+     config = true,
+  },
   'mfussenegger/nvim-jdtls',
   'nvim-treesitter/nvim-treesitter',
   'nvim-treesitter/nvim-treesitter-textobjects',
@@ -60,14 +72,23 @@ plugins = {
   "folke/tokyonight.nvim",
   "shaunsingh/solarized.nvim",
   "sainnhe/everforest",
+  "prichrd/refgo.nvim",
   "christoomey/vim-tmux-navigator",
   "f-person/auto-dark-mode.nvim",
   "nanotee/zoxide.vim",
   "tpope/vim-dadbod",
   'vladdoster/remember.nvim',
   "tanvirtin/vgit.nvim",
+  "scottmckendry/cyberdream.nvim",
+  "ray-x/go.nvim",
   "francoiscabrol/ranger.vim",
+  "nvim-tree/nvim-web-devicons",
+  "sindrets/diffview.nvim",
+  "gpanders/editorconfig.nvim",
   "rbgrouleff/bclose.vim",
+  "mikavilpas/yazi.nvim",
+  {'akinsho/git-conflict.nvim', version = "*", config = true},
+  "nat-418/boole.nvim",
   "junegunn/fzf.vim",
   config = {
     update_interval = 1000,
@@ -114,6 +135,23 @@ plugins = {
 }
 
 require("lazy").setup(plugins, {})
+require('boole').setup({
+  mappings = {
+    increment = '<C-a>',
+    decrement = '<C-x>'
+  },
+  -- User defined loops
+  additions = {
+    {'Foo', 'Bar'},
+    {'tic', 'tac', 'toe'}
+  },
+  allow_caps_additions = {
+    {'enable', 'disable'}
+    -- enable → disable
+    -- Enable → Disable
+    -- ENABLE → DISABLE
+  }
+})
 require("lspconfig").pylsp.setup {}
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -123,41 +161,13 @@ require('mason-lspconfig').setup_handlers({
     lspconfig[server].setup({})
   end,
 })
+require("mason-nvim-dap").setup()
 require("auto-dark-mode").setup()
 vim.o.background = "light"
 require 'term-edit'.setup {
   prompt_end = '➜ '
 }
 require("ibl").setup()
-require("gruvbox").setup({
-  overrides = {
-    ["@lsp.type.method"] = { bg = "#ff9900" },
-    ["@comment.lua"] = { bg = "#000000" },
-  },
-  terminal_colors = false, -- add neovim terminal colors
-  undercurl = true,
-  underline = true,
-  bold = true,
-  italic = {
-    strings = true,
-    emphasis = true,
-    comments = true,
-    operators = false,
-    folds = true,
-  },
-  strikethrough = true,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = true,    -- invert background for search, diffs, statuslines and errors
-  contrast = "hard", -- can be "hard", "soft" or empty string
-  palette_overrides = {},
-  overrides = {},
-  dim_inactive = false,
-  transparent_mode = false,
-})
-
 -- Setup language servers.
 require("nvim-lsp-installer").setup {}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -165,21 +175,22 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
---local servers = { 'rust_analyzer', 'pyright', 'tsserver', 'jdtls', 'marksman'}
---for _, lsp in ipairs(servers) do
---  lspconfig[lsp].setup {
---    -- on_attach = my_custom_on_attach,
---    capabilities = capabilities,
---  }
---end
---lspconfig.pyright.setup {}
---lspconfig.tsserver.setup {}
---lspconfig.rust_analyzer.setup {
---  -- Server-specific settings. See `:help lspconfig-setup`
---  settings = {
---    ['rust-analyzer'] = {},
---  },
---}
+local servers = { 'pyright', 'tsserver', 'gopls', 'marksman'}
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = capabilities,
+  }
+end
+lspconfig.pyright.setup {}
+lspconfig.tsserver.setup {}
+lspconfig.rust_analyzer.setup {
+  -- Server-specific settings. See `:help lspconfig-setup`
+  settings = {
+    ['rust-analyzer'] = {},
+  },
+}
+vim.cmd([[set foldmethod=syntax]])
 vim.cmd([[colorscheme gruvbox]])
 -- todo move mappings into a separate file
 vim.keymap.set('n', '<leader>rr', ':source $MYVIMRC<CR>')
@@ -187,10 +198,11 @@ vim.keymap.set('n', '<leader>re', ':tabnew ~/.config/nvim/init.lua<CR>')
 
 vgit = require('vgit')
 vgit.setup()
-vim.keymap.set('n', 'gj', vgit.hunk_down)
-vim.keymap.set('n', 'gk', vgit.hunk_up)
+vim.keymap.set('n', 'gn', vgit.hunk_down)
+vim.keymap.set('n', 'gp', vgit.hunk_up)
 vim.keymap.set('n', 'gs', vgit.buffer_hunk_stage)
 vim.keymap.set('n', 'gu', vgit.buffer_hunk_reset)
+vim.keymap.set('n', '<leader>gb', vgit.buffer_gutter_blame_preview)
 
 
 local builtin = require('telescope.builtin')
@@ -205,6 +217,19 @@ vim.keymap.set('n', "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>dk', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>dj', vim.diagnostic.goto_next)
 vim.keymap.set('n', "<leader>q", vim.diagnostic.setloclist)
+
+--'go.nvim setup'
+require('go').setup()
+require("go.format").goimports()  -- goimports + gofmt
+-- Run gofmt + goimports on save
+local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+   require('go.format').goimports()
+  end,
+  group = format_sync_grp,
+})
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -224,6 +249,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'K', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
     vim.keymap.set('n', "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set("n", "<leader>gt", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", {})
     vim.keymap.set('n', "<leader>wl", function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, opts)
@@ -231,6 +257,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', "<leader>rn", vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, "<leader>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', "<leader>gt", ':GoFuncTest<CR>', opts)
     vim.keymap.set('n', '<leader>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)

@@ -37,7 +37,7 @@ place_config $PWD/todo_config $HOME/.todo/config
 place_config $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
 place_config $PWD/vscode/settings.json "${VSCODE_DIR}/settings.json"
 place_config $PWD/vscode/keybindings.json "${VSCODE_DIR}/keybindings.json"
-place_config $PWD/nvimrc $HOME/.config/nvim/init.vim
+place_config $PWD/init.lua $HOME/.config/nvim/init.lua
 place_configs $PWD/ranger $HOME/.config/ranger
 # no harm if a linux system gets a useless config
 place_config $PWD/yabai/skhdrc $HOME/skhd/skhdrc
