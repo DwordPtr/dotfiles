@@ -49,6 +49,7 @@ alt-shift-b='focus-monitor 2'
 alt-shift-c='focus-monitor 3'
 
 alt-f = 'fullscreen'
+alt-shift-f ='macos-native-fullscreen'
 alt-s = 'layout h_accordion'
 alt-v =  'layout v_accordion'
 alt-shift-s='layout h_tiles'
