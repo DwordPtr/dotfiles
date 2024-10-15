@@ -220,16 +220,17 @@ vim.keymap.set('n', "<leader>q", vim.diagnostic.setloclist)
 
 --'go.nvim setup'
 require('go').setup()
-require("go.format").goimports()  -- goimports + gofmt
--- Run gofmt + goimports on save
-local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-   require('go.format').goimports()
-  end,
-  group = format_sync_grp,
-})
+--below is broken rn
+--require("go.format").goimports()  -- goimports + gofmt
+---- Run gofmt + goimports on save
+--local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
+--vim.api.nvim_create_autocmd("BufWritePre", {
+--  pattern = "*.go",
+--  callback = function()
+--   require('go.format').goimports()
+--  end,
+--  group = format_sync_grp,
+--})
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
