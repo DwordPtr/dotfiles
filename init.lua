@@ -175,7 +175,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'pyright', 'tsserver', 'gopls', 'marksman'}
+local servers = { 'pyright', 'gopls'}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -183,7 +183,6 @@ for _, lsp in ipairs(servers) do
   }
 end
 lspconfig.pyright.setup {}
-lspconfig.tsserver.setup {}
 lspconfig.rust_analyzer.setup {
   -- Server-specific settings. See `:help lspconfig-setup`
   settings = {
