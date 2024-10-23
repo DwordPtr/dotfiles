@@ -38,6 +38,7 @@ plugins = {
   "williamboman/mason-lspconfig.nvim",
   "williamboman/mason.nvim",
   { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
+  "theHamsta/nvim-dap-virtual-text",
   "mfussenegger/nvim-dap",
   "jay-babu/mason-nvim-dap.nvim",
   "pmizio/typescript-tools.nvim",
@@ -246,6 +247,7 @@ require('mason-lspconfig').setup_handlers({
   end,
 })
 require("mason-nvim-dap").setup()
+require("nvim-dap-virtual-text").setup()
 require("auto-dark-mode").setup()
 vim.o.background = "light"
 require 'term-edit'.setup {
