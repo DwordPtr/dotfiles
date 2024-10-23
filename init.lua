@@ -37,6 +37,7 @@ plugins = {
   'neovim/nvim-lspconfig',
   "williamboman/mason-lspconfig.nvim",
   "williamboman/mason.nvim",
+  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
   "mfussenegger/nvim-dap",
   "jay-babu/mason-nvim-dap.nvim",
   "pmizio/typescript-tools.nvim",
