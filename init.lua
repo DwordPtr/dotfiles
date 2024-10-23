@@ -75,6 +75,13 @@ plugins = {
           highlight = { enable = true },
           indent = { enable = true },  
           refactor = {
+            smart_rename = {
+              enable = true,
+              -- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
+              keymaps = {
+                smart_rename = "grr",
+              },
+            },
            highlight_definitions = {
               enable = true,
               -- Set to false if you have an `updatetime` of ~100.
@@ -155,7 +162,7 @@ plugins = {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
     dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "github/copilot.vim" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
     build = "make tiktoken", -- Only on MacOS or Linux
