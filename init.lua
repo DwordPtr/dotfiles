@@ -12,6 +12,13 @@ vim.keymap.set('n', "<C-c>", ":q<CR>")
 vim.keymap.set('n', "<leader>re", ":tabnew ~/.config/nvim/init.lua<CR>")
 vim.keymap.set('n', "<leader>rr", ":source $MYVIMRC<CR>")
 vim.keymap.set('n', "<C-s>", ':w<CR>')
+--todo verify 'x' is insert ■■■ Did you mean to spell “todo” this way?
+--these mappings exist incase I'm in ssh and these keys get intercepted
+vim.keymap.set({'n', 'v', 'x'}, '<C-h', ':TmuxNavigateLeft<CR>')
+vim.keymap.set({'n', 'v', 'x'}, '<C-j', ':TmuxNavigateDown<CR>')
+vim.keymap.set({'n', 'v', 'x'}, '<C-k', ':TmuxNavigateUp<CR>')
+vim.keymap.set({'n', 'v', 'x'}, '<C-l', ':TmuxNavigateRight<CR>')
+
 --
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -347,7 +354,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', "<leader>rn", vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, "<leader>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', "<leader>gt", ':GoTestFunc<CR>', opts)
     vim.keymap.set('n', "<C-x>f", ':GoTestFunc<CR>', opts)
     vim.keymap.set('n', '<leader>f', function()
       vim.lsp.buf.format { async = true }
