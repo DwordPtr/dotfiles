@@ -12,13 +12,6 @@ vim.keymap.set('n', "<C-c>", ":q<CR>")
 vim.keymap.set('n', "<leader>re", ":tabnew ~/.config/nvim/init.lua<CR>")
 vim.keymap.set('n', "<leader>rr", ":source $MYVIMRC<CR>")
 vim.keymap.set('n', "<C-s>", ':w<CR>')
---todo verify 'x' is insert ■■■ Did you mean to spell “todo” this way?
---these mappings exist incase I'm in ssh and these keys get intercepted
-vim.keymap.set({'n', 'v', 'x'}, '<C-h', ':TmuxNavigateLeft<CR>')
-vim.keymap.set({'n', 'v', 'x'}, '<C-j', ':TmuxNavigateDown<CR>')
-vim.keymap.set({'n', 'v', 'x'}, '<C-k', ':TmuxNavigateUp<CR>')
-vim.keymap.set({'n', 'v', 'x'}, '<C-l', ':TmuxNavigateRight<CR>')
-
 --
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -49,7 +42,7 @@ plugins = {
   "mfussenegger/nvim-dap",
   "jay-babu/mason-nvim-dap.nvim",
   "pmizio/typescript-tools.nvim",
-  --'tpope/vim-surround',
+  "klen/nvim-test",
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -96,7 +89,7 @@ plugins = {
               -- Set to false if you have an `updatetime` of ~100.
               clear_on_cursor_move = true,
             },
-            highlight_current_scope = { enable = true },
+            highlight_current_scope = { enable = false },
           },
           textobjects = {
             select = {
@@ -256,6 +249,7 @@ require('mason-lspconfig').setup_handlers({
 require("mason-nvim-dap").setup()
 require("nvim-dap-virtual-text").setup()
 require("auto-dark-mode").setup()
+require('nvim-test').setup()
 vim.o.background = "light"
 require 'term-edit'.setup {
   prompt_end = '➜ '
