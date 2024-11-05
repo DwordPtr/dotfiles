@@ -92,9 +92,46 @@ plugins = {
             highlight_current_scope = { enable = false },
           },
           textobjects = {
+           move = {
+              enable = true,
+              set_jumps = true, -- whether to set jumps in the jumplist
+              goto_next_start = {
+                ["]m"] = "@function.outer",
+                ["]]"] = { query = "@class.outer", desc = "Next class start" },
+                --
+                -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
+                ["]o"] = "@loop.*",
+                -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
+                --
+                -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
+                -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
+                ["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
+                ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+              },
+              goto_next_end = {
+                ["]M"] = "@function.outer",
+                ["]["] = "@class.outer",
+              },
+              goto_previous_start = {
+                ["[m"] = "@function.outer",
+                ["[["] = "@class.outer",
+              },
+              goto_previous_end = {
+                ["[M"] = "@function.outer",
+                ["[]"] = "@class.outer",
+              },
+              -- Below will go to either the start or the end, whichever is closer.
+              -- Use if you want more granular movements
+              -- Make it even more gradual by adding multiple queries and regex.
+              goto_next = {
+                ["]d"] = "@conditional.outer",
+              },
+              goto_previous = {
+                ["[d"] = "@conditional.outer",
+              }
+            },
             select = {
               enable = true,
-
               -- Automatically jump forward to textobj, similar to targets.vim
               lookahead = true,
 
@@ -161,9 +198,33 @@ plugins = {
   {'akinsho/git-conflict.nvim', version = "*", config = true},
   "nat-418/boole.nvim",
   {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
-    dependencies = {
+    "johmsalas/text-case.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("textcase").setup({})
+      require("telescope").load_extension("textcase")
+      end,
+      keys = {
+        "ga", -- Default invocation prefix
+        { "<C-x><C-c>", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
+      },
+      cmd = {
+        -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
+        "Subs",
+        "TextCaseOpenTelescope",
+        "TextCaseOpenTelescopeQuickChange",
+        "TextCaseOpenTelescopeLSPChange",
+        "TextCaseStartReplacingCommand",
+      },
+      -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
+      -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
+      -- available after the first executing of it or after a keymap of text-case.nvim has been used.
+      lazy = false,
+    },
+    {
+      "CopilotC-Nvim/CopilotChat.nvim",
+      branch = "canary",
+      dependencies = {
       { "github/copilot.vim" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
