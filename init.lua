@@ -41,9 +41,26 @@ plugins = {
   { "rcarriga/nvim-dap-ui",                dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
   "theHamsta/nvim-dap-virtual-text",
   "mfussenegger/nvim-dap",
+  "leoluz/nvim-dap-go",
   "jay-babu/mason-nvim-dap.nvim",
   "pmizio/typescript-tools.nvim",
+  "David-Kunz/jester",
   "klen/nvim-test",
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
+  "ruifm/gitlinker.nvim",
+  {
+  "roobert/action-hints.nvim",
+  config = function()
+    require("lualine").setup({
+      sections = {
+        lualine_x = { require("action-hints").statusline },
+      },
+    })
+  end,
+  },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -222,6 +239,8 @@ plugins = {
     keys = {
       "ga",   -- Default invocation prefix
       { "<C-x><C-c>", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
+      "ga", -- Default invocation prefix
+      { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
     },
     cmd = {
       -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
@@ -296,6 +315,7 @@ plugins = {
 }
 
 require("lazy").setup(plugins, {})
+require("gitlinker").setup()
 require('boole').setup({
   mappings = {
     increment = '<C-a>',
@@ -323,6 +343,11 @@ require('mason-lspconfig').setup_handlers({
   end,
 })
 require("mason-nvim-dap").setup()
+require("jester").setup({
+  dap = {
+    console = "externalTerminal"
+  }
+})
 require("nvim-dap-virtual-text").setup()
 require("auto-dark-mode").setup()
 require('nvim-test').setup()
@@ -431,3 +456,26 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 require('remember')
+-- cool if this works
+if string.len(os.getenv("IS_DEVBOX")) > 0 then
+    if vim.fn.executable("pbcopy") == 0 then
+        print("pbcopy not found, clipboard integration won't work")
+    else
+        vim.g.clipboard = {
+            name = "hackers_clipboard",
+            copy = {
+                ["+"] = 'pbcopy',
+                ["*"] = 'pbcopy',
+            },
+            paste = {
+                ["+"] = (function()
+                    return vim.fn.systemlist('pbpaste|sed -e "s/\r$//"', {''}, 1) -- '1' keeps empty lines
+                end),
+                ["*"] = (function() 
+                    return vim.fn.systemlist('pbpaste|sed -e "s/\r$//"', {''}, 1)
+                end),
+            },
+            cache_enabled = true
+        }
+    end
+end
