@@ -12,6 +12,7 @@ vim.keymap.set('n', "<C-c>", ":q<CR>")
 vim.keymap.set('n', "<leader>re", ":tabnew ~/.config/nvim/init.lua<CR>")
 vim.keymap.set('n', "<leader>rr", ":source $MYVIMRC<CR>")
 vim.keymap.set('n', "<C-s>", ':w<CR>')
+vim.keymap.set('i', "<C-s>", '<Esc>:w<CR>a')
 --
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -37,7 +38,7 @@ plugins = {
   'neovim/nvim-lspconfig',
   "williamboman/mason-lspconfig.nvim",
   "williamboman/mason.nvim",
-  { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
+  { "rcarriga/nvim-dap-ui",                dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
   "theHamsta/nvim-dap-virtual-text",
   "mfussenegger/nvim-dap",
   "jay-babu/mason-nvim-dap.nvim",
@@ -55,125 +56,138 @@ plugins = {
   },
   'williamboman/nvim-lsp-installer',
   {
-     "amitds1997/remote-nvim.nvim",
-     version = "*", -- Pin to GitHub releases
-     dependencies = {
-         "nvim-lua/plenary.nvim", -- For standard functions
-         "MunifTanjim/nui.nvim", -- To build the plugin UI
-         "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
-     },
-     config = true,
+    "amitds1997/remote-nvim.nvim",
+    version = "*",                        -- Pin to GitHub releases
+    dependencies = {
+      "nvim-lua/plenary.nvim",            -- For standard functions
+      "MunifTanjim/nui.nvim",             -- To build the plugin UI
+      "nvim-telescope/telescope.nvim",    -- For picking b/w different remote methods
+    },
+    config = true,
   },
   'mfussenegger/nvim-jdtls',
-  {'nvim-treesitter/nvim-treesitter', build= ':TSUpdate', 
-   config = function () 
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && yarn install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-          ensure_installed = { "jsonc", "markdown", "lua", 
-          "vim", "vimdoc", "query", "go", "typescript", "javascript", "html" 
+        ensure_installed = { "jsonc", "markdown", "lua",
+          "vim", "vimdoc", "query", "go", "typescript", "javascript", "html"
         },
-          sync_install = false,
-          highlight = { enable = true },
-          indent = { enable = true },  
-          refactor = {
-            smart_rename = {
-              enable = true,
-              -- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
-              keymaps = {
-                smart_rename = "grr",
-              },
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+        refactor = {
+          smart_rename = {
+            enable = true,
+            -- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
+            keymaps = {
+              smart_rename = "grr",
             },
-           highlight_definitions = {
-              enable = true,
-              -- Set to false if you have an `updatetime` of ~100.
-              clear_on_cursor_move = true,
-            },
-            highlight_current_scope = { enable = false },
           },
-          textobjects = {
-           move = {
-              enable = true,
-              set_jumps = true, -- whether to set jumps in the jumplist
-              goto_next_start = {
-                ["]m"] = "@function.outer",
-                ["]]"] = { query = "@class.outer", desc = "Next class start" },
-                --
-                -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
-                ["]o"] = "@loop.*",
-                -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-                --
-                -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-                -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-                ["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
-                ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-              },
-              goto_next_end = {
-                ["]M"] = "@function.outer",
-                ["]["] = "@class.outer",
-              },
-              goto_previous_start = {
-                ["[m"] = "@function.outer",
-                ["[["] = "@class.outer",
-              },
-              goto_previous_end = {
-                ["[M"] = "@function.outer",
-                ["[]"] = "@class.outer",
-              },
-              -- Below will go to either the start or the end, whichever is closer.
-              -- Use if you want more granular movements
-              -- Make it even more gradual by adding multiple queries and regex.
-              goto_next = {
-                ["]d"] = "@conditional.outer",
-              },
-              goto_previous = {
-                ["[d"] = "@conditional.outer",
-              }
+          highlight_definitions = {
+            enable = true,
+            -- Set to false if you have an `updatetime` of ~100.
+            clear_on_cursor_move = true,
+          },
+          highlight_current_scope = { enable = false },
+        },
+        textobjects = {
+          move = {
+            enable = true,
+            set_jumps = true,   -- whether to set jumps in the jumplist
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = { query = "@class.outer", desc = "Next class start" },
+              --
+              -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queries.
+              ["]o"] = "@loop.*",
+              -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
+              --
+              -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
+              -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
+              ["]s"] = { query = "@local.scope", query_group = "locals", desc = "Next scope" },
+              ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
             },
-            select = {
-              enable = true,
-              -- Automatically jump forward to textobj, similar to targets.vim
-              lookahead = true,
+            goto_next_end = {
+              ["]M"] = "@function.outer",
+              ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[M"] = "@function.outer",
+              ["[]"] = "@class.outer",
+            },
+            -- Below will go to either the start or the end, whichever is closer.
+            -- Use if you want more granular movements
+            -- Make it even more gradual by adding multiple queries and regex.
+            goto_next = {
+              ["]d"] = "@conditional.outer",
+            },
+            goto_previous = {
+              ["[d"] = "@conditional.outer",
+            }
+          },
+          select = {
+            enable = true,
+            -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
 
-              keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                -- You can optionally set descriptions to the mappings (used in the desc parameter of
-                -- nvim_buf_set_keymap) which plugins like which-key display
-                ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-                -- You can also use captures from other query groups like `locals.scm`
-                ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-              },
-              -- You can choose the select mode (default is charwise 'v')
-              --
-              -- Can also be a function which gets passed a table with the keys
-              -- * query_string: eg '@function.inner'
-              -- * method: eg 'v' or 'o'
-              -- and should return the mode ('v', 'V', or '<c-v>') or a table
-              -- mapping query_strings to modes.
-              selection_modes = {
-                ['@parameter.outer'] = 'v', -- charwise
-                ['@function.outer'] = 'V', -- linewise
-                ['@class.outer'] = '<c-v>', -- blockwise
-              },
-              -- If you set this to `true` (default is `false`) then any textobject is
-              -- extended to include preceding or succeeding whitespace. Succeeding
-              -- whitespace has priority in order to act similarly to eg the built-in
-              -- `ap`.
-              --
-              -- Can also be a function which gets passed a table with the keys
-              -- * query_string: eg '@function.inner'
-              -- * selection_mode: eg 'v'
-              -- and should return true or false
-              include_surrounding_whitespace = true,
+            keymaps = {
+              -- You can use the capture groups defined in textobjects.scm
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              -- You can optionally set descriptions to the mappings (used in the desc parameter of
+              -- nvim_buf_set_keymap) which plugins like which-key display
+              ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+              -- You can also use captures from other query groups like `locals.scm`
+              ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
             },
-                },})
-            end},
+            -- You can choose the select mode (default is charwise 'v')
+            --
+            -- Can also be a function which gets passed a table with the keys
+            -- * query_string: eg '@function.inner'
+            -- * method: eg 'v' or 'o'
+            -- and should return the mode ('v', 'V', or '<c-v>') or a table
+            -- mapping query_strings to modes.
+            selection_modes = {
+              ['@parameter.outer'] = 'v',   -- charwise
+              ['@function.outer'] = 'V',    -- linewise
+              ['@class.outer'] = '<c-v>',   -- blockwise
+            },
+            -- If you set this to `true` (default is `false`) then any textobject is
+            -- extended to include preceding or succeeding whitespace. Succeeding
+            -- whitespace has priority in order to act similarly to eg the built-in
+            -- `ap`.
+            --
+            -- Can also be a function which gets passed a table with the keys
+            -- * query_string: eg '@function.inner'
+            -- * selection_mode: eg 'v'
+            -- and should return true or false
+            include_surrounding_whitespace = true,
+          },
+        },
+      })
+    end
+  },
   'nvim-treesitter/nvim-treesitter-refactor',
   'nvim-treesitter/nvim-treesitter-textobjects',
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl",                                                     opts = {} },
   'github/copilot.vim',
   --'hrsh7th/cmp-nvim-lsp',
   "ellisonleao/gruvbox.nvim",
@@ -195,7 +209,8 @@ plugins = {
   "gpanders/editorconfig.nvim",
   "rbgrouleff/bclose.vim",
   "mikavilpas/yazi.nvim",
-  {'akinsho/git-conflict.nvim', version = "*", config = true},
+  "andymass/vim-matchup",
+  { 'akinsho/git-conflict.nvim', version = "*", config = true },
   "nat-418/boole.nvim",
   {
     "johmsalas/text-case.nvim",
@@ -203,34 +218,34 @@ plugins = {
     config = function()
       require("textcase").setup({})
       require("telescope").load_extension("textcase")
-      end,
-      keys = {
-        "ga", -- Default invocation prefix
-        { "<C-x><C-c>", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
-      },
-      cmd = {
-        -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
-        "Subs",
-        "TextCaseOpenTelescope",
-        "TextCaseOpenTelescopeQuickChange",
-        "TextCaseOpenTelescopeLSPChange",
-        "TextCaseStartReplacingCommand",
-      },
-      -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
-      -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
-      -- available after the first executing of it or after a keymap of text-case.nvim has been used.
-      lazy = false,
+    end,
+    keys = {
+      "ga",   -- Default invocation prefix
+      { "<C-x><C-c>", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
     },
-    {
-      "CopilotC-Nvim/CopilotChat.nvim",
-      branch = "canary",
-      dependencies = {
-      { "github/copilot.vim" }, -- or github/copilot.vim
+    cmd = {
+      -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
+      "Subs",
+      "TextCaseOpenTelescope",
+      "TextCaseOpenTelescopeQuickChange",
+      "TextCaseOpenTelescopeLSPChange",
+      "TextCaseStartReplacingCommand",
+    },
+    -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
+    -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
+    -- available after the first executing of it or after a keymap of text-case.nvim has been used.
+    lazy = false,
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "github/copilot.vim" },    -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
-    build = "make tiktoken", -- Only on MacOS or Linux
+    build = "make tiktoken",       -- Only on MacOS or Linux
     opts = {
-      debug = true, -- Enable debugging
+      debug = true,                -- Enable debugging
       -- See Configuration section for rest
     },
     -- See Commands section for default commands if you want to lazy load on them
@@ -288,11 +303,11 @@ require('boole').setup({
   },
   -- User defined loops
   additions = {
-    {'Foo', 'Bar'},
-    {'tic', 'tac', 'toe'}
+    { 'Foo', 'Bar' },
+    { 'tic', 'tac', 'toe' }
   },
   allow_caps_additions = {
-    {'enable', 'disable'}
+    { 'enable', 'disable' }
     -- enable → disable
     -- Enable → Disable
     -- ENABLE → DISABLE
@@ -327,7 +342,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'pyright', 'gopls'}
+local servers = { 'pyright', 'gopls' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
