@@ -6,6 +6,9 @@
 unsetopt AUTO_CD
 setopt inc_append_history
 setopt share_history
+# make sure word separations are
+# deliated between pipes
+export WORDCHARS=${WORDCHARS}\|
 if [[ -a $HOME/dev/kitty/kitty/launcher/./kitty ]]; then
         export TERMINAL=$HOME/dev/kitty/kitty/launcher/./kitty
 fi
@@ -234,6 +237,7 @@ zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 zvm_bindkey vicmd '^r' atuin-search
 alias cd='z'
 bindkey '^u' kill-whole-line
+bindkey '^e' edit-command-line
 # sdk man required boilerplate {{{
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

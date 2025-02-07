@@ -75,4 +75,9 @@ function src_all_aliases(){
                 fi
         done
 }
-
+# this function makes sets
+# all process that match the input pattern to the highest priority
+function urgency(){
+  pattern=$1
+  ps -ax | grep "$pattern" | awk '{print $1}' | xargs -I {} sudo renice -n -20 -p {} 
+}
