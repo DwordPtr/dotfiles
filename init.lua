@@ -34,7 +34,6 @@ plugins = {
     },
     lazy = false,
   },
-  'endel/vim-github-colorscheme',
   'neovim/nvim-lspconfig',
   "williamboman/mason-lspconfig.nvim",
   "williamboman/mason.nvim",
@@ -43,6 +42,7 @@ plugins = {
   "mfussenegger/nvim-dap",
   "leoluz/nvim-dap-go",
   "jay-babu/mason-nvim-dap.nvim",
+  "elentok/format-on-save.nvim",
   "pmizio/typescript-tools.nvim",
   "David-Kunz/jester",
   "klen/nvim-test",
@@ -52,14 +52,14 @@ plugins = {
   },
   "ruifm/gitlinker.nvim",
   {
-  "roobert/action-hints.nvim",
-  config = function()
-    require("lualine").setup({
-      sections = {
-        lualine_x = { require("action-hints").statusline },
-      },
-    })
-  end,
+    "roobert/action-hints.nvim",
+    config = function()
+      require("lualine").setup({
+        sections = {
+          lualine_x = { require("action-hints").statusline },
+        },
+      })
+    end,
   },
   {
     "kylechui/nvim-surround",
@@ -71,26 +71,15 @@ plugins = {
       })
     end
   },
-  'williamboman/nvim-lsp-installer',
   {
     "amitds1997/remote-nvim.nvim",
-    version = "*",                        -- Pin to GitHub releases
+    version = "*",                     -- Pin to GitHub releases
     dependencies = {
-      "nvim-lua/plenary.nvim",            -- For standard functions
-      "MunifTanjim/nui.nvim",             -- To build the plugin UI
-      "nvim-telescope/telescope.nvim",    -- For picking b/w different remote methods
+      "nvim-lua/plenary.nvim",         -- For standard functions
+      "MunifTanjim/nui.nvim",          -- To build the plugin UI
+      "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
     },
     config = true,
-  },
-  'mfussenegger/nvim-jdtls',
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    ft = { "markdown" },
   },
   {
     'nvim-treesitter/nvim-treesitter',
@@ -123,7 +112,7 @@ plugins = {
         textobjects = {
           move = {
             enable = true,
-            set_jumps = true,   -- whether to set jumps in the jumplist
+            set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
               ["]m"] = "@function.outer",
               ["]]"] = { query = "@class.outer", desc = "Next class start" },
@@ -183,9 +172,9 @@ plugins = {
             -- and should return the mode ('v', 'V', or '<c-v>') or a table
             -- mapping query_strings to modes.
             selection_modes = {
-              ['@parameter.outer'] = 'v',   -- charwise
-              ['@function.outer'] = 'V',    -- linewise
-              ['@class.outer'] = '<c-v>',   -- blockwise
+              ['@parameter.outer'] = 'v', -- charwise
+              ['@function.outer'] = 'V',  -- linewise
+              ['@class.outer'] = '<c-v>', -- blockwise
             },
             -- If you set this to `true` (default is `false`) then any textobject is
             -- extended to include preceding or succeeding whitespace. Succeeding
@@ -204,23 +193,23 @@ plugins = {
   },
   'nvim-treesitter/nvim-treesitter-refactor',
   'nvim-treesitter/nvim-treesitter-textobjects',
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl",                                                     opts = {} },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl",                                                       opts = {} },
   'github/copilot.vim',
   --'hrsh7th/cmp-nvim-lsp',
   "ellisonleao/gruvbox.nvim",
-  "folke/tokyonight.nvim",
-  "shaunsingh/solarized.nvim",
-  "sainnhe/everforest",
   "prichrd/refgo.nvim",
   "christoomey/vim-tmux-navigator",
   "f-person/auto-dark-mode.nvim",
   "nanotee/zoxide.vim",
-  "tpope/vim-dadbod",
   'vladdoster/remember.nvim',
-  "tanvirtin/vgit.nvim",
-  "scottmckendry/cyberdream.nvim",
+  {
+    'tanvirtin/vgit.nvim',
+    branch = 'v1.0.x',
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
+    event = 'VimEnter',
+    config = function() require("vgit").setup() end,
+  },
   "ray-x/go.nvim",
-  "francoiscabrol/ranger.vim",
   "nvim-tree/nvim-web-devicons",
   "sindrets/diffview.nvim",
   "gpanders/editorconfig.nvim",
@@ -237,10 +226,10 @@ plugins = {
       require("telescope").load_extension("textcase")
     end,
     keys = {
-      "ga",   -- Default invocation prefix
+      "ga", -- Default invocation prefix
       { "<C-x><C-c>", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
       "ga", -- Default invocation prefix
-      { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
+      { "ga.",        "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
     },
     cmd = {
       -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
@@ -255,9 +244,10 @@ plugins = {
     -- available after the first executing of it or after a keymap of text-case.nvim has been used.
     lazy = false,
   },
+  "LunarVim/bigfile.nvim",
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
+    branch = "main",
     dependencies = {
       { "github/copilot.vim" },    -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
@@ -280,6 +270,7 @@ plugins = {
       vim.api.nvim_set_option("background", "light")
       vim.cmd("colorscheme gruvbox")
     end,
+    fallback = "light",
   },
   {
     'nvim-telescope/telescope.nvim',
@@ -351,7 +342,6 @@ require("jester").setup({
 require("nvim-dap-virtual-text").setup()
 require("auto-dark-mode").setup()
 require('nvim-test').setup()
-vim.o.background = "light"
 require 'term-edit'.setup {
   prompt_end = '➜ '
 }
@@ -361,7 +351,6 @@ require("CopilotChat").setup {
   -- See Configuration section for rest
 }
 -- Setup language servers.
-require("nvim-lsp-installer").setup {}
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 --capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local lspconfig = require('lspconfig')
@@ -393,7 +382,7 @@ vim.keymap.set('n', 'gn', vgit.hunk_down)
 vim.keymap.set('n', 'gp', vgit.hunk_up)
 vim.keymap.set('n', 'gs', vgit.buffer_hunk_stage)
 vim.keymap.set('n', 'gu', vgit.buffer_hunk_reset)
-vim.keymap.set('n', '<leader>gb', vgit.buffer_gutter_blame_preview)
+--vim.keymap.set('n', '<leader>gb', vgit.buffer_gutter_blame_preview)
 
 
 local builtin = require('telescope.builtin')
@@ -456,26 +445,52 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 require('remember')
+local formatters = require("format-on-save.formatters")
+require('format-on-save').setup({
+  experiments = {
+    partial_update = 'diff', -- or 'line-by-line'
+  },
+  formatter_by_ft = {
+    css = formatters.lsp,
+    html = formatters.lsp,
+    java = formatters.lsp,
+    javascript = formatters.lsp,
+    json = formatters.lsp,
+    lua = formatters.lsp,
+    markdown = formatters.prettierd,
+    openscad = formatters.lsp,
+    python = formatters.black,
+    rust = formatters.lsp,
+    scad = formatters.lsp,
+    scss = formatters.lsp,
+    sh = formatters.shfmt,
+    terraform = formatters.lsp,
+    typescript = formatters.prettierd,
+    typescriptreact = formatters.prettierd,
+    yaml = formatters.lsp,
+    golang = formatters.lsp,
+  }
+})
 -- cool if this works
-if string.len(os.getenv("IS_DEVBOX")) > 0 then
-    if vim.fn.executable("pbcopy") == 0 then
-        print("pbcopy not found, clipboard integration won't work")
-    else
-        vim.g.clipboard = {
-            name = "hackers_clipboard",
-            copy = {
-                ["+"] = 'pbcopy',
-                ["*"] = 'pbcopy',
-            },
-            paste = {
-                ["+"] = (function()
-                    return vim.fn.systemlist('pbpaste|sed -e "s/\r$//"', {''}, 1) -- '1' keeps empty lines
-                end),
-                ["*"] = (function() 
-                    return vim.fn.systemlist('pbpaste|sed -e "s/\r$//"', {''}, 1)
-                end),
-            },
-            cache_enabled = true
-        }
-    end
+if string.len(os.getenv("SSH_CONNECTION")) > 0 then
+  if vim.fn.executable("pbcopy") == 0 then
+    print("pbcopy not found, clipboard integration won't work")
+  else
+    vim.g.clipboard = {
+      name = "hackers_clipboard",
+      copy = {
+        ["+"] = 'pbcopy',
+        ["*"] = 'pbcopy',
+      },
+      paste = {
+        ["+"] = (function()
+          return vim.fn.systemlist('pbpaste|sed -e "s/\r$//"', { '' }, 1) -- '1' keeps empty lines
+        end),
+        ["*"] = (function()
+          return vim.fn.systemlist('pbpaste|sed -e "s/\r$//"', { '' }, 1)
+        end),
+      },
+      cache_enabled = true
+    }
+  end
 end
