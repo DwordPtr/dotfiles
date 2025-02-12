@@ -274,7 +274,24 @@ plugins = {
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.5',
-    dependencies = { 'nvim-lua/plenary.nvim' }
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      {
+        'nvim-telescope/telescope-live-grep-args.nvim',
+        version = "^1.0.0",
+      }
+    },
+    config = function()
+      local telescope = require("telescope")
+
+      -- first setup telescope
+      telescope.setup({
+        -- your config
+      })
+
+      -- then load the extension
+      telescope.load_extension("live_grep_args")
+    end
   },
   {
     'chomosuke/term-edit.nvim',
@@ -491,7 +508,9 @@ require('gitsigns').setup {
   end
 }
 --- }}}
-
+--- telescope setup {{{
+local telescope = require("telescope")
+local lga_actions = require("telescope-live-grep-args.actions")
 local builtin = require('telescope.builtin')
 local actions = require("telescope.actions")
 require("telescope").setup {
@@ -501,10 +520,31 @@ require("telescope").setup {
         ["<C-u>"] = false
       },
     },
+  },
+  extensions = {
+    live_grep_args = {
+      auto_quoting = true, -- enable/disable auto-quoting
+      -- define mappings, e.g.
+      mappings = {         -- extend mappings
+        i = {
+          ["<C-k>"] = lga_actions.quote_prompt(),
+          ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+          -- freeze the current list and start a fuzzy search in the frozen list
+          ["<C-space>"] = actions.to_fuzzy_refine,
+        },
+      },
+      -- ... also accepts theme settings, for example:
+      -- theme = "dropdown", -- use dropdown theme
+      -- theme = { }, -- use own theme spec
+      -- layout_config = { mirror=true }, -- mirror preview pane
+    }
   }
 }
+telescope.load_extension("live_grep_args")
+-- }}}
 vim.keymap.set('n', '<leader>ff', builtin.find_files)
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fa", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
