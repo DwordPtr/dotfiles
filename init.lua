@@ -197,6 +197,11 @@ plugins = {
   'github/copilot.vim',
   --'hrsh7th/cmp-nvim-lsp',
   "ellisonleao/gruvbox.nvim",
+  -- For `plugins.lua` users.
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false
+  },
   "prichrd/refgo.nvim",
   "christoomey/vim-tmux-navigator",
   "f-person/auto-dark-mode.nvim",
