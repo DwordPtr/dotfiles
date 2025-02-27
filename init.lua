@@ -38,7 +38,6 @@ plugins = {
   "williamboman/mason-lspconfig.nvim",
   "williamboman/mason.nvim",
   { "rcarriga/nvim-dap-ui",                dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
-  "theHamsta/nvim-dap-virtual-text",
   "mfussenegger/nvim-dap",
   "leoluz/nvim-dap-go",
   "jay-babu/mason-nvim-dap.nvim",
@@ -197,13 +196,9 @@ plugins = {
   'github/copilot.vim',
   --'hrsh7th/cmp-nvim-lsp',
   "ellisonleao/gruvbox.nvim",
-  -- For `plugins.lua` users.
-  {
-    "OXY2DEV/markview.nvim",
-    lazy = false
-  },
   "prichrd/refgo.nvim",
   "christoomey/vim-tmux-navigator",
+
   "f-person/auto-dark-mode.nvim",
   "nanotee/zoxide.vim",
   'vladdoster/remember.nvim',
@@ -214,6 +209,18 @@ plugins = {
   "gpanders/editorconfig.nvim",
   "rbgrouleff/bclose.vim",
   "mikavilpas/yazi.nvim",
+  {
+    "oskarrrrrrr/symbols.nvim",
+    config = function()
+      local r = require("symbols.recipes")
+      require("symbols").setup(r.DefaultFilters, r.AsciiSymbols, {
+        -- custom settings here
+        -- e.g. hide_cursor = false
+      })
+      vim.keymap.set("n", ",s", "<cmd> Symbols<CR>")
+      vim.keymap.set("n", ",S", "<cmd> SymbolsClose<CR>")
+    end
+  },
   "andymass/vim-matchup",
   { 'akinsho/git-conflict.nvim', version = "*", config = true },
   "nat-418/boole.nvim",
@@ -253,24 +260,11 @@ plugins = {
     },
     build = "make tiktoken",       -- Only on MacOS or Linux
     opts = {
-      debug = true,                -- Enable debugging
       -- See Configuration section for rest
     },
     -- See Commands section for default commands if you want to lazy load on them
   },
   "junegunn/fzf.vim",
-  config = {
-    update_interval = 1000,
-    set_dark_mode = function()
-      vim.api.nvim_set_option("background", "dark")
-      vim.cmd("colorscheme gruvbox")
-    end,
-    set_light_mode = function()
-      vim.api.nvim_set_option("background", "light")
-      vim.cmd("colorscheme gruvbox")
-    end,
-    fallback = "light",
-  },
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.5',
@@ -342,21 +336,38 @@ require('boole').setup({
 })
 require("lspconfig").pylsp.setup {}
 require("mason").setup()
-require("mason-lspconfig").setup()
-lspconfig = require('lspconfig')
+require("mason-lspconfig").setup(
+  { ensure_installed = { "ts_ls" } }
+)
+local lspconfig = require('lspconfig')
 require('mason-lspconfig').setup_handlers({
   function(server)
-    lspconfig[server].setup({})
+    lspconfig[server].setup({
+    })
   end,
 })
+
+lspconfig.ts_ls.setup({
+  on_attach = function(client, bufnr)
+    -- Additional on_attach settings can go here
+  end,
+  init_options = {
+    maxTsServerMemory = 16192,
+  }
+})
+
 require("mason-nvim-dap").setup()
 require("jester").setup({
   dap = {
     console = "externalTerminal"
   }
 })
-require("nvim-dap-virtual-text").setup()
-require("auto-dark-mode").setup()
+
+
+ssh_con = os.getenv("SSH_CONNECTION")
+if not ssh_con or string.len(ssh_con) == 0 then
+  require("auto-dark-mode").setup()
+end
 require('nvim-test').setup()
 require 'term-edit'.setup {
   prompt_end = '➜ '
@@ -628,9 +639,11 @@ require('format-on-save').setup({
     golang = formatters.lsp,
   }
 })
+vim.keymap.set('n', "<leader>ga", ':GoDebug -a<CR>')
+vim.keymap.set('n', "<leader>bb", ':GoBreakToggle<CR>')
 vim.cmd([[colorscheme gruvbox]])
 -- cool if this works
-if string.len(os.getenv("SSH_CONNECTION")) > 0 then
+if ssh_con and string.len(ssh_con) > 0 then
   if vim.fn.executable("pbcopy") == 0 then
     print("pbcopy not found, clipboard integration won't work")
   else
