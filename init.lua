@@ -197,8 +197,8 @@ plugins = {
   --'hrsh7th/cmp-nvim-lsp',
   "ellisonleao/gruvbox.nvim",
   "prichrd/refgo.nvim",
+  { 'glacambre/firenvim',        build = ":call firenvim#install(0)" },
   "christoomey/vim-tmux-navigator",
-
   "f-person/auto-dark-mode.nvim",
   "nanotee/zoxide.vim",
   'vladdoster/remember.nvim',
