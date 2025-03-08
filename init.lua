@@ -42,8 +42,52 @@ plugins = {
   "leoluz/nvim-dap-go",
   "jay-babu/mason-nvim-dap.nvim",
   "elentok/format-on-save.nvim",
-  "pmizio/typescript-tools.nvim",
-  "David-Kunz/jester",
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/neotest-jest",
+      "marilari88/neotest-vitest",
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter"
+    },
+    keys = {
+      {
+        "<leader>tl",
+        function()
+          require("neotest").run.run_last()
+        end,
+        desc = "Run Last Test",
+      },
+      {
+        "<leader>tL",
+        function()
+          require("neotest").run.run_last({ strategy = "dap" })
+        end,
+        desc = "Debug Last Test",
+      },
+      {
+        "<leader>tw",
+        "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>",
+        desc = "Run Watch",
+      },
+      {
+        "<leader>tr",
+        function()
+          require("neotest").run.run()
+        end,
+        desc = "Run Test under cursor",
+      },
+      {
+        "<leader>tR",
+        function()
+          require("neotest").run.run({ strategy = "dap" })
+        end,
+        desc = "Debug Test under cursor",
+      },
+    },
+  },
   "klen/nvim-test",
   {
     'nvim-lualine/lualine.nvim',
@@ -72,10 +116,10 @@ plugins = {
   },
   {
     "amitds1997/remote-nvim.nvim",
-    version = "*",                     -- Pin to GitHub releases
+    version = "*",                  -- Pin to GitHub releases
     dependencies = {
-      "nvim-lua/plenary.nvim",         -- For standard functions
-      "MunifTanjim/nui.nvim",          -- To build the plugin UI
+      "nvim-lua/plenary.nvim",      -- For standard functions
+      "MunifTanjim/nui.nvim",       -- To build the plugin UI
       "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
     },
     config = true,
@@ -172,7 +216,7 @@ plugins = {
             -- mapping query_strings to modes.
             selection_modes = {
               ['@parameter.outer'] = 'v', -- charwise
-              ['@function.outer'] = 'V',  -- linewise
+              ['@function.outer'] = 'V', -- linewise
               ['@class.outer'] = '<c-v>', -- blockwise
             },
             -- If you set this to `true` (default is `false`) then any textobject is
@@ -222,7 +266,7 @@ plugins = {
     end
   },
   "andymass/vim-matchup",
-  { 'akinsho/git-conflict.nvim', version = "*", config = true },
+  { 'akinsho/git-conflict.nvim', version = "*",                      config = true },
   "nat-418/boole.nvim",
   {
     "johmsalas/text-case.nvim",
@@ -255,10 +299,10 @@ plugins = {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "main",
     dependencies = {
-      { "github/copilot.vim" },    -- or github/copilot.vim
+      { "github/copilot.vim" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
-    build = "make tiktoken",       -- Only on MacOS or Linux
+    build = "make tiktoken",    -- Only on MacOS or Linux
     opts = {
       -- See Configuration section for rest
     },
@@ -292,6 +336,18 @@ plugins = {
     lazy = false,
     version = '1.*',
   },
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
+
   "ldelossa/gh.nvim",
   dependencies = {
     {
@@ -311,7 +367,7 @@ plugins = {
     -- build = "conda run --no-capture-output -n jupynium pip install .",
     -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
   },
-  "rcarriga/nvim-notify",  -- optional
+  "rcarriga/nvim-notify", -- optional
   "stevearc/dressing.nvim" -- optional, UI for :JupyniumKernelSelect
 }
 
@@ -357,11 +413,7 @@ lspconfig.ts_ls.setup({
 })
 
 require("mason-nvim-dap").setup()
-require("jester").setup({
-  dap = {
-    console = "externalTerminal"
-  }
-})
+require("oil").setup()
 
 
 ssh_con = os.getenv("SSH_CONNECTION")
@@ -422,7 +474,7 @@ require('gitsigns').setup {
     untracked    = { text = '┆' },
   },
   signs_staged_enable          = true,
-  signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
+  signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
   numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
   linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
@@ -443,7 +495,7 @@ require('gitsigns').setup {
   current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
   sign_priority                = 6,
   update_debounce              = 100,
-  status_formatter             = nil,   -- Use default
+  status_formatter             = nil,  -- Use default
   max_file_length              = 40000, -- Disable if file is longer than this (in lines)
   preview_config               = {
     -- Options passed to nvim_open_win
@@ -536,7 +588,7 @@ require("telescope").setup {
     live_grep_args = {
       auto_quoting = true, -- enable/disable auto-quoting
       -- define mappings, e.g.
-      mappings = {         -- extend mappings
+      mappings = {      -- extend mappings
         i = {
           ["<C-k>"] = lga_actions.quote_prompt(),
           ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
@@ -553,6 +605,22 @@ require("telescope").setup {
 }
 telescope.load_extension("live_grep_args")
 -- }}}
+
+-- todo get this to work
+require("neotest").setup({
+  adapters = {
+    require("neotest-jest")({
+      -- jestCommand = require('neotest-jest.jest-util').getJestCommand(vim.fn.expand '%:p:h'),
+      jestCommand = "npx jest --verbose",
+      jestConfigFile = function(file)
+        if string.find(file, "/packages/") then
+          return string.match(file, "(.-/[^/]+/)src") .. "jest.config.ts"
+        end
+        return vim.fn.getcwd() .. "/jest.config.ts"
+      end,
+    })
+  }
+})
 vim.keymap.set('n', '<leader>ff', builtin.find_files)
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fa", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
