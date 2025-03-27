@@ -116,10 +116,10 @@ plugins = {
   },
   {
     "amitds1997/remote-nvim.nvim",
-    version = "*",                  -- Pin to GitHub releases
+    version = "*",                     -- Pin to GitHub releases
     dependencies = {
-      "nvim-lua/plenary.nvim",      -- For standard functions
-      "MunifTanjim/nui.nvim",       -- To build the plugin UI
+      "nvim-lua/plenary.nvim",         -- For standard functions
+      "MunifTanjim/nui.nvim",          -- To build the plugin UI
       "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
     },
     config = true,
@@ -216,7 +216,7 @@ plugins = {
             -- mapping query_strings to modes.
             selection_modes = {
               ['@parameter.outer'] = 'v', -- charwise
-              ['@function.outer'] = 'V', -- linewise
+              ['@function.outer'] = 'V',  -- linewise
               ['@class.outer'] = '<c-v>', -- blockwise
             },
             -- If you set this to `true` (default is `false`) then any textobject is
@@ -236,6 +236,7 @@ plugins = {
   },
   'nvim-treesitter/nvim-treesitter-refactor',
   'nvim-treesitter/nvim-treesitter-textobjects',
+
   { "lukas-reineke/indent-blankline.nvim", main = "ibl",                                                       opts = {} },
   'github/copilot.vim',
   --'hrsh7th/cmp-nvim-lsp',
@@ -252,6 +253,10 @@ plugins = {
   "sindrets/diffview.nvim",
   "gpanders/editorconfig.nvim",
   "rbgrouleff/bclose.vim",
+  {
+    "cseickel/diagnostic-window.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" }
+  },
   "mikavilpas/yazi.nvim",
   {
     "oskarrrrrrr/symbols.nvim",
@@ -299,10 +304,10 @@ plugins = {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "main",
     dependencies = {
-      { "github/copilot.vim" }, -- or github/copilot.vim
+      { "github/copilot.vim" },    -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
     },
-    build = "make tiktoken",    -- Only on MacOS or Linux
+    build = "make tiktoken",       -- Only on MacOS or Linux
     opts = {
       -- See Configuration section for rest
     },
@@ -317,18 +322,33 @@ plugins = {
       {
         'nvim-telescope/telescope-live-grep-args.nvim',
         version = "^1.0.0",
-      }
+      },
+      "princejoogie/dir-telescope.nvim",
     },
     config = function()
       local telescope = require("telescope")
 
       -- first setup telescope
       telescope.setup({
-        -- your config
+        pickers = {
+          find_files = {
+            previewer = false,
+          },
+          oldfiles = {
+            previewer = false,
+          },
+          git_status = {
+            previewer = false,
+          },
+          buffers = {
+            previewer = false,
+          },
+        },
       })
 
       -- then load the extension
       telescope.load_extension("live_grep_args")
+      telescope.load_extension("dir")
     end
   },
   {
@@ -367,7 +387,7 @@ plugins = {
     -- build = "conda run --no-capture-output -n jupynium pip install .",
     -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
   },
-  "rcarriga/nvim-notify", -- optional
+  "rcarriga/nvim-notify",  -- optional
   "stevearc/dressing.nvim" -- optional, UI for :JupyniumKernelSelect
 }
 
@@ -408,13 +428,14 @@ lspconfig.ts_ls.setup({
     -- Additional on_attach settings can go here
   end,
   init_options = {
-    maxTsServerMemory = 16192,
+    maxTsServerMemory = 32384,
   }
 })
 
 require("mason-nvim-dap").setup()
 require("oil").setup()
 
+vim.keymap.set('n', '<leader>y', ':Yazi<CR>')
 
 ssh_con = os.getenv("SSH_CONNECTION")
 if not ssh_con or string.len(ssh_con) == 0 then
@@ -428,26 +449,6 @@ require("ibl").setup()
 require("CopilotChat").setup {
   debug = true, -- Enable debugging
   -- See Configuration section for rest
-}
--- Setup language servers.
-local capabilities = vim.lsp.protocol.make_client_capabilities()
---capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-local lspconfig = require('lspconfig')
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'pyright', 'gopls' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
-lspconfig.pyright.setup {}
-lspconfig.rust_analyzer.setup {
-  -- Server-specific settings. See `:help lspconfig-setup`
-  settings = {
-    ['rust-analyzer'] = {},
-  },
 }
 vim.cmd([[set foldmethod=syntax]])
 vim.cmd([[colorscheme gruvbox]])
@@ -474,7 +475,7 @@ require('gitsigns').setup {
     untracked    = { text = '┆' },
   },
   signs_staged_enable          = true,
-  signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+  signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
   linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
@@ -495,7 +496,7 @@ require('gitsigns').setup {
   current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
   sign_priority                = 6,
   update_debounce              = 100,
-  status_formatter             = nil,  -- Use default
+  status_formatter             = nil,   -- Use default
   max_file_length              = 40000, -- Disable if file is longer than this (in lines)
   preview_config               = {
     -- Options passed to nvim_open_win
@@ -588,7 +589,7 @@ require("telescope").setup {
     live_grep_args = {
       auto_quoting = true, -- enable/disable auto-quoting
       -- define mappings, e.g.
-      mappings = {      -- extend mappings
+      mappings = {         -- extend mappings
         i = {
           ["<C-k>"] = lga_actions.quote_prompt(),
           ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
@@ -622,10 +623,15 @@ require("neotest").setup({
   }
 })
 vim.keymap.set('n', '<leader>ff', builtin.find_files)
+vim.keymap.set('n', '<leader>fb', builtin.buffers)
+vim.keymap.set('n', '<leader>fw', builtin.git_status)
+vim.keymap.set('n', '<leader>fo', builtin.oldfiles)
+vim.keymap.set('n', '<C-e>', ':e!<CR>')
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fa", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set("n", "<leader>fd", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
