@@ -114,3 +114,4 @@ function make_function_branch(){
 alias gmk='make_function_branch'
 alias untracked='git ls-files --others --exclude-standard'
 alias staged='git diff --name-only --cached'
+alias gca='git commit --amend --no-edit'
