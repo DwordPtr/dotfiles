@@ -236,6 +236,7 @@ plugins = {
   },
   'nvim-treesitter/nvim-treesitter-refactor',
   'nvim-treesitter/nvim-treesitter-textobjects',
+  'nvim-treesitter/nvim-treesitter-context',
 
   { "lukas-reineke/indent-blankline.nvim", main = "ibl",                                                       opts = {} },
   'github/copilot.vim',
@@ -258,6 +259,83 @@ plugins = {
     dependencies = { "MunifTanjim/nui.nvim" }
   },
   "mikavilpas/yazi.nvim",
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
+  },
+  {
+    "ldelossa/gh.nvim",
+    dependencies = {
+      {
+        "ldelossa/litee.nvim",
+        config = function()
+          require("litee.lib").setup()
+        end,
+      },
+    },
+    config = function()
+      require("litee.gh").setup()
+    end,
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+    lazy = false, -- neo-tree will lazily load itself
+    ---@module "neo-tree"
+    ---@type neotree.Config?
+    opts = {
+      -- fill any relevant options here
+    },
+  },
+  {
+    "heilgar/bookmarks.nvim",
+    dependencies = {
+      "kkharji/sqlite.lua",
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require("bookmarks").setup({
+        -- your configuration comes here
+        -- or leave empty to use defaults
+        default_mappings = true,
+        db_path = vim.fn.stdpath('data') .. '/bookmarks.db'
+      })
+      require("telescope").load_extension("bookmarks")
+    end,
+    cmd = {
+      "BookmarkAdd",
+      "BookmarkRemove",
+      "Bookmarks"
+    },
+    keys = {
+      { "<leader>ba", "<cmd>BookmarkAdd<cr>",            desc = "Add Bookmark" },
+      { "<leader>br", "<cmd>BookmarkRemove<cr>",         desc = "Remove Bookmark" },
+      { "<leader>bj", desc = "Jump to Next Bookmark" },
+      { "<leader>bk", desc = "Jump to Previous Bookmark" },
+      { "<leader>bl", "<cmd>Bookmarks<cr>",              desc = "List Bookmarks" },
+    },
+  },
   {
     "oskarrrrrrr/symbols.nvim",
     config = function()
@@ -316,7 +394,7 @@ plugins = {
   "junegunn/fzf.vim",
   {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.5',
+    tag = '0.1.8',
     dependencies = {
       'nvim-lua/plenary.nvim',
       {
@@ -350,6 +428,16 @@ plugins = {
       telescope.load_extension("live_grep_args")
       telescope.load_extension("dir")
     end
+  },
+  {
+    'LukasPietzschmann/telescope-tabs',
+    config = function()
+      require('telescope').load_extension 'telescope-tabs'
+      require('telescope-tabs').setup {
+        -- Your custom config :^)
+      }
+    end,
+    dependencies = { 'nvim-telescope/telescope.nvim' },
   },
   {
     'chomosuke/term-edit.nvim',
@@ -410,7 +498,57 @@ require('boole').setup({
     -- ENABLE → DISABLE
   }
 })
-require("lspconfig").pylsp.setup {}
+
+local wk = require("which-key")
+wk.add {
+  { '<leader>g',    group = 'Git' },
+  { '<leader>gh',   group = 'Github' },
+  { '<leader>ghc',  group = 'Commits' },
+  { '<leader>ghcc', '<cmd>GHCloseCommit<cr>',    desc = 'Close' },
+  { '<leader>ghce', '<cmd>GHExpandCommit<cr>',   desc = 'Expand' },
+  { '<leader>ghco', '<cmd>GHOpenToCommit<cr>',   desc = 'Open To' },
+  { '<leader>ghcp', '<cmd>GHPopOutCommit<cr>',   desc = 'Pop Out' },
+  { '<leader>ghcz', '<cmd>GHCollapseCommit<cr>', desc = 'Collapse' },
+  { '<leader>ghi',  group = 'Issues' },
+  { '<leader>ghip', '<cmd>GHPreviewIssue<cr>',   desc = 'Preview' },
+  { '<leader>ghl',  group = 'Litee' },
+  { '<leader>ghlt', '<cmd>LTPanel<cr>',          desc = 'Toggle Panel' },
+  { '<leader>ghp',  group = 'Pull Request' },
+  { '<leader>ghpc', '<cmd>GHClosePR<cr>',        desc = 'Close' },
+  { '<leader>ghpd', '<cmd>GHPRDetails<cr>',      desc = 'Details' },
+  { '<leader>ghpe', '<cmd>GHExpandPR<cr>',       desc = 'Expand' },
+  { '<leader>ghpo', '<cmd>GHOpenPR<cr>',         desc = 'Open' },
+  { '<leader>ghpp', '<cmd>GHPopOutPR<cr>',       desc = 'PopOut' },
+  { '<leader>ghpr', '<cmd>GHRefreshPR<cr>',      desc = 'Refresh' },
+  { '<leader>ghpt', '<cmd>GHOpenToPR<cr>',       desc = 'Open To' },
+  { '<leader>ghpz', '<cmd>GHCollapsePR<cr>',     desc = 'Collapse' },
+  { '<leader>ghr',  group = 'Review' },
+  { '<leader>ghrb', '<cmd>GHStartReview<cr>',    desc = 'Begin' },
+  { '<leader>ghrc', '<cmd>GHCloseReview<cr>',    desc = 'Close' },
+  { '<leader>ghrd', '<cmd>GHDeleteReview<cr>',   desc = 'Delete' },
+  { '<leader>ghre', '<cmd>GHExpandReview<cr>',   desc = 'Expand' },
+  { '<leader>ghrs', '<cmd>GHSubmitReview<cr>',   desc = 'Submit' },
+  { '<leader>ghrz', '<cmd>GHCollapseReview<cr>', desc = 'Collapse' },
+  { '<leader>ght',  group = 'Threads' },
+  { '<leader>ghtc', '<cmd>GHCreateThread<cr>',   desc = 'Create' },
+  { '<leader>ghtn', '<cmd>GHNextThread<cr>',     desc = 'Next' },
+  { '<leader>ghtt', '<cmd>GHToggleThread<cr>',   desc = 'Toggle' },
+}
+
+require("bookmarks").setup({
+  -- Storage configuration
+  db_path = vim.fn.stdpath('data') .. '/bookmarks.db', -- Path to SQLite database
+
+  -- Keymaps configuration
+  default_mappings = true, -- Set to false to disable default keymaps
+
+  -- Custom mappings example (if default_mappings = false):
+  mappings = {
+    add = "ma",    -- Add bookmark at current line
+    delete = "md", -- Delete bookmark at current line
+    list = "ml",   -- List all bookmarks
+  }
+})
 require("mason").setup()
 require("mason-lspconfig").setup(
   { ensure_installed = { "ts_ls" } }
@@ -436,6 +574,7 @@ require("mason-nvim-dap").setup()
 require("oil").setup()
 
 vim.keymap.set('n', '<leader>y', ':Yazi<CR>')
+vim.keymap.set('n', '<leader>d', ':DiagWindowShow<CR>')
 
 ssh_con = os.getenv("SSH_CONNECTION")
 if not ssh_con or string.len(ssh_con) == 0 then
@@ -622,6 +761,7 @@ require("neotest").setup({
     })
   }
 })
+
 vim.keymap.set('n', '<leader>ff', builtin.find_files)
 vim.keymap.set('n', '<leader>fb', builtin.buffers)
 vim.keymap.set('n', '<leader>fw', builtin.git_status)
@@ -697,7 +837,7 @@ require('format-on-save').setup({
     html = formatters.lsp,
     java = formatters.lsp,
     javascript = formatters.lsp,
-    json = formatters.lsp,
+    json = formatters.shell({ cmd = { "jq" } }),
     lua = formatters.lsp,
     markdown = formatters.prettierd,
     openscad = formatters.lsp,
