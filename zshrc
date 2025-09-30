@@ -69,7 +69,6 @@ autoload -U select-word-style
 select-word-style bash
 # bindkey '^\' zsh_gh_copilot_explain  # bind Ctrl+\ to explain
 # bindkey '^[\' zsh_gh_copilot_suggest  # bind Alt+\ to suggest
-bindkey '^e' edit-command-line
 bindkey '^ ' forward-word
 bindkey '^U' kill-whole-line
 bindkey -v '^?' backward-delete-char
@@ -103,20 +102,22 @@ alias rmcodes='sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g"'
 alias icat="kitty +kitten icat"
 # }}}
 #cross platflorm clipboard aliases {{{
-function copy(){
-        if [ `uname` = 'Darwin' ]; then
-                pbcopy
-        else
-                xclip -sel clip
-        fi
-}
-function paste(){
-        if [ `uname` = 'Darwin' ]; then
-                pbpaste
-        else
-                xclip -o
-        fi
-}
+# commented out because devbox uses pbcopy/paste to make
+# ubuntu seem more mac-like
+# function copy(){
+#         if [ `uname` = 'Darwin' ]; then
+#                 pbcopy
+#         else
+#                 xclip -sel clip
+#         fi
+# }
+# function paste(){
+#         if [ `uname` = 'Darwin' ]; then
+#                 pbpaste
+#         else
+#                 xclip -o
+#         fi
+# }
 function o(){
         if [ `uname` = 'Darwin' ]; then
                 open "$@"
@@ -125,8 +126,8 @@ function o(){
                 disown
         fi
 }
-alias p='paste'
-alias y='copy'
+alias p='pbpaste'
+alias y='pbcopy'
 function yd(){
   local in
   read in
@@ -235,7 +236,7 @@ fi
 eval "$(zoxide init zsh)"
 zvm_after_init_commands+=(eval "$(atuin init zsh --disable-up-arrow)")
 zvm_bindkey vicmd '^r' atuin-search
-alias cd='z'
+#alias cd='z'
 bindkey '^u' kill-whole-line
 bindkey '^e' edit-command-line
 # sdk man required boilerplate {{{
@@ -249,3 +250,14 @@ eval "$(direnv hook zsh)"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+
+# Instead of editing .zshrc directly, you should consider adding edits to .zshrc-devbox on your laptop.
+# .zshrc-devbox will be uploaded to devbox when you run taskrunner devbox/run, and
+# it will run as a part of .zshrc.
+# This will make devbox replacements automatically include customizations in .zshrc-devbox.
+if [[ -f ~/.zshrc-devbox ]]; then
+source ~/.zshrc-devbox
+fi
+cd /home/ubuntu/co/backend
+bindkey '^e' edit-command-line

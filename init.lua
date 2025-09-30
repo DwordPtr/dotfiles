@@ -13,9 +13,10 @@ vim.keymap.set('n', "<leader>re", ":tabnew ~/.config/nvim/init.lua<CR>")
 vim.keymap.set('n', "<leader>rr", ":source $MYVIMRC<CR>")
 vim.keymap.set('n', "<C-s>", ':w<CR>')
 vim.keymap.set('i', "<C-s>", '<Esc>:w<CR>a')
+vim.o.shada = "!,'2000000,<10000,s1000000,h"
 --
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -35,8 +36,8 @@ plugins = {
     lazy = false,
   },
   'neovim/nvim-lspconfig',
-  "williamboman/mason-lspconfig.nvim",
-  "williamboman/mason.nvim",
+  "mason-org/mason-lspconfig.nvim",
+  "mason-org/mason.nvim",
   { "rcarriga/nvim-dap-ui",                dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
   "mfussenegger/nvim-dap",
   "leoluz/nvim-dap-go",
@@ -200,7 +201,14 @@ plugins = {
               -- You can use the capture groups defined in textobjects.scm
               ["af"] = "@function.outer",
               ["if"] = "@function.inner",
+              ["an"] = "@function.name",  -- custom name object
               ["ac"] = "@class.outer",
+              ["ag"] = "@call.outer",
+              ["ig"] = "@call.inner",
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
+              ["ii"] = "@conditional.inner",
+              ["ai"] = "@conditional.outer",
               -- You can optionally set descriptions to the mappings (used in the desc parameter of
               -- nvim_buf_set_keymap) which plugins like which-key display
               ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
@@ -228,7 +236,7 @@ plugins = {
             -- * query_string: eg '@function.inner'
             -- * selection_mode: eg 'v'
             -- and should return true or false
-            include_surrounding_whitespace = true,
+            include_surrounding_whitespace = false,
           },
         },
       })
@@ -249,7 +257,18 @@ plugins = {
   "nanotee/zoxide.vim",
   'vladdoster/remember.nvim',
   'lewis6991/gitsigns.nvim',
+  {
   "ray-x/go.nvim",
+  dependencies = {
+    "mfussenegger/nvim-dap",
+    "rcarriga/nvim-dap-ui",
+  },
+  config = function()
+    require("go").setup({
+      dap_debug = true,  -- enable DAP integration
+    })
+  end,
+},
   "nvim-tree/nvim-web-devicons",
   "sindrets/diffview.nvim",
   "gpanders/editorconfig.nvim",
@@ -258,7 +277,10 @@ plugins = {
     "cseickel/diagnostic-window.nvim",
     dependencies = { "MunifTanjim/nui.nvim" }
   },
-  "mikavilpas/yazi.nvim",
+  {
+    "mikavilpas/yazi.nvim",
+    version = "*",
+  },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -297,12 +319,12 @@ plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+      "muniftanjim/nui.nvim",
+      -- {"3rd/image.nvim", opts = {}}, -- optional image support in preview window: see `# preview mode` for more information
     },
     lazy = false, -- neo-tree will lazily load itself
     ---@module "neo-tree"
-    ---@type neotree.Config?
+    ---@type neotree.config?
     opts = {
       -- fill any relevant options here
     },
@@ -420,6 +442,14 @@ plugins = {
           },
           buffers = {
             previewer = false,
+            mappings = {
+              i = {
+                ["<c-d>"] = "delete_buffer",
+              },
+              n = {
+                ["dd"] = "delete_buffer",
+              },
+            },
           },
         },
       })
@@ -455,7 +485,15 @@ plugins = {
     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
   },
-
+  {
+    "refractalize/oil-git-status.nvim",
+  
+    dependencies = {
+      "stevearc/oil.nvim",
+    },
+  
+    config = true,
+  },
   "ldelossa/gh.nvim",
   dependencies = {
     {
@@ -554,24 +592,49 @@ require("mason-lspconfig").setup(
   { ensure_installed = { "ts_ls" } }
 )
 local lspconfig = require('lspconfig')
-require('mason-lspconfig').setup_handlers({
-  function(server)
-    lspconfig[server].setup({
-    })
-  end,
-})
+-- todo see if can do this without masonconfig
+-- require('mason-lspconfig').setup_handlers({
+--   function(server)
+--     lspconfig[server].setup({
+--     })
+--   end,
+-- })
 
-lspconfig.ts_ls.setup({
+require('lspconfig').ts_ls.setup({
   on_attach = function(client, bufnr)
     -- Additional on_attach settings can go here
   end,
+    -- Extra env for tsserver logs + memory
+  cmd_env = {
+    -- tsserver logging (created by typescript-language-server)
+    TSS_LOG = "-logToFile true -file /tmp/tsserver.log -level verbose",
+    NODE_OPTIONS = "--max-old-space-size=4096",
+  },
   init_options = {
     maxTsServerMemory = 32384,
   }
 })
 
+lspconfig.gopls.setup({
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+        shadow = true,
+      },
+      staticcheck = true,
+    },
+  },
+})
+
 require("mason-nvim-dap").setup()
-require("oil").setup()
+require("oil").setup({
+  win_options = {
+    signcolumn = "yes:2",
+  },
+})
 
 vim.keymap.set('n', '<leader>y', ':Yazi<CR>')
 vim.keymap.set('n', '<leader>d', ':DiagWindowShow<CR>')
@@ -588,8 +651,10 @@ require("ibl").setup()
 require("CopilotChat").setup {
   debug = true, -- Enable debugging
   -- See Configuration section for rest
+  model = 'gpt-4o',
 }
-vim.cmd([[set foldmethod=syntax]])
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.cmd([[colorscheme gruvbox]])
 -- todo move mappings into a separate file
 vim.keymap.set('n', '<leader>rr', ':source $MYVIMRC<CR>')
@@ -688,7 +753,7 @@ require('gitsigns').setup {
     map('n', '<leader>hp', gitsigns.preview_hunk)
     map('n', '<leader>hi', gitsigns.preview_hunk_inline)
 
-    map('n', '<leader>gb', function()
+    map('n', '<leader>gbs', function()
       gitsigns.blame_line({ full = true })
     end)
 
@@ -764,14 +829,38 @@ require("neotest").setup({
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files)
 vim.keymap.set('n', '<leader>fb', builtin.buffers)
-vim.keymap.set('n', '<leader>fw', builtin.git_status)
+vim.keymap.set('n', '<leader>fw', function()
+    builtin.git_status({
+       timeout = 10000,
+       enable_preview = true,
+    })
+end, { desc = "change files" })
 vim.keymap.set('n', '<leader>fo', builtin.oldfiles)
 vim.keymap.set('n', '<C-e>', ':e!<CR>')
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fa", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+vim.keymap.set('n', '<leader>fr', function()
+  builtin.live_grep({
+    grep_open_files = true,
+    prompt_title = 'Live Grep in Open Buffers',
+  })
+end, { desc = '[S]earch with [G]rep (open buffers only)' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>hc', builtin.command_history, {})
 vim.keymap.set("n", "<leader>fd", "<cmd>Telescope dir find_files<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>lt", "<cmd>Telescope telescope-tabs list_tabs<CR>", { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>glc', function()
+  require('telescope.builtin').find_files({
+    find_command = {'git', 'diff', '--name-only', 'HEAD^', 'HEAD'},
+  })
+end, { desc = 'File changed in last commit' })
+
+vim.keymap.set('n', '<leader>gbl', function()
+  require('telescope.builtin').git_branches({
+    show_remote_tracking = true,
+  })
+end, { desc = 'Checkout [G]it [B]ranch' })
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -780,8 +869,16 @@ vim.keymap.set('n', '<leader>dk', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>dj', vim.diagnostic.goto_next)
 vim.keymap.set('n', "<leader>q", vim.diagnostic.setloclist)
 
+-- copilot 
+vim.keymap.set('i', '<C-Space>', '<Plug>(copilot-accept-word)')
+--todo remap this to prevent conflict with tmux mapping
+--the remote vim tmux mappings don't work any way so might as well get some
+--use out of C-l (todo find something better)
+vim.keymap.set('i', '<C-l>', '<Plug>(copilot-accept-line)')
+
+
 --'go.nvim setup'
-require('go').setup()
+-- require('go').setup()
 --below is broken rn
 --require("go.format").goimports()  -- goimports + gofmt
 ---- Run gofmt + goimports on save
@@ -807,6 +904,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gy', '<cmd>Telescope lsp_type_definitions<CR>', opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.signature_help, opts)
@@ -879,3 +977,94 @@ if ssh_con and string.len(ssh_con) > 0 then
     }
   end
 end
+-- default config
+require("bigfile").setup {
+  filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
+  pattern = { "*" }, -- autocmd pattern or function see <### Overriding the detection of big files>
+  features = { -- features to disable
+    "indent_blankline",
+    "illuminate",
+    "lsp",
+    "treesitter",
+    "syntax",
+    "matchparen",
+    "vimopts",
+    "filetype",
+  },
+}
+-- thank you chatgpt for when git breaks
+-- Delete the path(s) under cursor or in the current visual selection.
+-- Uses `rm -rf` (POSIX). Works with relative paths listed in the buffer.
+
+local function trim(s)
+  return (s:gsub("^%s+", ""):gsub("%s+$", ""))
+end
+
+local function collect_targets()
+  local mode = vim.fn.mode()
+  local bufnr = 0
+  if mode == "V" or mode == "v" then
+    -- Visual selection: get start/end rows (1-indexed)
+    local srow = vim.fn.getpos("'<")[2]
+    local erow = vim.fn.getpos("'>")[2]
+    if srow > erow then srow, erow = erow, srow end
+    local lines = vim.api.nvim_buf_get_lines(bufnr, srow - 1, erow, false)
+    return lines, srow, erow
+  else
+    -- Normal mode: just the current line
+    local row = vim.api.nvim_win_get_cursor(0)[1]
+    local line = vim.api.nvim_buf_get_lines(bufnr, row - 1, row, false)[1]
+    return { line }, row, row
+  end
+end
+
+local function delete_paths_under_cursor_or_visual()
+  local lines, srow, erow = collect_targets()
+  -- Build target list (trim and drop empty)
+  local targets = {}
+  for _, l in ipairs(lines) do
+    local p = trim(l or "")
+    if p ~= "" then table.insert(targets, p) end
+  end
+  if #targets == 0 then
+    print("No paths to delete.")
+    return
+  end
+
+  local msg
+  if #targets == 1 then
+    msg = string.format("Delete: %s ?", targets[0 or 1] or targets[1])
+  else
+    msg = string.format("Delete %d paths?", #targets)
+  end
+  local ok = vim.fn.confirm(msg, "&Yes\n&No", 2)
+  if ok ~= 1 then return end
+
+  -- Delete each path with rm -rf (no shell, so no quoting issues)
+  local failures = {}
+  for _, p in ipairs(targets) do
+    vim.fn.system({ "rm", "-rf", p })
+    if vim.v.shell_error ~= 0 then
+      table.insert(failures, p)
+    end
+  end
+
+  -- Remove the lines from the buffer (even if some failed—optional)
+  vim.api.nvim_buf_set_lines(0, srow - 1, erow, false, {})
+
+  if #failures > 0 then
+    vim.notify("Failed to delete:\n" .. table.concat(failures, "\n"),
+      vim.log.levels.ERROR)
+  else
+    vim.notify("Deleted " .. #targets .. " path(s).")
+  end
+end
+
+-- Keymaps: Normal = delete current line path; Visual = delete all selected lines
+vim.keymap.set({ "n", "v" }, "<leader>D", delete_paths_under_cursor_or_visual,
+  { desc = "Delete file/dir for current line(s)" })
+-- Chatgpt generated will hopefully help with opening stuff from the lsp
+vim.opt.directory = vim.fn.stdpath("state") .. "/swap//"
+vim.opt.shortmess:append("A")
+vim.opt.confirm = true
+
