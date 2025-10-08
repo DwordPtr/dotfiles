@@ -116,6 +116,30 @@ plugins = {
     end
   },
   {
+    "OXY2DEV/markview.nvim",
+    lazy = false,        -- load immediately (for markdown editing)
+    ft = { "markdown" }, -- optional: load only for markdown
+    opts = {
+      -- put any plugin-specific configuration here
+    },
+    dependencies = {
+      -- markview.nvim depends on nui.nvim
+      "MunifTanjim/nui.nvim",
+    },
+  },
+  {
+    "HakonHarnes/img-clip.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add options here
+      -- or leave it empty to use the default settings
+    },
+    keys = {
+      -- suggested keymap
+      { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+    },
+  },
+  {
     "amitds1997/remote-nvim.nvim",
     version = "*",                     -- Pin to GitHub releases
     dependencies = {
@@ -201,7 +225,7 @@ plugins = {
               -- You can use the capture groups defined in textobjects.scm
               ["af"] = "@function.outer",
               ["if"] = "@function.inner",
-              ["an"] = "@function.name",  -- custom name object
+              ["an"] = "@function.name", -- custom name object
               ["ac"] = "@class.outer",
               ["ag"] = "@call.outer",
               ["ig"] = "@call.inner",
@@ -258,17 +282,17 @@ plugins = {
   'vladdoster/remember.nvim',
   'lewis6991/gitsigns.nvim',
   {
-  "ray-x/go.nvim",
-  dependencies = {
-    "mfussenegger/nvim-dap",
-    "rcarriga/nvim-dap-ui",
+    "ray-x/go.nvim",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+    },
+    config = function()
+      require("go").setup({
+        dap_debug = true, -- enable DAP integration
+      })
+    end,
   },
-  config = function()
-    require("go").setup({
-      dap_debug = true,  -- enable DAP integration
-    })
-  end,
-},
   "nvim-tree/nvim-web-devicons",
   "sindrets/diffview.nvim",
   "gpanders/editorconfig.nvim",
@@ -458,11 +482,11 @@ plugins = {
   },
   {
     "refractalize/oil-git-status.nvim",
-  
+
     dependencies = {
       "stevearc/oil.nvim",
     },
-  
+
     config = true,
   },
   "ldelossa/gh.nvim",
@@ -553,7 +577,7 @@ require('lspconfig').ts_ls.setup({
   on_attach = function(client, bufnr)
     -- Additional on_attach settings can go here
   end,
-    -- Extra env for tsserver logs + memory
+  -- Extra env for tsserver logs + memory
   cmd_env = {
     -- tsserver logging (created by typescript-language-server)
     TSS_LOG = "-logToFile true -file /tmp/tsserver.log -level verbose",
@@ -784,10 +808,10 @@ require("neotest").setup({
 vim.keymap.set('n', '<leader>ff', builtin.find_files)
 vim.keymap.set('n', '<leader>fb', builtin.buffers)
 vim.keymap.set('n', '<leader>fw', function()
-    builtin.git_status({
-       timeout = 10000,
-       enable_preview = true,
-    })
+  builtin.git_status({
+    timeout = 10000,
+    enable_preview = true,
+  })
 end, { desc = "change files" })
 vim.keymap.set('n', '<leader>fo', builtin.oldfiles)
 vim.keymap.set('n', '<C-e>', ':e!<CR>')
@@ -806,7 +830,7 @@ vim.keymap.set("n", "<leader>fd", "<cmd>Telescope dir find_files<CR>", { noremap
 vim.keymap.set("n", "<leader>lt", "<cmd>Telescope telescope-tabs list_tabs<CR>", { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>glc', function()
   require('telescope.builtin').find_files({
-    find_command = {'git', 'diff', '--name-only', 'HEAD^', 'HEAD'},
+    find_command = { 'git', 'diff', '--name-only', 'HEAD^', 'HEAD' },
   })
 end, { desc = 'File changed in last commit' })
 
@@ -823,7 +847,7 @@ vim.keymap.set('n', '<leader>dk', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>dj', vim.diagnostic.goto_next)
 vim.keymap.set('n', "<leader>q", vim.diagnostic.setloclist)
 
--- copilot 
+-- copilot
 vim.keymap.set('i', '<C-Space>', '<Plug>(copilot-accept-word)')
 --todo remap this to prevent conflict with tmux mapping
 --the remote vim tmux mappings don't work any way so might as well get some
@@ -933,9 +957,9 @@ if ssh_con and string.len(ssh_con) > 0 then
 end
 -- default config
 require("bigfile").setup {
-  filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
+  filesize = 2,      -- size of the file in MiB, the plugin round file sizes to the closest MiB
   pattern = { "*" }, -- autocmd pattern or function see <### Overriding the detection of big files>
-  features = { -- features to disable
+  features = {       -- features to disable
     "indent_blankline",
     "illuminate",
     "lsp",
@@ -1022,4 +1046,3 @@ vim.keymap.set({ "n", "v" }, "<leader>D", delete_paths_under_cursor_or_visual,
 vim.opt.directory = vim.fn.stdpath("state") .. "/swap//"
 vim.opt.shortmess:append("A")
 vim.opt.confirm = true
-
