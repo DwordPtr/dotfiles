@@ -330,35 +330,6 @@ plugins = {
     },
   },
   {
-    "heilgar/bookmarks.nvim",
-    dependencies = {
-      "kkharji/sqlite.lua",
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim",
-    },
-    config = function()
-      require("bookmarks").setup({
-        -- your configuration comes here
-        -- or leave empty to use defaults
-        default_mappings = true,
-        db_path = vim.fn.stdpath('data') .. '/bookmarks.db'
-      })
-      require("telescope").load_extension("bookmarks")
-    end,
-    cmd = {
-      "BookmarkAdd",
-      "BookmarkRemove",
-      "Bookmarks"
-    },
-    keys = {
-      { "<leader>ba", "<cmd>BookmarkAdd<cr>",            desc = "Add Bookmark" },
-      { "<leader>br", "<cmd>BookmarkRemove<cr>",         desc = "Remove Bookmark" },
-      { "<leader>bj", desc = "Jump to Next Bookmark" },
-      { "<leader>bk", desc = "Jump to Previous Bookmark" },
-      { "<leader>bl", "<cmd>Bookmarks<cr>",              desc = "List Bookmarks" },
-    },
-  },
-  {
     "oskarrrrrrr/symbols.nvim",
     config = function()
       local r = require("symbols.recipes")
@@ -573,33 +544,11 @@ wk.add {
   { '<leader>ghtt', '<cmd>GHToggleThread<cr>',   desc = 'Toggle' },
 }
 
-require("bookmarks").setup({
-  -- Storage configuration
-  db_path = vim.fn.stdpath('data') .. '/bookmarks.db', -- Path to SQLite database
-
-  -- Keymaps configuration
-  default_mappings = true, -- Set to false to disable default keymaps
-
-  -- Custom mappings example (if default_mappings = false):
-  mappings = {
-    add = "ma",    -- Add bookmark at current line
-    delete = "md", -- Delete bookmark at current line
-    list = "ml",   -- List all bookmarks
-  }
-})
 require("mason").setup()
 require("mason-lspconfig").setup(
   { ensure_installed = { "ts_ls" } }
 )
 local lspconfig = require('lspconfig')
--- todo see if can do this without masonconfig
--- require('mason-lspconfig').setup_handlers({
---   function(server)
---     lspconfig[server].setup({
---     })
---   end,
--- })
-
 require('lspconfig').ts_ls.setup({
   on_attach = function(client, bufnr)
     -- Additional on_attach settings can go here
@@ -618,6 +567,11 @@ require('lspconfig').ts_ls.setup({
 lspconfig.gopls.setup({
   filetypes = { "go", "gomod", "gowork", "gotmpl" },
   root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+   cmd_env = {
+    -- Soft cap for Go runtime memory used by gopls:
+    -- accepts plain bytes or units like KiB, MiB, GiB
+    GOMEMLIMIT = "50GiB",
+  },
   settings = {
     gopls = {
       analyses = {
@@ -991,6 +945,7 @@ require("bigfile").setup {
     "vimopts",
     "filetype",
   },
+  lines = 12000,
 }
 -- thank you chatgpt for when git breaks
 -- Delete the path(s) under cursor or in the current visual selection.
