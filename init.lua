@@ -129,6 +129,18 @@ plugins = {
   },
   {
     "HakonHarnes/img-clip.nvim",
+      config = function()
+    require('img-clip').setup {
+      -- Options for saving/embedding images
+      save_method = 'base64', -- or 'file' for saving as a file
+      -- Optional: configure image processing
+      process_cmd = 'convert - -resize 50% png:-', -- Example: resize image to 50%
+      -- Optional: configure directory for saved files (if save_method is 'file')
+      dir_path = function()
+        return vim.fn.expand("%:t:r") .. '_images'
+      end,
+    }
+  end,
     event = "VeryLazy",
     opts = {
       -- add options here
@@ -473,7 +485,11 @@ plugins = {
     'stevearc/oil.nvim',
     ---@module 'oil'
     ---@type oil.SetupOpts
-    opts = {},
+    opts = {
+      win_options = {
+        signcolumn = "yes:2",
+      },
+    },
     -- Optional dependencies
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
