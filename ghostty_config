@@ -1,0 +1,11 @@
+# ~/.config/ghostty/config
+# Automatically follow the system’s light/dark preference
+theme = "light:Gruvbox Light,dark:Gruvbox Dark"
+font-family = Fira Code Retina
+font-feature = "liga"
+# option-as-alt = alt
+
+# ssh configs
+shell-integration-features=true
+shell-integration-features = "ssh-terminfo"
+shell-integration-features = "ssh-env"
