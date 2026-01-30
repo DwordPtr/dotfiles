@@ -607,7 +607,7 @@ require('lspconfig').ts_ls.setup({
 lspconfig.gopls.setup({
   filetypes = { "go", "gomod", "gowork", "gotmpl" },
   root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
-   cmd_env = {
+  cmd_env = {
     -- Soft cap for Go runtime memory used by gopls:
     -- accepts plain bytes or units like KiB, MiB, GiB
     GOMEMLIMIT = "50GiB",
@@ -868,7 +868,7 @@ vim.keymap.set('i', '<C-Space>', '<Plug>(copilot-accept-word)')
 --todo remap this to prevent conflict with tmux mapping
 --the remote vim tmux mappings don't work any way so might as well get some
 --use out of C-l (todo find something better)
-vim.keymap.set('i', '<C-l>', '<Plug>(copilot-accept-line)')
+-- vim.keymap.set('i', '<C-l>', '<Plug>(copilot-accept-line)')
 
 
 --'go.nvim setup'
