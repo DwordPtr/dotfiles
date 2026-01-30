@@ -27,7 +27,9 @@ outer.top        = 1
 outer.right      = 0
 
 [mode.main.binding]
-alt-enter = 'exec-and-forget /Applications/Alacritty.app/Contents/MacOS/alacritty'
+#alt-enter = 'exec-and-forget /Applications/Alacritty.app/Contents/MacOS/alacritty' todo replace with ghostty
+cmd-tab = 'exec-and-forget /opt/homebrew/bin/aeroswitch --activate'
+alt-enter = 'exec-and-forget /opt/homebrew/bin/aeroswitch --activate'
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -117,3 +119,4 @@ esc = 'mode main'
 #[[on-window-detected]]
 #if.app-id = 'com.spotify.client'
 #run = 'move-node-to-workspace 9'
+#enable the cool switcher
